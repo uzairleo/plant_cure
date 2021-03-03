@@ -1,5 +1,5 @@
 name: antonx
-description: A new Flutter application.
+description: A new Flutter application for farmer assistant.
 publish_to: 'none' # Remove this line if you wish to publish to pub.dev
 version: 1.0.0+1
 environment:
