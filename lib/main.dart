@@ -3,7 +3,7 @@ import 'package:antonx/ui/screens/registration_auth/sign_up/sign_up_screen.dart'
 import 'package:firebase_core/firebase_core.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
-
+///this is the main function or entry point for our application
 void main() async{
   WidgetsFlutterBinding.ensureInitialized();
 
