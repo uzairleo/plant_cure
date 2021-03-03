@@ -1,4 +1,4 @@
-package com.example.antonx
+package com.package.FarmerAssistantApp
 
 import io.flutter.embedding.android.FlutterActivity
 

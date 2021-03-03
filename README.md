@@ -1,4 +1,4 @@
-# antonx
+# Farmer Assistant App
 
 A new Flutter application.
 
