@@ -1,4 +1,5 @@
 // import 'package:firebase_core/firebase_core.dart';
+import 'package:farmer_assistant_app/ui/screens/registration/registeration-screen.dart';
 import 'package:farmer_assistant_app/ui/screens/splash_screen.dart';
 // import 'package:ebuddy_networking_app/ui/screens/splash_screen.dart';
 import 'package:flutter/material.dart';
@@ -40,7 +41,8 @@ class MyApp extends StatelessWidget {
                 selectionHandleColor: Colors.orange,
               ),
             ),
-            home: SplashScreen()
+            home: RegistrationScreen()
+            // SplashScreen()
             //  InviteFriendScreen()
             //  PushNotificationSettingScreen()
             // PasswordRecoveryScreen()

@@ -43,23 +43,23 @@ class CustomTextField extends StatelessWidget {
         // alignLabelWithHint: true,
         labelText: label,
         labelStyle: headingTextStyle.copyWith(fontSize: 17, color: greyColor),
-        prefixIconConstraints: BoxConstraints(
-          maxHeight: 24,
-          maxWidth: 220,
-        ),
-        prefixIcon: Padding(
-            padding: const EdgeInsets.only(left: 22.0, right: 14),
-            child: this.prefixIcon),
+        // prefixIconConstraints: BoxConstraints(
+        //   maxHeight: 24,
+        //   maxWidth: 220,
+        // ),
+        // prefixIcon: Padding(
+        //     padding: const EdgeInsets.only(left: 22.0, right: 14),
+        //     child: this.prefixIcon),
         suffixIcon: Padding(
             padding: const EdgeInsets.only(), child: suffixIcon ?? Container()),
         suffixIconConstraints: BoxConstraints(maxHeight: 40, maxWidth: 50),
         focusedBorder: OutlineInputBorder(
-          borderRadius: BorderRadius.circular(30.0),
+          borderRadius: BorderRadius.circular(8.0),
           borderSide: BorderSide(color: mainThemeColor, width: 2.0),
         ),
         enabledBorder: OutlineInputBorder(
           borderSide: BorderSide(color: greyColor.withOpacity(0.8)),
-          borderRadius: BorderRadius.circular(30),
+          borderRadius: BorderRadius.circular(8.0),
         ),
         contentPadding: EdgeInsets.only(top: 6, left: 16.0),
         // hintText: "EMAIL ADDRESS",
