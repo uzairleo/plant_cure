@@ -1,5 +1,6 @@
 // import 'package:firebase_core/firebase_core.dart';
 import 'package:farmer_assistant_app/ui/screens/localization/select-locale-screen.dart';
+import 'package:farmer_assistant_app/ui/screens/location/location-screen.dart';
 import 'package:farmer_assistant_app/ui/screens/registration/registeration-screen.dart';
 import 'package:farmer_assistant_app/ui/screens/splash_screen.dart';
 // import 'package:ebuddy_networking_app/ui/screens/splash_screen.dart';
@@ -42,7 +43,8 @@ class MyApp extends StatelessWidget {
                 selectionHandleColor: Colors.orange,
               ),
             ),
-            home: SelectLocaleScreen()
+            home: LocationScreen()
+            // SelectLocaleScreen()
             // RegistrationScreen()
             // SplashScreen()
             //  InviteFriendScreen()
