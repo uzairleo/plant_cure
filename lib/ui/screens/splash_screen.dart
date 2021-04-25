@@ -104,7 +104,7 @@ class _SplashScreenState extends State<SplashScreen> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      backgroundColor: backgroundColor,
+      backgroundColor: Colors.white,
       body: Column(
         mainAxisAlignment: MainAxisAlignment.spaceBetween,
         crossAxisAlignment: CrossAxisAlignment.center,
@@ -117,16 +117,17 @@ class _SplashScreenState extends State<SplashScreen> {
               bottom: 110.0,
             ),
             child: ImageContainer(
-              assetImage: "assets/static_assets/ebuddy_logo.png",
-              height: 282,
-              width: 245,
+              assetImage: "assets/static_assets/farmer_logo.png",
+              height: 257,
+              width: 298,
             ),
           ),
           //version info at bottom
           Padding(
             padding: const EdgeInsets.only(bottom: 24.0),
             child: Text(
-              "Version 0.1",
+              "Project funded by\n HEC TDF ",
+              textAlign: TextAlign.center,
               style: GoogleFonts.openSans()
                   .copyWith(fontSize: 16, color: Color(0XFF3B3B3B)),
             ),
