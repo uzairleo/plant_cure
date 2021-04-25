@@ -1,7 +1,7 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 
-var mainThemeColor = Color(0XFFFF745A);
+var mainThemeColor = Color(0XFF00796B);
 var subMainThemeColor = Color(0XFFF8607B);
 
 final backgroundColor = Color(0xFFF9F8F8);
