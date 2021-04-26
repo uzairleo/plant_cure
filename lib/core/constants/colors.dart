@@ -4,7 +4,7 @@ import 'package:flutter/material.dart';
 var mainThemeColor = Color(0XFF00796B);
 var subMainThemeColor = Color(0XFFF8607B);
 
-final backgroundColor = Color(0xFFF9F8F8);
+final backgroundColor = Color(0XFFF0F3F5);
 // final backgroundColor2 = Color.fromARGB(255, 251, 251, 252);
 const timeColor = Color.fromARGB(255, 160, 169, 187); //Color(0xFFCAD1DE);
 const dialogColor = Color.fromARGB(255, 125, 136, 161);
