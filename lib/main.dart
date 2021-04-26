@@ -1,4 +1,5 @@
 // import 'package:firebase_core/firebase_core.dart';
+import 'package:farmer_assistant_app/ui/screens/add_crops/add-crop-screen.dart';
 import 'package:farmer_assistant_app/ui/screens/localization/select-locale-screen.dart';
 import 'package:farmer_assistant_app/ui/screens/location/location-screen.dart';
 import 'package:farmer_assistant_app/ui/screens/registration/registeration-screen.dart';
@@ -43,7 +44,8 @@ class MyApp extends StatelessWidget {
                 selectionHandleColor: Colors.orange,
               ),
             ),
-            home: LocationScreen()
+            home: AddCropScreen()
+            // LocationScreen()
             // SelectLocaleScreen()
             // RegistrationScreen()
             // SplashScreen()
