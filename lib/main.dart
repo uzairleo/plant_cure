@@ -45,8 +45,9 @@ class MyApp extends StatelessWidget {
                 selectionHandleColor: Colors.orange,
               ),
             ),
-            home: RootScreen()
-            //  AddCropScreen()
+            home:
+                //  RootScreen()
+                AddCropScreen()
             // LocationScreen()
             // SelectLocaleScreen()
             // RegistrationScreen()

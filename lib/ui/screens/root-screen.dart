@@ -52,18 +52,16 @@ class _RootScreenState extends State<RootScreen> {
           ///[BNB] bottom navigation bar for multiple screen access from dashboard
           ///
           bottomNavigationBar: FluidNavBar(
-            // (1)
             icons: [
-              // (2)
               FluidNavBarIcon(
-                svgPath: "$assets/bottom-nav-bar/home.svg",
-              ), // (3)
+                  svgPath: "$assets/bottom-nav-bar/home.svg",
+                  selectedForegroundColor: mainThemeColor), // (3)
               FluidNavBarIcon(
                 svgPath: "$assets/bottom-nav-bar/comment.svg",
-              ), // (3)
+              ),
               FluidNavBarIcon(
                 svgPath: "$assets/bottom-nav-bar/user.svg",
-              ), // (3)
+              ),
             ],
             style: FluidNavBarStyle(iconSelectedForegroundColor: mainThemeColor
 
