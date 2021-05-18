@@ -1,6 +1,7 @@
 import 'package:farmer_assistant_app/core/constants/colors.dart';
 import 'package:farmer_assistant_app/core/constants/textstyle.dart';
 import 'package:farmer_assistant_app/core/models/crop.dart';
+import 'package:farmer_assistant_app/ui/custom_widgets/added-crop-tile.dart';
 import 'package:farmer_assistant_app/ui/custom_widgets/crop-tile.dart';
 import 'package:farmer_assistant_app/ui/custom_widgets/rounded-raised-button.dart';
 import 'package:farmer_assistant_app/ui/screens/add_crops/add-crop-view-model.dart';
@@ -41,7 +42,7 @@ class _AddCropScreenState extends State<AddCropScreen> {
                     heading(),
 
                     //selected fruit list
-                    addedCrops(),
+                    addedCrops(model),
                   ],
                 ),
               ),
@@ -49,12 +50,12 @@ class _AddCropScreenState extends State<AddCropScreen> {
               ///
               ///unselected crops list
               ///
-              availableCropList(),
+              availableCropList(model),
 
               ///
               ///next button bottom row
               ///
-              nextButton(onTap: () {}),
+              nextButton(onTap: model.addedCrops.isEmpty ? null : () {}),
             ],
           ),
         )),
@@ -93,14 +94,30 @@ class _AddCropScreenState extends State<AddCropScreen> {
     );
   }
 
-  addedCrops() {
-    return Container();
+  addedCrops(AddCropViewModel model) {
+    return model.addedCrops.length < 1
+        ? Container()
+        : Container(
+            height: 100,
+            color: Colors.white,
+            child: ListView.builder(
+                padding: EdgeInsets.only(top: 20),
+                itemCount: model.addedCrops.length,
+                scrollDirection: Axis.horizontal,
+                shrinkWrap: true,
+                itemBuilder: (context, index) {
+                  return AddedCropTile(model.addedCrops[index], () {
+                    print("${model.addedCrops[index].name} is cancelled");
+                    model.removeFromAddedCrops(model.addedCrops[index]);
+                  });
+                }),
+          );
   }
 
   ///
   ///unselected crops list
   ///
-  availableCropList() {
+  availableCropList(AddCropViewModel model) {
     return Expanded(
       child: Container(
         padding: EdgeInsets.only(left: 15, right: 15, top: 24),
@@ -112,9 +129,12 @@ class _AddCropScreenState extends State<AddCropScreen> {
                 childAspectRatio: 0.6,
                 crossAxisSpacing: 30,
                 mainAxisSpacing: 20),
-            itemCount: 4,
+            itemCount: model.availableCrops.length,
             itemBuilder: (BuildContext ctx, index) {
-              return CropTile(Crop(), () {});
+              return CropTile(model.availableCrops[index], () {
+                print("${model.availableCrops[index].name} added");
+                model.addCrop(model.availableCrops[index]);
+              });
             }),
       ),
     );
@@ -136,7 +156,7 @@ class _AddCropScreenState extends State<AddCropScreen> {
               height: 40,
               child: RoundedRaisedButton(
                 buttonText: "Next",
-                onPressed: () {},
+                onPressed: onTap,
                 color: mainThemeColor,
               ),
             )

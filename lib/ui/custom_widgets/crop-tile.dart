@@ -30,7 +30,7 @@ class CropTile extends StatelessWidget {
               child: ClipRRect(
                 borderRadius: BorderRadius.circular(20.0),
                 child: ImageContainer(
-                  assetImage: "$assets/banana.png",
+                  assetImage: crop.imgUrl, // "$assets/banana.png",
                   height: 38,
                   width: 38,
                 ),
@@ -41,7 +41,7 @@ class CropTile extends StatelessWidget {
           Padding(
             padding: const EdgeInsets.only(top: 8.0),
             child: Text(
-              "Banana",
+              "${crop.name}",
               style: bodyTextStyle.copyWith(
                 color: Colors.black,
               ),

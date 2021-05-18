@@ -27,6 +27,7 @@ dependencies:
 #   dio_http_cache: ^0.2.11
   get: ^4.1.4
   get_it: ^6.1.1
+  fluid_bottom_nav_bar: ^1.3.0
 #   freezed_annotation:                     #USED FOR OBJECTS COMPARISON, JSON SERIALIZATION ETC
 #   share: ^0.6.5+3                         #USED FOR SHARING LINKS TO DIFFERENT PLATFORMS 
 #   intl: any                               #USED FOR TIME FORMATIING PURPOSE I:E TIMESTAMP ETC
@@ -63,6 +64,7 @@ flutter:
   assets:
     - assets/
     - assets/static_assets/
+    - assets/static_assets/bottom-nav-bar/
 
   # An image asset can refer to one or more resolution-specific "variants", see
   # https://flutter.dev/assets-and-images/#resolution-aware.

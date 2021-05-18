@@ -1,164 +1,115 @@
-// import 'dart:io';
+import 'dart:io';
 
-// import 'package:flutter/material.dart';
-// import 'package:get/get.dart';
-// import 'package:ponansasa_patient_app/core/constants/colors.dart';
-// import 'package:ponansasa_patient_app/ui/custom_widgets/alert_dailogs/call-review-dialog.dart';
-// import 'package:ponansasa_patient_app/ui/custom_widgets/alert_dailogs/cancel-consultation-dialog.dart';
-// import 'package:ponansasa_patient_app/ui/custom_widgets/image-container.dart';
-// import 'package:ponansasa_patient_app/ui/screens/home/home-dashboard-screen.dart';
-// import 'package:ponansasa_patient_app/ui/screens/others/others-dashboard-screen.dart';
-// import 'package:ponansasa_patient_app/ui/screens/profile/user-profile/profile-screen.dart';
+import 'package:farmer_assistant_app/core/constants/colors.dart';
+import 'package:farmer_assistant_app/core/constants/strings.dart';
+import 'package:farmer_assistant_app/ui/screens/community/community-screen.dart';
+import 'package:farmer_assistant_app/ui/screens/home/home-screen.dart';
+import 'package:farmer_assistant_app/ui/screens/user-info/user-info-screen.dart';
+import 'package:fluid_bottom_nav_bar/fluid_bottom_nav_bar.dart';
+import 'package:flutter/material.dart';
+import 'package:get/get.dart';
 
-// ///
-// ///This is a [root-screen] of app for integrating the bottom-navigation bar and showing other screens
-// ///
-// class RootScreen extends StatefulWidget {
-//   final int index;
-//   RootScreen({this.index = 1});
-//   @override
-//   _RootScreenState createState() => _RootScreenState();
-// }
+///
+///This is a [root-screen] of app for integrating the bottom-navigation bar and showing other screens
+///
+class RootScreen extends StatefulWidget {
+  final int index;
+  RootScreen({this.index = 0});
+  @override
+  _RootScreenState createState() => _RootScreenState();
+}
 
-// class _RootScreenState extends State<RootScreen> {
-//   /// or accessing selected bottom navigation bar item
-//   var selectedIndex = 1;
+class _RootScreenState extends State<RootScreen> {
+  /// or accessing selected bottom navigation bar item
+  var selectedIndex = 0;
 
-//   ///for putting a list of screens to bottom naviagtion bar childrens
-//   List<Widget> bottomAppBarScreens = <Widget>[
-//     //profile screen
-//     //profile section screens
-//     ProfileScreen(),
+  ///for putting a list of screens to bottom naviagtion bar childrens
+  List<Widget> bottomAppBarScreens = <Widget>[
+    HomeScreen(),
+    CommunityScreen(),
+    UserInfoScreen(),
+  ];
+  double _height;
+  @override
+  void initState() {
+    super.initState();
+    selectedIndex = widget.index;
+  }
 
-//     //Home Screen
-//     HomeDashboardScreen(),
+  @override
+  Widget build(BuildContext context) {
+    return WillPopScope(
+      onWillPop: _onBackPressed,
+      child: Scaffold(
+          backgroundColor: backgroundColor,
 
-//     //Setting screen
-//     OthersDashboardScreen(),
-//   ];
+          ///
+          ///passing my all [screens] in root screen body
+          ///
+          body: bottomAppBarScreens.elementAt(selectedIndex),
 
-//   @override
-//   void initState() {
-//     super.initState();
-//     selectedIndex = widget.index;
-//   }
+          ///
+          ///[BNB] bottom navigation bar for multiple screen access from dashboard
+          ///
+          bottomNavigationBar: FluidNavBar(
+            icons: [
+              FluidNavBarIcon(
+                  svgPath: "$assets/bottom-nav-bar/home.svg",
+                  selectedForegroundColor: mainThemeColor), // (3)
+              FluidNavBarIcon(
+                svgPath: "$assets/bottom-nav-bar/comment.svg",
+              ),
+              FluidNavBarIcon(
+                svgPath: "$assets/bottom-nav-bar/user.svg",
+              ),
+            ],
+            style: FluidNavBarStyle(iconSelectedForegroundColor: mainThemeColor
 
-//   @override
-//   Widget build(BuildContext context) {
-//     return WillPopScope(
-//       onWillPop: _onBackPressed,
-//       child: Scaffold(
-//         ///
-//         ///passing my all [screens] in root screen body
-//         ///
-//         body: bottomAppBarScreens.elementAt(selectedIndex),
+                // barBackgroundColor: backgroundColor,
+                // iconBackgroundColor: backgroundColor
+                ),
+            onChange: _onItemTapped,
+          )),
+    );
+  }
 
-//         ///
-//         ///[BNB] bottom navigation bar for multiple screen access from dashboard
-//         ///
-//         bottomNavigationBar: BottomNavigationBar(
-//             showSelectedLabels: false,
-//             showUnselectedLabels: false,
-//             items: <BottomNavigationBarItem>[
-//               BottomNavigationBarItem(
-//                 icon: (selectedIndex != 0)
-//                     ? ImageContainer(
-//                         assetImage: "assets/static_assets/profile1.png",
-//                         height: 30,
-//                         width: 30,
-//                       )
-//                     : ImageContainer(
-//                         assetImage: "assets/static_assets/profile2.png",
-//                         height: 30,
-//                         width: 30,
-//                       ),
-//                 // Icon(Icons.supervised_user_circle),
-//                 title: Text('profile'),
-//               ),
-//               BottomNavigationBarItem(
-//                 icon: (selectedIndex == 1)
-//                     ? ImageContainer(
-//                         assetImage: "assets/static_assets/home1.png",
-//                         height: 22,
-//                         width: 22,
-//                       )
-//                     : ImageContainer(
-//                         assetImage: "assets/static_assets/home2.png",
-//                         height: 22,
-//                         width: 22,
-//                       ),
-//                 title: Text('Home'),
-//               ),
-//               BottomNavigationBarItem(
-//                 icon: (selectedIndex == 2)
-//                     ? ImageContainer(
-//                         assetImage: "assets/static_assets/others2.png",
-//                         height: 28,
-//                         width: 28,
-//                       )
-//                     : ImageContainer(
-//                         assetImage: "assets/static_assets/others1.png",
-//                         height: 28,
-//                         width: 28,
-//                       ),
-//                 title: Text('Others'),
-//               ),
-//             ],
-//             type: BottomNavigationBarType.fixed,
-//             //current screen index for accessing the right widget screen from the list
-//             currentIndex: selectedIndex,
-//             //selected item color
-//             selectedItemColor: blueThemeColor,
-//             //unselected item color
-//             unselectedItemColor: Colors.black87,
+  ///
+  ///on[ backpressed] call back to avoid user interaction with splash screen
+  ///
+  Future<bool> _onBackPressed() {
+    return showDialog(
+          context: context,
+          builder: (context) => new AlertDialog(
+            title: new Text('Are you sure?'),
+            content: new Text('Do you want to exit an App'),
+            actions: <Widget>[
+              new FlatButton(
+                textColor: mainThemeColor,
+                onPressed: () {
+                  Navigator.of(context).pop(false);
+                  // _updateConnectionFlag(true);
+                },
+                child: Text(
+                  "NO",
+                ),
+              ),
+              SizedBox(height: 16),
+              new FlatButton(
+                textColor: mainThemeColor,
+                onPressed: () {
+                  exit(0);
+                },
+                child: Text("YES"),
+              ),
+            ],
+          ),
+        ) ??
+        false;
+  }
 
-//             ///
-//             ///ontap [callback] for changing the current index of dashboard
-//             ///
-//             onTap: (index) {
-//               _onItemTapped(index);
-//             }),
-//       ),
-//     );
-//   }
-
-//   ///
-//   ///on[ backpressed] call back to avoid user interaction with splash screen
-//   ///
-//   Future<bool> _onBackPressed() {
-//     return showDialog(
-//           context: context,
-//           builder: (context) => new AlertDialog(
-//             title: new Text('Are you sure?'),
-//             content: new Text('Do you want to exit an App'),
-//             actions: <Widget>[
-//               new FlatButton(
-//                 textColor: blueThemeColor,
-//                 onPressed: () {
-//                   Navigator.of(context).pop(false);
-//                   // _updateConnectionFlag(true);
-//                 },
-//                 child: Text(
-//                   "NO",
-//                 ),
-//               ),
-//               SizedBox(height: 16),
-//               new FlatButton(
-//                 textColor: blueThemeColor,
-//                 onPressed: () {
-//                   exit(0);
-//                 },
-//                 child: Text("YES"),
-//               ),
-//             ],
-//           ),
-//         ) ??
-//         false;
-//   }
-
-//   void _onItemTapped(int index) {
-//     setState(() {
-//       selectedIndex = index;
-//     });
-//   }
-// }
+  void _onItemTapped(int index) {
+    setState(() {
+      selectedIndex = index;
+    });
+  }
+}
