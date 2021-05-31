@@ -85,13 +85,11 @@ class _RegistrationScreenState extends State<RegistrationScreen> {
                                   print("Next pressed");
                                   if (_formKey.currentState.validate()) {
                                     _formKey.currentState.save();
-                                    Get.offAll(() => SelectLocaleScreen(),
-                                        transition: Transition.cupertino);
+                                    Get.offAll(() => SelectLocaleScreen());
                                   }
                                 }, onSkipTap: () {
                                   print("Skip pressed");
-                                  Get.to(() => SelectLocaleScreen(),
-                                      transition: Transition.cupertino);
+                                  Get.to(() => SelectLocaleScreen());
                                 }),
                               )
                             ],

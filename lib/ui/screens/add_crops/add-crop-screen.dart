@@ -61,7 +61,8 @@ class _AddCropScreenState extends State<AddCropScreen> {
                   onTap: model.addedCrops.isEmpty
                       ? null
                       : () {
-                          Get.to(() => RootScreen());
+                          Get.to(() => RootScreen(),
+                              transition: Transition.native);
                         }),
             ],
           ),
