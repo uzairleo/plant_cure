@@ -5,7 +5,9 @@ import 'package:farmer_assistant_app/ui/custom_widgets/added-crop-tile.dart';
 import 'package:farmer_assistant_app/ui/custom_widgets/crop-tile.dart';
 import 'package:farmer_assistant_app/ui/custom_widgets/rounded-raised-button.dart';
 import 'package:farmer_assistant_app/ui/screens/add_crops/add-crop-view-model.dart';
+import 'package:farmer_assistant_app/ui/screens/root-screen.dart';
 import 'package:flutter/material.dart';
+import 'package:get/get.dart';
 import 'package:provider/provider.dart';
 
 class AddCropScreen extends StatefulWidget {
@@ -55,7 +57,12 @@ class _AddCropScreenState extends State<AddCropScreen> {
               ///
               ///next button bottom row
               ///
-              nextButton(onTap: model.addedCrops.isEmpty ? null : () {}),
+              nextButton(
+                  onTap: model.addedCrops.isEmpty
+                      ? null
+                      : () {
+                          Get.to(() => RootScreen());
+                        }),
             ],
           ),
         )),

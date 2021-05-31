@@ -31,14 +31,15 @@ class CustomTextField extends StatelessWidget {
       cursorColor: mainThemeColor,
       controller: this.controller,
       obscureText: this.obscure,
-      validator: validator ??
+      validator:
+          // validator ??
           (value) {
-            if (value != null) {
-              return this.errorText;
-            } else {
-              return null;
-            }
-          },
+        if (value.isEmpty) {
+          return this.errorText;
+        } else {
+          return null;
+        }
+      },
       decoration: InputDecoration(
         // alignLabelWithHint: true,
         labelText: label,
