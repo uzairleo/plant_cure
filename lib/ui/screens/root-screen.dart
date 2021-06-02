@@ -2,6 +2,7 @@ import 'dart:io';
 
 import 'package:farmer_assistant_app/core/constants/colors.dart';
 import 'package:farmer_assistant_app/core/constants/strings.dart';
+import 'package:farmer_assistant_app/core/models/crop.dart';
 import 'package:farmer_assistant_app/ui/screens/community/community-screen.dart';
 import 'package:farmer_assistant_app/ui/screens/home/home-screen.dart';
 import 'package:farmer_assistant_app/ui/screens/user-info/user-info-screen.dart';
@@ -13,7 +14,8 @@ import 'package:flutter/material.dart';
 ///
 class RootScreen extends StatefulWidget {
   final int index;
-  RootScreen({this.index = 0});
+  final List<Crop> crops;
+  RootScreen({this.index = 0, @required this.crops});
   @override
   _RootScreenState createState() => _RootScreenState();
 }
@@ -23,16 +25,19 @@ class _RootScreenState extends State<RootScreen> {
   var selectedIndex = 0;
 
   ///for putting a list of screens to bottom naviagtion bar childrens
-  List<Widget> bottomAppBarScreens = <Widget>[
-    HomeScreen(),
-    CommunityScreen(),
-    UserInfoScreen(),
-  ];
+  List<Widget> bottomAppBarScreens;
   // double _height;
   @override
   void initState() {
     super.initState();
     selectedIndex = widget.index;
+    bottomAppBarScreens = <Widget>[
+      HomeScreen(
+        addedCrops: widget.crops,
+      ),
+      CommunityScreen(),
+      UserInfoScreen(),
+    ];
   }
 
   @override

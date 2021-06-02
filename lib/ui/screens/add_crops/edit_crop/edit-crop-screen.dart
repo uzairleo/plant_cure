@@ -5,17 +5,18 @@ import 'package:farmer_assistant_app/ui/custom_widgets/added-crop-tile.dart';
 import 'package:farmer_assistant_app/ui/custom_widgets/crop-tile.dart';
 import 'package:farmer_assistant_app/ui/custom_widgets/rounded-raised-button.dart';
 import 'package:farmer_assistant_app/ui/screens/add_crops/add-crop-view-model.dart';
+import 'package:farmer_assistant_app/ui/screens/add_crops/edit_crop/edit-crop-view-model.dart';
 import 'package:farmer_assistant_app/ui/screens/root-screen.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:provider/provider.dart';
 
-class AddCropScreen extends StatefulWidget {
+class EditCropScreen extends StatefulWidget {
   @override
-  _AddCropScreenState createState() => _AddCropScreenState();
+  _EditCropScreenState createState() => _EditCropScreenState();
 }
 
-class _AddCropScreenState extends State<AddCropScreen> {
+class _EditCropScreenState extends State<EditCropScreen> {
   @override
   Widget build(BuildContext context) {
     return Consumer<AddCropViewModel>(
@@ -60,9 +61,11 @@ class _AddCropScreenState extends State<AddCropScreen> {
                     ? null
                     : () {
                         model.clearSelectedCrop();
-                        Get.to(() => RootScreen(
-                              crops: model.addedCrops,
-                            ));
+                        Get.to(
+                          () => RootScreen(
+                            crops: model.addedCrops,
+                          ),
+                        );
                       }),
           ],
         ),

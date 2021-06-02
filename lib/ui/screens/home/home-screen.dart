@@ -2,42 +2,54 @@ import 'package:farmer_assistant_app/core/constants/colors.dart';
 import 'package:farmer_assistant_app/core/constants/screen-util.dart';
 import 'package:farmer_assistant_app/core/constants/strings.dart';
 import 'package:farmer_assistant_app/core/constants/textstyle.dart';
+import 'package:farmer_assistant_app/core/enums/view-state.dart';
 import 'package:farmer_assistant_app/core/models/crop.dart';
+import 'package:farmer_assistant_app/ui/custom_widgets/bottom_sheets/image-picker-bottom-sheet.dart';
 import 'package:farmer_assistant_app/ui/custom_widgets/home-crop-tile.dart';
 import 'package:farmer_assistant_app/ui/custom_widgets/image-container.dart';
 import 'package:farmer_assistant_app/ui/custom_widgets/rounded-raised-button.dart';
+import 'package:farmer_assistant_app/ui/screens/add_crops/add-crop-screen.dart';
+import 'package:farmer_assistant_app/ui/screens/add_crops/edit_crop/edit-crop-screen.dart';
+import 'package:farmer_assistant_app/ui/screens/home/home-view-modal.dart';
 import 'package:flutter/material.dart';
+import 'package:get/get.dart';
+import 'package:provider/provider.dart';
 
 class HomeScreen extends StatelessWidget {
-  // final List<Crop> addedCrops;
-  // HomeScreen({this.addedCrops});
+  final List<Crop> addedCrops;
+  HomeScreen({@required this.addedCrops});
   @override
   Widget build(BuildContext context) {
-    return Scaffold(
-        backgroundColor: backgroundColor,
+    return ChangeNotifierProvider(
+      create: (context) => HomeViewModal(addedCrops),
+      child: Consumer<HomeViewModal>(
+        builder: (context, model, child) => Scaffold(
+            backgroundColor: backgroundColor,
 
-        ///
-        ///[body] start from here
-        ///
-        body: SingleChildScrollView(
-          child: Column(
-            mainAxisAlignment: MainAxisAlignment.spaceBetween,
-            crossAxisAlignment: CrossAxisAlignment.stretch,
-            children: [
-              //weather and notification section cart with setting popup menu button as well
-              weatherAndNotifications(),
+            ///
+            ///[body] start from here
+            ///
+            body: SingleChildScrollView(
+              child: Column(
+                mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                crossAxisAlignment: CrossAxisAlignment.stretch,
+                children: [
+                  //weather and notification section cart with setting popup menu button as well
+                  weatherAndNotifications(),
 
-              //added fruit list in horizntal view with edit button iconbutton
-              addedFruits(),
+                  //added fruit list in horizntal view with edit button iconbutton
+                  addedFruits(model),
 
-              //fertilizer and pest cart with tiles
-              fertilizerAndPests(),
+                  //fertilizer and pest cart with tiles
+                  fertilizerAndPests(model),
 
-              //check health card having check health button
-              checkHealthButton(),
-            ],
-          ),
-        ));
+                  //check health card having check health button
+                  checkHealthButton(),
+                ],
+              ),
+            )),
+      ),
+    );
   }
 
   //weather and notification section cart with setting popup menu button as well
@@ -54,7 +66,7 @@ class HomeScreen extends StatelessWidget {
       ]),
       child: Padding(
         padding:
-            const EdgeInsets.only(top: 51.0, left: 15, right: 15, bottom: 9.0),
+            const EdgeInsets.only(top: 51.0, left: 15, right: 26, bottom: 9.0),
         child: Column(
           mainAxisAlignment: MainAxisAlignment.spaceBetween,
           children: [
@@ -79,23 +91,86 @@ class HomeScreen extends StatelessWidget {
                         onPressed: () {
                           print("notification pressed");
                         }),
-                    IconButton(
-                        padding: EdgeInsets.zero,
-                        icon: ImageContainer(
-                          assetImage: "$assets/more_vertical.png",
-                          height: 19.h,
-                          width: 5.w,
-                        ),
-                        onPressed: () {
-                          print("more_vertical pressed");
-                        }),
+                    SizedBox(
+                      width: 26.0.w,
+                    ),
+
+                    ///
+                    ///popup button
+                    ///
+                    PopupMenuButton(
+                      // padding: EdgeInsets.zero,
+                      initialValue: 2,
+                      child:
+                          // ImageContainer(
+                          //   assetImage: "$assets/more_vertical.png",
+                          //   height: 19.h,
+                          //   width: 5.w,
+                          // ),
+                          Center(
+                              child: Icon(
+                        Icons.more_vert,
+                        color: Color(0XFF757575),
+                        size: 26,
+                      )),
+                      itemBuilder: (context) {
+                        return [
+                          PopupMenuItem(
+                            value: 0,
+                            child: Text(
+                              "Thanks",
+                              style: bodyTextStyle,
+                            ),
+                          ),
+                          PopupMenuItem(
+                            value: 0,
+                            child: Text(
+                              "Settings",
+                              style: bodyTextStyle,
+                            ),
+                          ),
+                          PopupMenuItem(
+                            value: 0,
+                            child: Text(
+                              "Recommend us",
+                              style: bodyTextStyle,
+                            ),
+                          ),
+                          PopupMenuItem(
+                            value: 0,
+                            child: Text(
+                              "Recommend us",
+                              style: bodyTextStyle,
+                            ),
+                          ),
+                        ];
+                        //  List.generate(2, (index) {
+                        //   return PopupMenuItem(
+                        //     value: index,
+                        //     child: Text(index == 0 ? "update" : "delete"),
+                        //   );
+                        // });
+                      },
+                    ),
+
+                    // IconButton(
+                    //     padding: EdgeInsets.zero,
+                    //     icon: ImageContainer(
+                    //       assetImage: "$assets/more_vertical.png",
+                    //       height: 19.h,
+                    //       width: 5.w,
+                    //     ),
+                    //     onPressed: () {
+                    //       print("more_vertical pressed");
+
+                    //     }),
                   ],
                 )
               ],
             ),
 
             SizedBox(
-              height: 47.h,
+              height: 24.h,
             ),
             //weather and info row
             Row(
@@ -136,23 +211,44 @@ class HomeScreen extends StatelessWidget {
   }
 
   //added fruit list in horizntal view with edit button iconbutton
-  addedFruits() {
-    return Container(
-      height: 136.h,
+  addedFruits(HomeViewModal model) {
+    return Padding(
+      padding: const EdgeInsets.only(left: 9, right: 22.0),
       child: Row(
         children: [
-          ListView.builder(
-              shrinkWrap: true,
-              itemCount: 2,
-              itemBuilder: (context, index) {
-                return HomeCropTile();
-              }),
-          //Edit button
+          Expanded(
+            child: Container(
+              height: 136.h,
+              child: ListView.builder(
+                  physics: BouncingScrollPhysics(),
+                  scrollDirection: Axis.horizontal,
+                  shrinkWrap: true,
+                  itemCount: model.availableCrops.length,
+                  itemBuilder: (context, index) {
+                    return HomeCropTile(
+                      crop: model.availableCrops[index],
+                      ontap: () {
+                        for (int i = 0; i < model.availableCrops.length; i++) {
+                          if (i == index) {
+                            model.availableCrops[i].isSelected = true;
+                          } else {
+                            model.availableCrops[i].isSelected = false;
+                          }
+                          model.setState(ViewState.idle);
+                        }
+                      },
+                    );
+                  }),
+            ),
+          ),
+          // //Edit button
           IconButton(
               padding: EdgeInsets.zero,
               icon: Icon(Icons.edit, color: mainThemeColor),
               onPressed: () {
                 print("Edit button pressed");
+                Get.to(() => EditCropScreen(),
+                    transition: Transition.leftToRight);
               })
         ],
       ),
@@ -160,18 +256,26 @@ class HomeScreen extends StatelessWidget {
   }
 
   //fertilizer and pest cart with tiles
-  fertilizerAndPests() {
+  fertilizerAndPests(HomeViewModal model) {
     return Container(
       padding: EdgeInsets.fromLTRB(12, 21, 12, 21),
       decoration: BoxDecoration(
-        color: Colors.red.withOpacity(0.4),
+        color: model.availableCrops
+            .where((element) => element.isSelected)
+            .first
+            .color
+            .withOpacity(0.6),
       ),
       child: Column(
         crossAxisAlignment: CrossAxisAlignment.stretch,
         children: [
           //fertilizer calculator tile
           tile(
-              color: Colors.red.withOpacity(0.4),
+              color: model.availableCrops
+                  .where((element) => element.isSelected)
+                  .first
+                  .color
+                  .withOpacity(0.6), // Colors.red.withOpacity(0.4),
               icon: ImageContainer(
                 assetImage: "$assets/fertilizer_calc.png",
                 height: 25.w,
@@ -186,7 +290,11 @@ class HomeScreen extends StatelessWidget {
           ),
           //pests and disease tile
           tile(
-              color: Colors.red.withOpacity(0.4),
+              color: model.availableCrops
+                  .where((element) => element.isSelected)
+                  .first
+                  .color
+                  .withOpacity(0.6),
               icon: ImageContainer(
                 assetImage: "$assets/pest_disease.png",
                 height: 25.w,
@@ -216,8 +324,7 @@ class HomeScreen extends StatelessWidget {
             Container(
               height: 48.h,
               width: 48.w,
-              decoration: BoxDecoration(
-                  color: Colors.red.withOpacity(0.4), shape: BoxShape.circle),
+              decoration: BoxDecoration(color: color, shape: BoxShape.circle),
               child: Center(child: icon),
             ),
             SizedBox(
@@ -258,7 +365,12 @@ class HomeScreen extends StatelessWidget {
               child: Container(
                 height: 44.h,
                 child: RaisedButton(
-                  onPressed: () {},
+                  onPressed: () {
+                    Get.bottomSheet(ImagePickerBottomSheet(
+                      onCameraPressed: () {},
+                      onGalleryPressed: () {},
+                    ));
+                  },
                   color: mainThemeColor,
                   shape: RoundedRectangleBorder(
                       borderRadius: BorderRadius.circular(80.0)),

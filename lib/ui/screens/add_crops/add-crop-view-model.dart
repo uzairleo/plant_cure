@@ -1,6 +1,7 @@
 import 'package:farmer_assistant_app/core/constants/strings.dart';
 import 'package:farmer_assistant_app/core/models/crop.dart';
 import 'package:farmer_assistant_app/core/view_models/base_view_model.dart';
+import 'package:flutter/material.dart';
 
 class AddCropViewModel extends BaseViewModel {
   AddCropViewModel() {
@@ -22,13 +23,31 @@ class AddCropViewModel extends BaseViewModel {
     notifyListeners();
   }
 
-  injectAvailableCrops() {
-    availableCrops
-        .add(Crop(id: "1", imgUrl: "$assets/apple.png", name: "Apple"));
-    availableCrops
-        .add(Crop(id: "2", imgUrl: "$assets/banana.png", name: "Banana"));
+  clearSelectedCrop() {
+    for (int i = 0; i < addedCrops.length; i++) {
+      addedCrops[i].isSelected = false;
+    }
+  }
 
-    availableCrops
-        .add(Crop(id: "3", imgUrl: "$assets/beans.png", name: "Beans"));
+  injectAvailableCrops() {
+    availableCrops.add(Crop(
+        id: "1",
+        imgUrl: "$assets/apple.png",
+        name: "Apple",
+        color: Colors.redAccent.withOpacity(0.4)));
+    availableCrops.add(Crop(
+      id: "2",
+      imgUrl: "$assets/banana.png",
+      name: "Banana",
+      color: Color(0XFFFFC61E),
+    ));
+
+    availableCrops.add(
+      Crop(
+          id: "3",
+          imgUrl: "$assets/beans.png",
+          name: "Beans",
+          color: Colors.green.withOpacity(1)),
+    );
   }
 }

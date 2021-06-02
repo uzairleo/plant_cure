@@ -5,7 +5,9 @@ import 'package:flutter/material.dart';
 class ImageContainer extends StatelessWidget {
   final double height, width;
   final String assetImage;
-  ImageContainer({this.height, this.width, this.assetImage});
+  final BoxFit fit;
+  ImageContainer(
+      {this.height, this.width, this.fit = BoxFit.fill, this.assetImage});
   @override
   Widget build(BuildContext context) {
     return Container(
@@ -13,6 +15,7 @@ class ImageContainer extends StatelessWidget {
       width: width,
       decoration: BoxDecoration(
         image: DecorationImage(
+          fit: fit,
           image: AssetImage(assetImage),
         ),
       ),
