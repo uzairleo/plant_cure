@@ -10,6 +10,7 @@ import 'package:farmer_assistant_app/ui/custom_widgets/image-container.dart';
 import 'package:farmer_assistant_app/ui/custom_widgets/rounded-raised-button.dart';
 import 'package:farmer_assistant_app/ui/screens/add_crops/add-crop-screen.dart';
 import 'package:farmer_assistant_app/ui/screens/add_crops/edit_crop/edit-crop-screen.dart';
+import 'package:farmer_assistant_app/ui/screens/check_health/check_health_screen.dart';
 import 'package:farmer_assistant_app/ui/screens/home/home-view-modal.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
@@ -367,7 +368,9 @@ class HomeScreen extends StatelessWidget {
                 child: RaisedButton(
                   onPressed: () {
                     Get.bottomSheet(ImagePickerBottomSheet(
-                      onCameraPressed: () {},
+                      onCameraPressed: () {
+                        Get.to(() => CheckHealthScreen());
+                      },
                       onGalleryPressed: () {},
                     ));
                   },

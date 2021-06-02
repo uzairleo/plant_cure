@@ -2,6 +2,7 @@
 import 'package:farmer_assistant_app/core/constants/screen-util.dart';
 import 'package:farmer_assistant_app/ui/screens/add_crops/add-crop-screen.dart';
 import 'package:farmer_assistant_app/ui/screens/add_crops/add-crop-view-model.dart';
+import 'package:farmer_assistant_app/ui/screens/check_health/check_health_screen.dart';
 import 'package:farmer_assistant_app/ui/screens/community/community-screen.dart';
 import 'package:farmer_assistant_app/ui/screens/home/home-screen.dart';
 import 'package:farmer_assistant_app/ui/screens/localization/select-locale-screen.dart';
@@ -55,7 +56,9 @@ class MyApp extends StatelessWidget {
                 selectionHandleColor: Colors.orange,
               ),
             ),
-            home: AddCropScreen(),
+            home:
+                // CheckHealthScreen()
+                AddCropScreen(),
             //  HomeScreen(
             //   addedCrops: [
             //     Crop(
