@@ -6,8 +6,10 @@ import 'package:farmer_assistant_app/ui/custom_widgets/image-container.dart';
 import 'package:farmer_assistant_app/ui/custom_widgets/locale-tile.dart';
 import 'package:farmer_assistant_app/ui/custom_widgets/rounded-raised-button.dart';
 import 'package:farmer_assistant_app/ui/screens/localization/select-locale-view-model.dart';
+import 'package:farmer_assistant_app/ui/screens/location/location-screen.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
+import 'package:get/get.dart';
 import 'package:provider/provider.dart';
 
 class SelectLocaleScreen extends StatelessWidget {
@@ -108,16 +110,23 @@ class SelectLocaleScreen extends StatelessWidget {
                         child: RoundedRaisedButton(
                           buttonText: "Accept",
                           color: mainThemeColor,
-                          onPressed: () {
-                            print("Accept button pressed");
-                            if (model.localeList[0].isSelected) {
-                              print(
-                                  "Locale Changed to ${model.localeList[0].label}}");
-                            } else {
-                              print(
-                                  "Locale Changed to ${model.localeList[1].label}}");
-                            }
-                          },
+                          onPressed: model.localeList[0].isSelected ||
+                                  model.localeList[1].isSelected
+                              ? () {
+                                  print("Accept button pressed");
+                                  if (model.localeList[0].isSelected) {
+                                    print(
+                                        "Locale Changed to ${model.localeList[0].label}}");
+                                  } else {
+                                    print(
+                                        "Locale Changed to ${model.localeList[1].label}}");
+                                  }
+
+                                  Get.to(
+                                    () => LocationScreen(),
+                                  );
+                                }
+                              : null,
                         ),
                       ),
                     ],

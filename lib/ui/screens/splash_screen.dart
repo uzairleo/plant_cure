@@ -1,7 +1,8 @@
-import 'package:farmer_assistant_app/core/constants/colors.dart';
+import 'package:farmer_assistant_app/core/constants/textstyle.dart';
 import 'package:farmer_assistant_app/ui/custom_widgets/image-container.dart';
+import 'package:farmer_assistant_app/ui/screens/registration/registeration-screen.dart';
 import 'package:flutter/material.dart';
-import 'package:google_fonts/google_fonts.dart';
+import 'package:get/get.dart';
 // import 'package:get/get.dart';
 // import '../../locator.dart';
 
@@ -18,11 +19,17 @@ class _SplashScreenState extends State<SplashScreen> {
 
   @override
   void initState() {
-    _initialSetup();
     super.initState();
+
+    _initialSetup();
   }
 
   _initialSetup() async {
+    Future.delayed(Duration(seconds: 3), () {
+      Get.offAll(
+        () => RegistrationScreen(),
+      );
+    });
     // await authDataService.doSetup();
     // //using location service getting current CORDINATES
     // await _locationService.getCurrentLocation();
@@ -113,23 +120,22 @@ class _SplashScreenState extends State<SplashScreen> {
 
           ///Ebuddy official logo in the center
           Padding(
-            padding: const EdgeInsets.only(
-              bottom: 110.0,
-            ),
-            child: ImageContainer(
-              assetImage: "assets/static_assets/farmer_logo.png",
-              height: 257,
-              width: 298,
-            ),
-          ),
+              padding: const EdgeInsets.only(
+                bottom: 110.0,
+              ),
+              child: ImageContainer(
+                assetImage: "assets/static_assets/farmer_logo.png",
+                height: 257,
+                width: 298,
+              )),
           //version info at bottom
           Padding(
             padding: const EdgeInsets.only(bottom: 24.0),
             child: Text(
               "Project funded by\n HEC TDF ",
               textAlign: TextAlign.center,
-              style: GoogleFonts.openSans()
-                  .copyWith(fontSize: 16, color: Color(0XFF3B3B3B)),
+              style: bodyTextStyle.copyWith(
+                  fontSize: 16, color: Color(0XFF3B3B3B)),
             ),
           )
         ],

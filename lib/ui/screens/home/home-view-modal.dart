@@ -1,5 +1,3 @@
-
-
 // import 'package:ebuddy_networking_app/core/view_models/base_view_model.dart';
 
 // ///
@@ -13,15 +11,26 @@
 // ///=> Mixins are a way of [reusing a class’s code] in multiple class hierarchies.
 // ///=> Mixins help us to add [features] to a class
 // ///
-// class HomeViewModal extends BaseViewModel {
- 
+import 'package:farmer_assistant_app/core/models/crop.dart';
+import 'package:farmer_assistant_app/core/view_models/base_view_model.dart';
+import 'package:flutter/material.dart';
 
-//   //********************************************************************** */
-//   ///
-//   ///All instances or variable initializing place
-//   ///
-// //********************************************************************** */
-//   // final _dbService = locator<DatabaseService>();
-//   // final _locationService = locator<LocationService>();
+class HomeViewModal extends BaseViewModel {
+  //********************************************************************** */
+  ///
+  ///All instances or variable initializing place
+  ///
+//********************************************************************** */
+  // final _dbService = locator<DatabaseService>();
+  // final _locationService = locator<LocationService>();
 
-// }
+  List<Crop> availableCrops = [];
+
+  HomeViewModal(crops) {
+    availableCrops = crops;
+    if (availableCrops.where((element) => element.isSelected).isEmpty) {
+      print("NO crop is selected so i selected the first one");
+      availableCrops.first.isSelected = true;
+    } else {}
+  }
+}

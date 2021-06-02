@@ -3,7 +3,9 @@ import 'package:farmer_assistant_app/core/constants/strings.dart';
 import 'package:farmer_assistant_app/core/constants/textstyle.dart';
 import 'package:farmer_assistant_app/ui/custom_widgets/image-container.dart';
 import 'package:farmer_assistant_app/ui/custom_widgets/rounded-raised-button.dart';
+import 'package:farmer_assistant_app/ui/screens/add_crops/add-crop-screen.dart';
 import 'package:flutter/material.dart';
+import 'package:get/get.dart';
 
 class LocationScreen extends StatelessWidget {
   @override
@@ -32,7 +34,11 @@ class LocationScreen extends StatelessWidget {
           ///
           /// button rows
           ///
-          buttonRows(onAllowPressed: () {}, onSkipPressed: () {})
+          buttonRows(onAllowPressed: () {
+            Get.to(() => AddCropScreen());
+          }, onSkipPressed: () {
+            Get.to(() => AddCropScreen());
+          })
         ],
       ),
     ));

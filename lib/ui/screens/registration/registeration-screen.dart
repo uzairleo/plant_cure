@@ -5,9 +5,10 @@ import 'package:farmer_assistant_app/core/enums/view-state.dart';
 import 'package:farmer_assistant_app/ui/custom_widgets/image-container.dart';
 import 'package:farmer_assistant_app/ui/custom_widgets/rounded-raised-button.dart';
 import 'package:farmer_assistant_app/ui/custom_widgets/text_fields/custom_textfield.dart';
+import 'package:farmer_assistant_app/ui/screens/localization/select-locale-screen.dart';
 import 'package:farmer_assistant_app/ui/screens/registration/registration-view-modal.dart';
 import 'package:flutter/material.dart';
-import 'package:google_fonts/google_fonts.dart';
+import 'package:get/get.dart';
 import 'package:provider/provider.dart';
 import 'package:modal_progress_hud_nsn/modal_progress_hud_nsn.dart';
 
@@ -81,8 +82,13 @@ class _RegistrationScreenState extends State<RegistrationScreen> {
                                     ///
                                     skipAndNextButton(onNextTap: () {
                                   print("Next pressed");
+                                  if (_formKey.currentState.validate()) {
+                                    _formKey.currentState.save();
+                                    Get.offAll(() => SelectLocaleScreen());
+                                  }
                                 }, onSkipTap: () {
                                   print("Skip pressed");
+                                  Get.to(() => SelectLocaleScreen());
                                 }),
                               )
                             ],
@@ -159,7 +165,7 @@ class _RegistrationScreenState extends State<RegistrationScreen> {
           //email text field
           CustomTextField(
             label: "PHONE NUMBER",
-            errorText: "Please enter your email",
+            errorText: "Please enter your Phone Number",
             // validator: (input) => input.isValidEmail() ? null : "Invalid Email",
             prefixIcon: ImageContainer(
               assetImage: "$assets/email.png",
@@ -180,7 +186,7 @@ class _RegistrationScreenState extends State<RegistrationScreen> {
               Expanded(
                 child: CustomTextField(
                   label: "DOB",
-                  errorText: "Please enter your email",
+                  errorText: "Invalid DOB",
                   // validator: (input) => input.isValidEmail() ? null : "Invalid Email",
                   prefixIcon: ImageContainer(
                     assetImage: "$assets/email.png",
@@ -198,7 +204,7 @@ class _RegistrationScreenState extends State<RegistrationScreen> {
               Expanded(
                 child: CustomTextField(
                   label: "WEIGHT",
-                  errorText: "Please enter your email",
+                  errorText: "Invalid Weight",
                   // validator: (input) => input.isValidEmail() ? null : "Invalid Email",
                   prefixIcon: ImageContainer(
                     assetImage: "$assets/email.png",
@@ -217,7 +223,7 @@ class _RegistrationScreenState extends State<RegistrationScreen> {
           ),
           CustomTextField(
             label: "NUMBER OF FIELDS",
-            errorText: "Please enter your email",
+            errorText: "Please fill this field",
             // validator: (input) => input.isValidEmail() ? null : "Invalid Email",
             prefixIcon: ImageContainer(
               assetImage: "$assets/email.png",
