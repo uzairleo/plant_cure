@@ -7,7 +7,6 @@ import 'package:farmer_assistant_app/ui/screens/home/home-screen.dart';
 import 'package:farmer_assistant_app/ui/screens/user-info/user-info-screen.dart';
 import 'package:fluid_bottom_nav_bar/fluid_bottom_nav_bar.dart';
 import 'package:flutter/material.dart';
-import 'package:get/get.dart';
 
 ///
 ///This is a [root-screen] of app for integrating the bottom-navigation bar and showing other screens
@@ -29,7 +28,7 @@ class _RootScreenState extends State<RootScreen> {
     CommunityScreen(),
     UserInfoScreen(),
   ];
-  double _height;
+  // double _height;
   @override
   void initState() {
     super.initState();
@@ -64,7 +63,6 @@ class _RootScreenState extends State<RootScreen> {
               ),
             ],
             style: FluidNavBarStyle(iconSelectedForegroundColor: mainThemeColor
-
                 // barBackgroundColor: backgroundColor,
                 // iconBackgroundColor: backgroundColor
                 ),

@@ -9,7 +9,6 @@ import 'package:farmer_assistant_app/ui/screens/localization/select-locale-scree
 import 'package:farmer_assistant_app/ui/screens/registration/registration-view-modal.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
-import 'package:google_fonts/google_fonts.dart';
 import 'package:provider/provider.dart';
 import 'package:modal_progress_hud_nsn/modal_progress_hud_nsn.dart';
 
@@ -112,13 +111,10 @@ class _RegistrationScreenState extends State<RegistrationScreen> {
       child: Column(
         crossAxisAlignment: CrossAxisAlignment.center,
         children: [
-          Hero(
-            tag: 'splash',
-            child: ImageContainer(
-              assetImage: "assets/static_assets/register_logo.png",
-              width: 280,
-              height: 165,
-            ),
+          ImageContainer(
+            assetImage: "assets/static_assets/register_logo.png",
+            width: 280,
+            height: 165,
           )
         ],
       ),

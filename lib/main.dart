@@ -1,10 +1,15 @@
 // import 'package:firebase_core/firebase_core.dart';
+import 'package:farmer_assistant_app/core/constants/screen-util.dart';
 import 'package:farmer_assistant_app/ui/screens/add_crops/add-crop-screen.dart';
+import 'package:farmer_assistant_app/ui/screens/community/community-screen.dart';
+import 'package:farmer_assistant_app/ui/screens/home/home-screen.dart';
 import 'package:farmer_assistant_app/ui/screens/localization/select-locale-screen.dart';
 import 'package:farmer_assistant_app/ui/screens/location/location-screen.dart';
 import 'package:farmer_assistant_app/ui/screens/registration/registeration-screen.dart';
 import 'package:farmer_assistant_app/ui/screens/root-screen.dart';
+import 'package:farmer_assistant_app/ui/screens/root-screen.dart';
 import 'package:farmer_assistant_app/ui/screens/splash_screen.dart';
+import 'package:farmer_assistant_app/ui/screens/user-info/user-info-screen.dart';
 // import 'package:ebuddy_networking_app/ui/screens/splash_screen.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
@@ -35,32 +40,38 @@ class MyApp extends StatelessWidget {
         //   child:
         // LifeCycleManager(
         // child:
-        GetMaterialApp(
-            title: 'Farmer_Assistant_App',
-            debugShowCheckedModeBanner: true,
-            theme: ThemeData(
-              textSelectionTheme: TextSelectionThemeData(
-                cursorColor: mainThemeColor,
-                selectionColor: mainThemeColor.withOpacity(0.4),
-                selectionHandleColor: Colors.orange,
-              ),
+        ScreenUtilInit(
+      designSize: Size(412, 847),
+      builder: () => GetMaterialApp(
+          title: 'Farmer_Assistant_App',
+          debugShowCheckedModeBanner: true,
+          theme: ThemeData(
+            textSelectionTheme: TextSelectionThemeData(
+              cursorColor: mainThemeColor,
+              selectionColor: mainThemeColor.withOpacity(0.4),
+              selectionHandleColor: Colors.orange,
             ),
-            home: SplashScreen()
-            //  RootScreen()
-            // AddCropScreen()
-            // LocationScreen()
-            // SelectLocaleScreen()
-            // RegistrationScreen()
-            // SplashScreen()
-            //  InviteFriendScreen()
-            //  PushNotificationSettingScreen()
-            // PasswordRecoveryScreen()
-            // LoginScreen(),
-            //  RegistrationScreen(),
-            //  GetStartedScreen()
-            //  OnBoardingScreen()
-            // ),
-            // ),
-            );
+          ),
+          home: HomeScreen()
+          //  UserInfoScreen()
+          // CommunityScreen()
+          //  SplashScreen()
+          // RootScreen()
+          // AddCropScreen()
+          // LocationScreen()
+          // SelectLocaleScreen()
+          // RegistrationScreen()
+          // SplashScreen()
+          //  InviteFriendScreen()
+          //  PushNotificationSettingScreen()
+          // PasswordRecoveryScreen()
+          // LoginScreen(),
+          //  RegistrationScreen(),
+          //  GetStartedScreen()
+          //  OnBoardingScreen()
+          // ),
+          // ),
+          ),
+    );
   }
 }

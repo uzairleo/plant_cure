@@ -1,7 +1,7 @@
 import 'package:farmer_assistant_app/core/constants/colors.dart';
+import 'package:farmer_assistant_app/core/constants/screen-util.dart';
 import 'package:farmer_assistant_app/core/constants/textstyle.dart';
 import 'package:flutter/material.dart';
-import 'package:google_fonts/google_fonts.dart';
 
 class CustomTextField extends StatelessWidget {
   final controller;
@@ -27,7 +27,8 @@ class CustomTextField extends StatelessWidget {
   Widget build(BuildContext context) {
     return TextFormField(
       onSaved: this.onSaved,
-      style: GoogleFonts.openSans().copyWith(fontWeight: FontWeight.w600),
+      style:
+          bodyTextStyle.copyWith(fontWeight: FontWeight.w600, fontSize: 17.sp),
       cursorColor: mainThemeColor,
       controller: this.controller,
       obscureText: this.obscure,
