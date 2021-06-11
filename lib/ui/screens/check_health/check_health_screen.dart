@@ -4,46 +4,58 @@ import 'package:farmer_assistant_app/core/constants/colors.dart';
 import 'package:farmer_assistant_app/core/constants/screen-util.dart';
 import 'package:farmer_assistant_app/core/constants/strings.dart';
 import 'package:farmer_assistant_app/core/constants/textstyle.dart';
+import 'package:farmer_assistant_app/core/enums/view-state.dart';
 import 'package:farmer_assistant_app/ui/custom_widgets/image-container.dart';
 import 'package:farmer_assistant_app/ui/custom_widgets/rounded-raised-button.dart';
+import 'package:farmer_assistant_app/ui/screens/check_health/check_health_view_model.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
+import 'package:modal_progress_hud_nsn/modal_progress_hud_nsn.dart';
+import 'package:provider/provider.dart';
 
 class CheckHealthScreen extends StatelessWidget {
   final File selectedFile;
   CheckHealthScreen(this.selectedFile);
   @override
   Widget build(BuildContext context) {
-    return SafeArea(
-      child: Scaffold(
-        ////
-        ///[body] start from here
-        ///
-        body: SingleChildScrollView(
-          child: Column(
-            children: [
-              //image container with back button on stact
-              topBar(),
-
-              Padding(
-                padding: const EdgeInsets.only(
-                  left: 15,
-                  right: 15,
-                ),
+    return ChangeNotifierProvider(
+      create: (context) => CheckHealthViewModel(selectedFile),
+      child: Consumer<CheckHealthViewModel>(
+        builder: (context, model, child) => ModalProgressHUD(
+          inAsyncCall: model.state == ViewState.loading,
+          child: SafeArea(
+            child: Scaffold(
+              ////
+              ///[body] start from here
+              ///
+              body: SingleChildScrollView(
                 child: Column(
                   children: [
-                    //about disease title,definition
-                    aboutDisease(),
+                    //image container with back button on stact
+                    topBar(),
 
-                    //about symptom and other cause having title and description
-                    symptoms(),
+                    Padding(
+                      padding: const EdgeInsets.only(
+                        left: 15,
+                        right: 15,
+                      ),
+                      child: Column(
+                        children: [
+                          //about disease title,definition
+                          aboutDisease(),
 
-                    //suggested treatment button
-                    suggestedTreatmentButton(),
+                          //about symptom and other cause having title and description
+                          symptoms(),
+
+                          //suggested treatment button
+                          suggestedTreatmentButton(),
+                        ],
+                      ),
+                    )
                   ],
                 ),
-              )
-            ],
+              ),
+            ),
           ),
         ),
       ),
