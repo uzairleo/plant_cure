@@ -1,4 +1,5 @@
 import 'package:farmer_assistant_app/core/constants/colors.dart';
+import 'package:farmer_assistant_app/core/constants/screen-util.dart';
 import 'package:farmer_assistant_app/core/constants/strings.dart';
 import 'package:farmer_assistant_app/core/constants/textstyle.dart';
 import 'package:farmer_assistant_app/ui/custom_widgets/image-container.dart';
@@ -29,7 +30,7 @@ class LocationScreen extends StatelessWidget {
           ///illustrations
           ///
 
-          logo(),
+          logo(context),
 
           ///
           /// button rows
@@ -81,16 +82,16 @@ class LocationScreen extends StatelessWidget {
   ///illustrations
   ///
 
-  logo() {
+  logo(context) {
     return Padding(
       padding: const EdgeInsets.only(left: 28.0, right: 28),
       child: Column(
-        crossAxisAlignment: CrossAxisAlignment.center,
+        crossAxisAlignment: CrossAxisAlignment.stretch,
         children: [
           ImageContainer(
             assetImage: "$assets/location_logo.png",
-            height: 350,
-            width: double.infinity,
+            height: 274.66.h,
+            width: MediaQuery.of(context).size.width,
           ),
         ],
       ),

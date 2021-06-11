@@ -1,15 +1,19 @@
+import 'dart:io';
+
 import 'package:farmer_assistant_app/core/constants/colors.dart';
 import 'package:farmer_assistant_app/core/constants/screen-util.dart';
 import 'package:farmer_assistant_app/core/constants/strings.dart';
 import 'package:farmer_assistant_app/core/constants/textstyle.dart';
 import 'package:farmer_assistant_app/core/enums/view-state.dart';
 import 'package:farmer_assistant_app/core/models/crop.dart';
+import 'package:farmer_assistant_app/ui/custom_widgets/alert_dailogs/image-success-dialog.dart';
 import 'package:farmer_assistant_app/ui/custom_widgets/bottom_sheets/image-picker-bottom-sheet.dart';
 import 'package:farmer_assistant_app/ui/custom_widgets/home-crop-tile.dart';
 import 'package:farmer_assistant_app/ui/custom_widgets/image-container.dart';
 import 'package:farmer_assistant_app/ui/custom_widgets/rounded-raised-button.dart';
 import 'package:farmer_assistant_app/ui/screens/add_crops/add-crop-screen.dart';
 import 'package:farmer_assistant_app/ui/screens/add_crops/edit_crop/edit-crop-screen.dart';
+import 'package:farmer_assistant_app/ui/screens/check_health/check_health_screen.dart';
 import 'package:farmer_assistant_app/ui/screens/home/home-view-modal.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
@@ -44,7 +48,7 @@ class HomeScreen extends StatelessWidget {
                   fertilizerAndPests(model),
 
                   //check health card having check health button
-                  checkHealthButton(),
+                  checkHealthButton(model),
                 ],
               ),
             )),
@@ -343,7 +347,7 @@ class HomeScreen extends StatelessWidget {
   }
 
   //check health card having check health button
-  checkHealthButton() {
+  checkHealthButton(HomeViewModal model) {
     return Padding(
       padding: const EdgeInsets.only(top: 25.0, bottom: 25.0),
       child: Container(
@@ -367,8 +371,39 @@ class HomeScreen extends StatelessWidget {
                 child: RaisedButton(
                   onPressed: () {
                     Get.bottomSheet(ImagePickerBottomSheet(
-                      onCameraPressed: () {},
-                      onGalleryPressed: () {},
+                      // onCameraPressed: () {
+                      //   Get.to(() => CheckHealthScreen());
+                      // },
+                      // onGalleryPressed: () {},
+                      onCameraPressed: () async {
+                        print("@CameraPressed");
+                        File selectedImage = await model.pickCameraImage();
+                        model.setState(ViewState.idle);
+                        Get.back();
+                        if (selectedImage != null) {
+                          //here also assign it to the userdependants avatar
+                          // model.patientProfile.avatar = selectedImage.path;
+
+                          //now updating the local selected Image file
+                          model.setSelectedImageFile(selectedImage);
+                          //then show confirmation dialog for best user experience
+                          showConfirmImageDialog(selectedImage);
+                        }
+                      },
+                      onGalleryPressed: () async {
+                        print("@GalleryPressed");
+                        var selectedImage = await model.pickGalleryImage();
+                        model.setState(ViewState.idle);
+                        Get.back();
+                        if (selectedImage != null) {
+                          //here also assign it to the userdependants avatar
+                          // model.patientProfile.avatar = selectedImage.path;
+                          //now updating the local selected Image file
+                          model.setSelectedImageFile(selectedImage);
+                          //then show confirmation dialog for best user experience
+                          showConfirmImageDialog(selectedImage);
+                        }
+                      },
                     ));
                   },
                   color: mainThemeColor,
@@ -406,5 +441,18 @@ class HomeScreen extends StatelessWidget {
         ),
       ),
     );
+  }
+
+  showConfirmImageDialog(selectedImageFile) {
+    Get.dialog((selectedImageFile != null)
+        ? ImageSuccessDialog(
+            selectedImageFile: selectedImageFile,
+            onPressed: () {
+              Get.back();
+            },
+          )
+        : Center(
+            child: Text("Image not Selected"),
+          ));
   }
 }

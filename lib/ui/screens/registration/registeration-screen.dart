@@ -1,4 +1,5 @@
 import 'package:farmer_assistant_app/core/constants/colors.dart';
+import 'package:farmer_assistant_app/core/constants/screen-util.dart';
 import 'package:farmer_assistant_app/core/constants/strings.dart';
 import 'package:farmer_assistant_app/core/constants/textstyle.dart';
 import 'package:farmer_assistant_app/core/enums/view-state.dart';
@@ -37,62 +38,60 @@ class _RegistrationScreenState extends State<RegistrationScreen> {
       child: Consumer<RegistrationViewModel>(
           builder: (context, model, child) => ModalProgressHUD(
                 inAsyncCall: model.state == ViewState.loading,
-                child: SafeArea(
-                  child: Scaffold(
-                    backgroundColor: Colors.white,
+                child: Scaffold(
+                  backgroundColor: Colors.white,
 
-                    ///
-                    ///[body] starts from here
-                    ///
-                    body: SingleChildScrollView(
-                      physics: BouncingScrollPhysics(),
-                      child: Padding(
-                        padding: const EdgeInsets.only(
-                            left: 14.0, right: 14, bottom: 60),
-                        child: Form(
-                          key: _formKey,
-                          child: Column(
-                            children: [
-                              Padding(
-                                padding:
-                                    const EdgeInsets.only(left: 16, right: 16),
-                                child: Column(
-                                  mainAxisAlignment: MainAxisAlignment.start,
-                                  // crossAxisAlignment: CrossAxisAlignment.center,
-                                  children: [
-                                    ///
-                                    ///signUpLogo illustration
-                                    ///
-                                    signUpIllustration(),
+                  ///
+                  ///[body] starts from here
+                  ///
+                  body: SingleChildScrollView(
+                    physics: BouncingScrollPhysics(),
+                    child: Padding(
+                      padding: const EdgeInsets.only(
+                          left: 14.0, right: 14, bottom: 46),
+                      child: Form(
+                        key: _formKey,
+                        child: Column(
+                          children: [
+                            Padding(
+                              padding:
+                                  const EdgeInsets.only(left: 16, right: 16),
+                              child: Column(
+                                mainAxisAlignment: MainAxisAlignment.start,
+                                // crossAxisAlignment: CrossAxisAlignment.center,
+                                children: [
+                                  ///
+                                  ///signUpLogo illustration
+                                  ///
+                                  signUpIllustration(),
 
-                                    ///
-                                    ///Registration/sign up form
-                                    ///
-                                    registrationForm(model),
-                                  ],
-                                ),
+                                  ///
+                                  ///Registration/sign up form
+                                  ///
+                                  registrationForm(model),
+                                ],
                               ),
-                              //stack element/widget
-                              Align(
-                                alignment: Alignment.bottomCenter,
-                                child:
+                            ),
+                            //stack element/widget
+                            Align(
+                              alignment: Alignment.bottomCenter,
+                              child:
 
-                                    ///
-                                    ///skop and next button
-                                    ///
-                                    skipAndNextButton(onNextTap: () {
-                                  print("Next pressed");
-                                  if (_formKey.currentState.validate()) {
-                                    _formKey.currentState.save();
-                                    Get.offAll(() => SelectLocaleScreen());
-                                  }
-                                }, onSkipTap: () {
-                                  print("Skip pressed");
-                                  Get.to(() => SelectLocaleScreen());
-                                }),
-                              )
-                            ],
-                          ),
+                                  ///
+                                  ///skop and next button
+                                  ///
+                                  skipAndNextButton(onNextTap: () {
+                                print("Next pressed");
+                                if (_formKey.currentState.validate()) {
+                                  _formKey.currentState.save();
+                                  Get.offAll(() => SelectLocaleScreen());
+                                }
+                              }, onSkipTap: () {
+                                print("Skip pressed");
+                                Get.to(() => SelectLocaleScreen());
+                              }),
+                            )
+                          ],
                         ),
                       ),
                     ),
@@ -107,14 +106,17 @@ class _RegistrationScreenState extends State<RegistrationScreen> {
   ///
   signUpIllustration() {
     return Padding(
-      padding: const EdgeInsets.only(top: 36, bottom: 45),
+      padding: const EdgeInsets.only(top: 0, bottom: 45),
       child: Column(
         crossAxisAlignment: CrossAxisAlignment.center,
         children: [
+          SizedBox(
+            height: 60.0.h,
+          ),
           ImageContainer(
             assetImage: "assets/static_assets/register_logo.png",
-            width: 280,
-            height: 165,
+            width: 280.w,
+            height: 165.h,
           )
         ],
       ),
@@ -143,7 +145,7 @@ class _RegistrationScreenState extends State<RegistrationScreen> {
             onSaved: (value) {},
           ),
           SizedBox(
-            height: 35,
+            height: 35.h,
           ),
           //email text field
           CustomTextField(
@@ -159,7 +161,7 @@ class _RegistrationScreenState extends State<RegistrationScreen> {
             onSaved: (value) {},
           ),
           SizedBox(
-            height: 35,
+            height: 35.h,
           ),
 
           //email text field
@@ -176,7 +178,7 @@ class _RegistrationScreenState extends State<RegistrationScreen> {
             onSaved: (value) {},
           ),
           SizedBox(
-            height: 35,
+            height: 35.h,
           ),
 
           Row(
@@ -219,7 +221,7 @@ class _RegistrationScreenState extends State<RegistrationScreen> {
           ),
 
           SizedBox(
-            height: 35,
+            height: 35.h,
           ),
           CustomTextField(
             label: "NUMBER OF FIELDS",
@@ -322,7 +324,7 @@ class _RegistrationScreenState extends State<RegistrationScreen> {
                 style: buttonTextStyle.copyWith(color: mainThemeColor),
               )),
           Container(
-            height: 39,
+            height: 39.h,
             child: RoundedRaisedButton(
               buttonText: "Reigster",
               onPressed: onNextTap,
