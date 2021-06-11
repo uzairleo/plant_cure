@@ -1,4 +1,5 @@
 import 'package:farmer_assistant_app/core/constants/colors.dart';
+import 'package:farmer_assistant_app/core/constants/screen-util.dart';
 import 'package:farmer_assistant_app/core/constants/strings.dart';
 import 'package:farmer_assistant_app/core/constants/textstyle.dart';
 import 'package:farmer_assistant_app/core/enums/view-state.dart';
@@ -37,8 +38,8 @@ class SelectLocaleScreen extends StatelessWidget {
                     children: [
                       ImageContainer(
                         assetImage: '$assets/locale.png',
-                        height: 226,
-                        width: double.infinity,
+                        height: 226.h,
+                        width: double.infinity.w,
                       ),
                     ],
                   ),

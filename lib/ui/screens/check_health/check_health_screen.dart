@@ -1,3 +1,5 @@
+import 'dart:io';
+
 import 'package:farmer_assistant_app/core/constants/colors.dart';
 import 'package:farmer_assistant_app/core/constants/screen-util.dart';
 import 'package:farmer_assistant_app/core/constants/strings.dart';
@@ -8,6 +10,8 @@ import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 
 class CheckHealthScreen extends StatelessWidget {
+  final File selectedFile;
+  CheckHealthScreen(this.selectedFile);
   @override
   Widget build(BuildContext context) {
     return SafeArea(
@@ -71,6 +75,7 @@ class CheckHealthScreen extends StatelessWidget {
           alignment: Alignment.topLeft,
           child: InkWell(
             onTap: () {
+              Get.back();
               Get.back();
             },
             child: Padding(

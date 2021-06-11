@@ -68,7 +68,7 @@ class CommunityScreen extends StatelessWidget {
           children: [
             Text("Community",
                 style: headingTextStyle.copyWith(
-                  fontSize: 18.sp,
+                  fontSize: 18,
                 )),
             IconButton(
                 padding: EdgeInsets.zero,
