@@ -124,7 +124,6 @@ class _ImageSuccessDialogState extends State<ImageSuccessDialog> {
                                         File croppedFile =
                                             File.fromRawPath(_croppedData);
                                         print("${croppedFile.path}");
-                                        print("BASSS ka kana");
                                         // Get.defaultDialog(
                                         //     content: Column(
                                         //   children: [

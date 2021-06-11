@@ -2,6 +2,7 @@
 import 'package:farmer_assistant_app/core/constants/screen-util.dart';
 import 'package:farmer_assistant_app/ui/screens/add_crops/add-crop-screen.dart';
 import 'package:farmer_assistant_app/ui/screens/add_crops/add-crop-view-model.dart';
+import 'package:farmer_assistant_app/ui/screens/home/home-screen.dart';
 import 'package:farmer_assistant_app/ui/screens/splash_screen.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
@@ -34,19 +35,20 @@ class MyApp extends StatelessWidget {
             ScreenUtilInit(
           designSize: Size(412, 847),
           builder: () => GetMaterialApp(
-              title: 'Farmer_Assistant_App',
-              debugShowCheckedModeBanner: true,
-              theme: ThemeData(
-                textSelectionTheme: TextSelectionThemeData(
-                  cursorColor: mainThemeColor,
-                  selectionColor: mainThemeColor.withOpacity(0.4),
-                  selectionHandleColor: Colors.orange,
-                ),
+            title: 'Farmer_Assistant_App',
+            debugShowCheckedModeBanner: true,
+            theme: ThemeData(
+              textSelectionTheme: TextSelectionThemeData(
+                cursorColor: mainThemeColor,
+                selectionColor: mainThemeColor.withOpacity(0.4),
+                selectionHandleColor: Colors.orange,
               ),
-              home: SplashScreen()
-              // CheckHealthScreen()
-              // AddCropScreen(),
-              ),
+            ),
+            home:
+                // SplashScreen()
+                // CheckHealthScreen()
+                AddCropScreen(),
+          ),
         ));
   }
 }

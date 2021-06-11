@@ -2,6 +2,7 @@ import 'dart:io';
 
 import 'package:farmer_assistant_app/core/enums/view-state.dart';
 import 'package:farmer_assistant_app/core/view_models/base_view_model.dart';
+import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:tflite/tflite.dart';
 
@@ -9,15 +10,20 @@ class CheckHealthViewModel extends BaseViewModel {
   CheckHealthViewModel(File image) {
     init(image);
   }
-
+//all vairable/instances that we need in predicting the disease from image of fruits
   List recognitions;
+  double imageHeight;
+  double imageWidth;
 
   init(image) async {
+    //first loading the model
     setState(ViewState.loading);
     recognitions = [];
     loadModel().then((val) {
       setState(ViewState.idle);
     });
+    //then predicting the image
+    predictImage(image);
   }
 
 ////
@@ -56,5 +62,33 @@ class CheckHealthViewModel extends BaseViewModel {
     int endTime = new DateTime.now().millisecondsSinceEpoch;
     print("Inference took ${endTime - startTime}ms");
     setState(ViewState.idle);
+  }
+
+  ///
+  ///This function will be call on init that will predict image by checking the image either null
+  ///or not and then recognize Image after that we can take the image width and height from image
+  ///
+
+  Future predictImage(File image) async {
+    if (image == null) return;
+    await recognizeImage(image);
+
+    new FileImage(image)
+        .resolve(new ImageConfiguration())
+        .addListener(ImageStreamListener((ImageInfo info, bool _) {
+      imageHeight = info.image.height.toDouble();
+      imageWidth = info.image.width.toDouble();
+    }));
+
+    image = image;
+    setState(ViewState.idle);
+
+    //finally print the result of recognitions
+    if (recognitions != null) {
+      print("Final Recognition from selected Image is ============>");
+      print("${recognitions.map((res) => res["index"])}");
+      print("${recognitions.map((res) => res["label"])}");
+      print("${recognitions.map((res) => res["confidence"])}");
+    }
   }
 }
