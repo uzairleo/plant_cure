@@ -233,40 +233,9 @@ class _ImageSuccessDialogState extends State<ImageSuccessDialog> {
                     ),
                 ],
               ),
-              replacement: CircularProgressIndicator(),
+              // replacement: CircularProgressIndicator(),
             ),
           ),
-          // Column(
-          //   mainAxisAlignment: MainAxisAlignment.center,
-          //   crossAxisAlignment: CrossAxisAlignment.stretch,
-          //   children: [
-          //     (selectedImageFile != null)
-          //         ? Image(
-          //           image: FileImage(selectedImageFile),
-          //           width: double.infinity,
-          //           height: 300,
-          //           fit: BoxFit.cover,
-          //         )
-          //         : Center(
-          //             child: CircularProgressIndicator(),
-          //           ),
-          //     SizedBox(height: 60),
-          //     Row(
-          //       mainAxisAlignment: MainAxisAlignment.center,
-          //       children: [
-          //         Container(
-          //           height: 40.h,
-          //           width: 196.w,
-          //           child: RoundedRaisedButton(
-          //             color: mainThemeColor,
-          //             buttonText: 'Crop image',
-          //             onPressed: onPressed,
-          //           ),
-          //         )
-          //       ],
-          //     )
-          //   ],
-          // ),
         ),
       ),
     );
