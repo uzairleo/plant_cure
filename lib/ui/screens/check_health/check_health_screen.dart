@@ -86,7 +86,7 @@ class CheckHealthScreen extends StatelessWidget {
                                     symptoms(model),
 
                                     //suggested treatment button
-                                    suggestedTreatmentButton(),
+                                    suggestedTreatmentButton(model),
                                   ],
                                 ),
                               )
@@ -100,14 +100,16 @@ class CheckHealthScreen extends StatelessWidget {
     );
   }
 
-  suggestedTreatmentButton() {
+  suggestedTreatmentButton(CheckHealthViewModel model) {
     return Padding(
       padding:
           const EdgeInsets.only(top: 24, bottom: 32.0, left: 20, right: 20),
       child: RoundedRaisedButton(
         buttonText: "Suggested Treatment",
         color: mainThemeColor,
-        onPressed: () {},
+        onPressed: () {
+          model.getAllAboutDisease();
+        },
       ),
     );
   }
