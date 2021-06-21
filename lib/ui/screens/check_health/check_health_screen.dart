@@ -28,33 +28,71 @@ class CheckHealthScreen extends StatelessWidget {
               ////
               ///[body] start from here
               ///
-              body: SingleChildScrollView(
-                child: Column(
-                  children: [
-                    //image container with back button on stact
-                    topBar(),
+              body: !model.isMlLoaded
+                  ? Container()
+                  : model.label == null
+                      ? Padding(
+                          padding:
+                              const EdgeInsets.only(left: 18.0, right: 18.0),
+                          child: Column(
+                            crossAxisAlignment: CrossAxisAlignment.center,
+                            mainAxisAlignment: MainAxisAlignment.center,
+                            children: [
+                              //text
+                              Row(
+                                mainAxisAlignment: MainAxisAlignment.center,
+                                crossAxisAlignment: CrossAxisAlignment.center,
+                                children: [
+                                  Expanded(
+                                    child: Text(
+                                      "No label is available for this image in ML model try again please..",
+                                      textAlign: TextAlign.center,
+                                      style: bodyTextStyle,
+                                    ),
+                                  ),
+                                ],
+                              ),
+                              SizedBox(
+                                height: 100.h,
+                              ),
+                              RoundedRaisedButton(
+                                buttonText: "Try Again",
+                                onPressed: () {
+                                  Get.back();
+                                  Get.back();
+                                },
+                                color: mainThemeColor,
+                              )
+                            ],
+                          ),
+                        )
+                      : SingleChildScrollView(
+                          child: Column(
+                            children: [
+                              //image container with back button on stact
+                              topBar(),
 
-                    Padding(
-                      padding: const EdgeInsets.only(
-                        left: 15,
-                        right: 15,
-                      ),
-                      child: Column(
-                        children: [
-                          //about disease title,definition
-                          aboutDisease(),
+                              Padding(
+                                padding: const EdgeInsets.only(
+                                  left: 15,
+                                  right: 15,
+                                ),
+                                child: Column(
+                                  children: [
+                                    //about disease title,definition
+                                    aboutDisease(model),
 
-                          //about symptom and other cause having title and description
-                          symptoms(),
+                                    //about symptom and other cause having title and description
+                                    symptoms(model),
 
-                          //suggested treatment button
-                          suggestedTreatmentButton(),
-                        ],
-                      ),
-                    )
-                  ],
-                ),
-              ),
+                                    //suggested treatment button
+                                    suggestedTreatmentButton(),
+                                  ],
+                                ),
+                              )
+                            ],
+                          ),
+                        ),
             ),
           ),
         ),
@@ -81,7 +119,11 @@ class CheckHealthScreen extends StatelessWidget {
         Container(
             height: 328.h,
             width: double.infinity.w,
-            child: Image.asset('$assets/d_crop.png')),
+            child: Image(
+              fit: BoxFit.cover,
+              image: FileImage(this.selectedFile),
+            )),
+        //  Image.asset('$assets/d_crop.png')),
         //
         Align(
           alignment: Alignment.topLeft,
@@ -116,7 +158,7 @@ class CheckHealthScreen extends StatelessWidget {
   }
 
   //about disease title,definition
-  aboutDisease() {
+  aboutDisease(CheckHealthViewModel model) {
     return Padding(
       padding: const EdgeInsets.only(top: 33, bottom: 20.0),
       child: Column(
@@ -126,7 +168,8 @@ class CheckHealthScreen extends StatelessWidget {
             mainAxisAlignment: MainAxisAlignment.start,
             children: [
               Text(
-                "Shothole Disease",
+                "${model.label}",
+                // "Shothole Disease",
                 style: headingTextStyle.copyWith(
                   fontSize: 24,
                 ),
@@ -154,7 +197,7 @@ class CheckHealthScreen extends StatelessWidget {
   }
 
   //about symptom and other cause having title and description
-  symptoms() {
+  symptoms(CheckHealthViewModel model) {
     return Padding(
       padding: const EdgeInsets.only(bottom: 20.0),
       child: Column(

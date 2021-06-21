@@ -104,48 +104,48 @@ class _ImageSuccessDialogState extends State<ImageSuccessDialog> {
                             ),
                         ],
                       ),
-                      replacement: Center(
-                        child: _croppedData == null
-                            ? SizedBox.shrink()
-                            : Column(
-                                mainAxisAlignment:
-                                    MainAxisAlignment.spaceEvenly,
-                                children: [
-                                  Image.memory(_croppedData),
-                                  Container(
-                                    height: 40.h,
-                                    width: 196.w,
-                                    child: RoundedRaisedButton(
-                                      color: mainThemeColor,
-                                      buttonText: 'Use this image',
-                                      onPressed: () {
-                                        //now time to turn back unit8list crop data to file again
-                                        //in order to send it to ML model for future use
-                                        File croppedFile =
-                                            File.fromRawPath(_croppedData);
-                                        print("${croppedFile.path}");
-                                        // Get.defaultDialog(
-                                        //     content: Column(
-                                        //   children: [
-                                        //     Image.memory(_croppedData),
-                                        // Image(
-                                        //   image: FileImage(
-                                        //       widget.selectedImageFile),
-                                        //   width: double.infinity,
-                                        //   height: 300,
-                                        //   fit: BoxFit.cover,
-                                        // )
-                                        //   ],
-                                        // ));
-                                        Get.to(() => CheckHealthScreen(
-                                            widget.selectedImageFile));
-                                        // Get.back();
-                                      },
-                                    ),
-                                  )
-                                ],
-                              ),
-                      ),
+                      // replacement: Center(
+                      //   child: _croppedData == null
+                      //       ? SizedBox.shrink()
+                      //       : Column(
+                      //           mainAxisAlignment:
+                      //               MainAxisAlignment.spaceEvenly,
+                      //           children: [
+                      //             Image.memory(_croppedData),
+                      //             Container(
+                      //               height: 40.h,
+                      //               width: 196.w,
+                      //               child: RoundedRaisedButton(
+                      //                 color: mainThemeColor,
+                      //                 buttonText: 'Use this image',
+                      //                 onPressed: () {
+                      //                   //now time to turn back unit8list crop data to file again
+                      //                   //in order to send it to ML model for future use
+                      //                   File croppedFile =
+                      //                       File.fromRawPath(_croppedData);
+                      //                   print("${croppedFile.path}");
+                      //                   // Get.defaultDialog(
+                      //                   //     content: Column(
+                      //                   //   children: [
+                      //                   //     Image.memory(_croppedData),
+                      //                   // Image(
+                      //                   //   image: FileImage(
+                      //                   //       widget.selectedImageFile),
+                      //                   //   width: double.infinity,
+                      //                   //   height: 300,
+                      //                   //   fit: BoxFit.cover,
+                      //                   // )
+                      //                   //   ],
+                      //                   // ));
+                      //                   Get.to(() => CheckHealthScreen(
+                      //                       widget.selectedImageFile));
+                      //                   // Get.back();
+                      //                 },
+                      //               ),
+                      //             )
+                      //           ],
+                      //         ),
+                      // ),
                     ),
                   ),
                   if (_croppedData == null)
@@ -202,12 +202,14 @@ class _ImageSuccessDialogState extends State<ImageSuccessDialog> {
                               color: mainThemeColor,
                               buttonText: 'CROP IT!',
                               onPressed: () {
-                                setState(() {
-                                  _isCropping = true;
-                                });
-                                _isCircleUi
-                                    ? _cropController.cropCircle()
-                                    : _cropController.crop();
+                                Get.to(() => CheckHealthScreen(
+                                    widget.selectedImageFile));
+                                //   setState(() {
+                                //     _isCropping = true;
+                                //   });
+                                //   _isCircleUi
+                                //       ? _cropController.cropCircle()
+                                //       : _cropController.crop();
                               },
                             ),
                           ),
@@ -215,7 +217,7 @@ class _ImageSuccessDialogState extends State<ImageSuccessDialog> {
                       ),
                     ),
                 ],
-              ), 
+              ),
               replacement: CircularProgressIndicator(),
             ),
           ),

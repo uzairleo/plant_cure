@@ -86,9 +86,9 @@ class _SplashScreenState extends State<SplashScreen> {
       //   /// If token is valid, it means user is logged in.
       //   /// Just navigate to Root screen
       //   print('Token is valid');
-      Get.off(AddCropScreen());
+      Get.offAll(AddCropScreen());
     } else {
-      Get.off(RegistrationScreen());
+      Get.offAll(RegistrationScreen());
     }
   }
 

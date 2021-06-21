@@ -14,18 +14,22 @@ class CheckHealthViewModel extends BaseViewModel {
   List recognitions;
   double imageHeight;
   double imageWidth;
-  // String label;
-  // String confidence;
+  String label;
+  String confidence;
+  bool isMlLoaded = false;
 
   init(image) async {
     //first loading the model
     setState(ViewState.loading);
     recognitions = [];
     loadModel().then((val) {
-      setState(ViewState.idle);
+      // setState(ViewState.idle);
     });
     //then predicting the image
-    predictImage(image);
+    await predictImage(image).then((value) {
+      isMlLoaded = true;
+      setState(ViewState.idle);
+    });
   }
 
 ////
@@ -86,9 +90,12 @@ class CheckHealthViewModel extends BaseViewModel {
 
     image = image;
     setState(ViewState.idle);
-
     //finally print the result of recognitions
     if (recognitions != null) {
+      recognitions.forEach((res) {
+        label = res["label"].toString();
+        confidence = res["confidence"].toString();
+      });
       print("Final Recognition from selected Image is ============>");
       print("${recognitions.map((res) => res["index"])}");
       print("${recognitions.map((res) => res["label"])}");
