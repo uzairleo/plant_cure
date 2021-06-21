@@ -195,23 +195,6 @@ class _ImageSuccessDialogState extends State<ImageSuccessDialog> {
                             ],
                           ),
                           const SizedBox(height: 4),
-                          // Container(
-                          //   width: double.infinity,
-                          //   child: ElevatedButton(
-                          //     onPressed: () {
-                          //       setState(() {
-                          //         _isCropping = true;
-                          //       });
-                          //       _isCircleUi
-                          //           ? _cropController.cropCircle()
-                          //           : _cropController.crop();
-                          //     },
-                          //     child: Padding(
-                          //       padding:
-                          //           const EdgeInsets.symmetric(vertical: 16),
-                          //       child: Text('CROP IT!'),
-                          //     ),
-                          //   ),
                           Container(
                             height: 40.h,
                             width: 196.w,
@@ -232,8 +215,8 @@ class _ImageSuccessDialogState extends State<ImageSuccessDialog> {
                       ),
                     ),
                 ],
-              ),
-              // replacement: CircularProgressIndicator(),
+              ), 
+              replacement: CircularProgressIndicator(),
             ),
           ),
         ),

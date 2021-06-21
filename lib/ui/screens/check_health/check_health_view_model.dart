@@ -14,6 +14,8 @@ class CheckHealthViewModel extends BaseViewModel {
   List recognitions;
   double imageHeight;
   double imageWidth;
+  // String label;
+  // String confidence;
 
   init(image) async {
     //first loading the model
