@@ -1,0 +1,39 @@
+{
+  "project_info": {
+    "project_number": "359761460628",
+    "project_id": "farmerassistantapp-c9912",
+    "storage_bucket": "farmerassistantapp-c9912.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:359761460628:android:9a976dbceb4e3111416381",
+        "android_client_info": {
+          "package_name": "com.example.farmer_assistant_app"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "359761460628-qc19beoheb9n2lq2elvd34f1aefslf3v.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyAbT-VdXLQHjvlQ20KNSGw38frDoDPolMg"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "359761460628-qc19beoheb9n2lq2elvd34f1aefslf3v.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}

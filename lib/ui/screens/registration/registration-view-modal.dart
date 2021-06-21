@@ -1,5 +1,12 @@
+import 'package:cloud_firestore/cloud_firestore.dart';
+import 'package:farmer_assistant_app/core/enums/view-state.dart';
+import 'package:farmer_assistant_app/core/models/register-body.dart';
+import 'package:farmer_assistant_app/core/services/auth_data_service.dart';
+import 'package:farmer_assistant_app/core/services/database_service.dart';
 import 'package:farmer_assistant_app/core/view_models/base_view_model.dart';
+import 'package:farmer_assistant_app/locator.dart';
 import 'package:flutter/material.dart';
+import 'package:get/get.dart';
 
 ///
 ///This view model have all [ui logic] and [backend]  of all screens related home screen
@@ -19,15 +26,11 @@ class RegistrationViewModel extends BaseViewModel {
   ///
 //********************************************************************** */
 
-  //instance for accessing api repository authentication and registration/signUp function
-  // ApiRepository apiRepo = new ApiRepository();
-
   // //instance for taking signup fields from user and than passing it to reqRegistration function
-  // RegisterBody body = RegisterBody();
+  RegisterBody registerBody = RegisterBody();
 
-  // RegisterBody2 body2 = RegisterBody2();
-  // LoginResponse response;
-  // final _dbService = locator<DatabaseService>();
+  final _dbService = locator<DatabaseService>();
+  final _authDataService = locator<AuthDataService>();
 
   bool isAgreementSelected = false; //for agreement check purpose
   bool passwordVisible = false; //for agreement check purpose
@@ -61,80 +64,15 @@ class RegistrationViewModel extends BaseViewModel {
   ///
   ///A function that will request for Registration to Database
   ///
-//   requestRegistration() async {
-//     setState(ViewState.busy);
-//     response = await apiRepo.reqRegister(body);
-//     setState(ViewState.idle);
-
-//     notifyListeners();
-//   }
-
-//   //onphone number changed callback
-// //  void onPhoneNumberChange(
-// //      String number, String internationalizedPhoneNumber, String isoCode) {
-// //    phoneNumber = number;
-// //    phoneIsoCode = isoCode;
-// //    notifyListeners();
-// //  }
-
-//   //set check box
-  setAgreementCheckBox(value) {
-    isAgreementSelected = value;
-    notifyListeners();
+  requestRegistration() async {
+    setState(ViewState.loading);
+    try {
+      await _dbService.registerUser(registerBody);
+      await _authDataService.updateIsRegisterFirstTime(true);
+    } catch (e, s) {
+      print("FirebaseException/RequestRegistration=> $e, \n stacktrace =>$s");
+      Get.defaultDialog(title: "Firebase Exception", content: Text("$e"));
+    }
+    setState(ViewState.idle);
   }
-
-// //setting password obscure text
-//   setPasswordObscureText() {
-//     isPassword = !isPassword;
-//     notifyListeners();
-//   }
-
-// //setting password obscure text
-//   setConfirmPasswordObscureText() {
-//     isConfirmPassword = !isConfirmPassword;
-//     notifyListeners();
-//   }
-
-// //show error dialog box
-//   showPhoneErrorDialog(context) {
-//     showDialog(
-//         context: context,
-//         builder: (context) => AlertDialog(
-//               title: Text("Registration Error"),
-//               content: Text("Phone number must not be empty."),
-//               actions: <Widget>[
-//                 new FlatButton(
-//                   textColor: blueThemeColor,
-//                   child: Text("OK"),
-//                   onPressed: () {
-//                     Navigator.of(context).pop();
-//                   },
-//                 )
-//               ],
-//             ));
-//   }
-
-// //this function will set the gender value
-//   setGenderValue(value) {
-//     genderValue = value;
-//     body2.gender = (genderValue == 1) ? 'M' : 'F';
-//     notifyListeners();
-//   }
-
-//   ///
-//   ///This function is used to do a post request to custom backend for updating user purpose
-//   ///
-//   reqUpdateUserData() async {
-//     setState(ViewState.busy);
-
-//     await apiRepo.reqUpdateUser(body2);
-//     setState(ViewState.idle);
-
-//     notifyListeners();
-//   }
-
-//   void reqNewOtp() {
-//     final otpBody = OtpBody(body.phoneNumber);
-//     _dbService.reqOtp(otpBody);
-  // }
 }
