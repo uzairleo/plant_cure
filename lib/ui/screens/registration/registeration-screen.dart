@@ -80,10 +80,11 @@ class _RegistrationScreenState extends State<RegistrationScreen> {
                                   ///
                                   ///skop and next button
                                   ///
-                                  skipAndNextButton(onNextTap: () {
+                                  skipAndNextButton(onNextTap: () async {
                                 print("Next pressed");
                                 if (_formKey.currentState.validate()) {
                                   _formKey.currentState.save();
+                                  await model.requestRegistration();
                                   Get.offAll(() => SelectLocaleScreen());
                                 }
                               }, onSkipTap: () {
@@ -142,7 +143,9 @@ class _RegistrationScreenState extends State<RegistrationScreen> {
               width: 18.5,
             ),
             controller: model.fullNameCtlr,
-            onSaved: (value) {},
+            onSaved: (value) {
+              model.registerBody.fullName = value.toString();
+            },
           ),
           SizedBox(
             height: 35.h,
@@ -158,7 +161,9 @@ class _RegistrationScreenState extends State<RegistrationScreen> {
               width: 18.5,
             ),
             controller: model.emailCntrlr,
-            onSaved: (value) {},
+            onSaved: (value) {
+              model.registerBody.email = value.toString();
+            },
           ),
           SizedBox(
             height: 35.h,
@@ -175,7 +180,9 @@ class _RegistrationScreenState extends State<RegistrationScreen> {
               width: 18.5,
             ),
             // controller: model.emailCntrlr,
-            onSaved: (value) {},
+            onSaved: (value) {
+              model.registerBody.phoneNo = value.toString();
+            },
           ),
           SizedBox(
             height: 35.h,
@@ -196,7 +203,9 @@ class _RegistrationScreenState extends State<RegistrationScreen> {
                     width: 18.5,
                   ),
                   // controller: model.emailCntrlr,
-                  onSaved: (value) {},
+                  onSaved: (value) {
+                    model.registerBody.dob = value.toString();
+                  },
                 ),
               ),
               SizedBox(
@@ -214,7 +223,9 @@ class _RegistrationScreenState extends State<RegistrationScreen> {
                     width: 18.5,
                   ),
                   // controller: model.emailCntrlr,
-                  onSaved: (value) {},
+                  onSaved: (value) {
+                    model.registerBody.weight = value.toString();
+                  },
                 ),
               ),
             ],
@@ -233,7 +244,9 @@ class _RegistrationScreenState extends State<RegistrationScreen> {
               width: 18.5,
             ),
             // controller: model.emailCntrlr,
-            onSaved: (value) {},
+            onSaved: (value) {
+              model.registerBody.noOfFirelds = value.toString();
+            },
           ),
 
           //password text field

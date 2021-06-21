@@ -1,8 +1,13 @@
 import 'package:farmer_assistant_app/core/constants/textstyle.dart';
+import 'package:farmer_assistant_app/core/services/auth_data_service.dart';
 import 'package:farmer_assistant_app/ui/custom_widgets/image-container.dart';
+import 'package:farmer_assistant_app/ui/screens/add_crops/add-crop-screen.dart';
 import 'package:farmer_assistant_app/ui/screens/registration/registeration-screen.dart';
+import 'package:farmer_assistant_app/ui/screens/root-screen.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
+
+import '../../locator.dart';
 // import 'package:get/get.dart';
 // import '../../locator.dart';
 
@@ -12,7 +17,7 @@ class SplashScreen extends StatefulWidget {
 }
 
 class _SplashScreenState extends State<SplashScreen> {
-  // final authDataService = locator<AuthDataService>();
+  final authDataService = locator<AuthDataService>();
   // final _dbService = locator<DatabaseService>();
   // final _locationService = locator<LocationService>();
   // final _geocodingService = locator<GeocodingApiService>();
@@ -25,12 +30,12 @@ class _SplashScreenState extends State<SplashScreen> {
   }
 
   _initialSetup() async {
-    Future.delayed(Duration(seconds: 3), () {
-      Get.offAll(
-        () => RegistrationScreen(),
-      );
-    });
-    // await authDataService.doSetup();
+    // await Future.delayed(Duration(seconds: 3), () {
+    // Get.offAll(
+    //   () => RegistrationScreen(),
+    // );
+    // });
+    await authDataService.doSetup();
     // //using location service getting current CORDINATES
     // await _locationService.getCurrentLocation();
     // if (!_locationService.patientPosition.isNullOrBlank) {
@@ -43,9 +48,10 @@ class _SplashScreenState extends State<SplashScreen> {
     //       "DEBUGGIGN=> ${_geocodingService.getStreetNumber()},${_geocodingService.getStreetRoute()},${_geocodingService.getCity()},${_geocodingService.getSubLocality()},${_geocodingService.getCountry()}, ");
     // }
     // //a little dummy delay of 1 second
-    // await Future.delayed(Duration(seconds: 1));
+    await Future.delayed(Duration(seconds: 3));
     // getSignCode();
-    // print('Login State: ${authDataService.isLogin}');
+    print(
+        'IsRegisteredFirstTime State: ${authDataService.isRegisteredFirstTime}');
     // // getOnBoardings();
     // switch (authDataService.onBoardingStatus) {
     //   case 'onBoarding_1':
@@ -59,31 +65,31 @@ class _SplashScreenState extends State<SplashScreen> {
     //   default:
     //     break;
     // }
-    // if (authDataService.isLogin) {
-    //   /// Now check if token is valid or not. If expired
-    //   /// then generate a new token.
-    //   /// If refresh is invalid as well, then navigate user to login screen
-    //   final isTokenValid =
-    //       await _dbService.verifyToken(authDataService.accessToken);
-    //   if (!isTokenValid) {
-    //     print('Access token is invalid');
-    //     final RefreshTokenBody body =
-    //         await _dbService.refreshToken(authDataService.refreshToken);
-    //     if (!body.status) {
-    //       print('Refresh token is invalid');
-    //       await _dbService.logout();
-    //       Get.off(LoginScreen());
-    //       return;
-    //     }
-    //   }
+    if (authDataService.isRegisteredFirstTime) {
+      //   /// Now check if token is valid or not. If expired
+      //   /// then generate a new token.
+      //   /// If refresh is invalid as well, then navigate user to login screen
+      //   final isTokenValid =
+      //       await _dbService.verifyToken(authDataService.accessToken);
+      //   if (!isTokenValid) {
+      //     print('Access token is invalid');
+      //     final RefreshTokenBody body =
+      //         await _dbService.refreshToken(authDataService.refreshToken);
+      //     if (!body.status) {
+      //       print('Refresh token is invalid');
+      //       await _dbService.logout();
+      //       Get.off(LoginScreen());
+      //       return;
+      //     }
+      //   }
 
-    //   /// If token is valid, it means user is logged in.
-    //   /// Just navigate to Root screen
-    //   print('Token is valid');
-    //   Get.off(RootScreen());
-    // } else {
-    //   Get.off(LoginScreen());
-    // }
+      //   /// If token is valid, it means user is logged in.
+      //   /// Just navigate to Root screen
+      //   print('Token is valid');
+      Get.off(AddCropScreen());
+    } else {
+      Get.off(RegistrationScreen());
+    }
   }
 
 //   getOnBoardings() {
