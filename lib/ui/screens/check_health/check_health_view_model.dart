@@ -1,22 +1,30 @@
 import 'dart:io';
 
 import 'package:farmer_assistant_app/core/enums/view-state.dart';
+import 'package:farmer_assistant_app/core/models/disease.dart';
+import 'package:farmer_assistant_app/core/services/database_service.dart';
 import 'package:farmer_assistant_app/core/view_models/base_view_model.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
+import 'package:get/get.dart';
 import 'package:tflite/tflite.dart';
+
+import '../../../locator.dart';
 
 class CheckHealthViewModel extends BaseViewModel {
   CheckHealthViewModel(File image) {
     init(image);
   }
 //all vairable/instances that we need in predicting the disease from image of fruits
+
+  final _dbService = locator<DatabaseService>();
   List recognitions;
   double imageHeight;
   double imageWidth;
   String label;
   String confidence;
   bool isMlLoaded = false;
+  Disease disease = Disease();
 
   init(image) async {
     //first loading the model
@@ -30,6 +38,10 @@ class CheckHealthViewModel extends BaseViewModel {
       isMlLoaded = true;
       setState(ViewState.idle);
     });
+
+    if (isMlLoaded) {
+      await getAllAboutDisease();
+    }
   }
 
 ////
@@ -100,6 +112,26 @@ class CheckHealthViewModel extends BaseViewModel {
       print("${recognitions.map((res) => res["index"])}");
       print("${recognitions.map((res) => res["label"])}");
       print("${recognitions.map((res) => res["confidence"])}");
+    }
+  }
+
+  ///
+  ///In this function we will search for a disease according to the returned label
+  ///that ML model returned to us and then get All data about the following disease of crops :)
+  ///
+  getAllAboutDisease() async {
+    setState(ViewState.loading);
+    try {
+      disease = await _dbService.getAllAboutDisease(label.replaceAll(')(', ""));
+      if (disease.label == "notfound") {
+        print("Sorry item not found");
+      } else {
+        print("Item found succesfully");
+      }
+      setState(ViewState.idle);
+    } catch (e) {
+      print("Exception/SearchForDisease INfor ==> $e");
+      Get.defaultDialog(title: "FirebaseException", content: Text("$e"));
     }
   }
 }
