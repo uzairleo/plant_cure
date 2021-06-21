@@ -186,7 +186,8 @@ class CheckHealthScreen extends StatelessWidget {
             children: [
               Flexible(
                 child: Text(
-                  "Shot hole disease (also called Coryneum blight) is a  serious fungal disease that creates BB-sized holes in leaves,rough areas on fruit, and concentric lesions on branches. The pathogen that causes shot hole disease is Wilsonomyces carpophilus.",
+                  "${model.disease.aboutdisease ?? ""}",
+                  // "Shot hole disease (also called Coryneum blight) is a  serious fungal disease that creates BB-sized holes in leaves,rough areas on fruit, and concentric lesions on branches. The pathogen that causes shot hole disease is Wilsonomyces carpophilus.",
                   style: bodyTextStyle.copyWith(
                       fontSize: 15, color: Color(0XFF373434)),
                 ),
@@ -224,7 +225,8 @@ class CheckHealthScreen extends StatelessWidget {
             children: [
               Flexible(
                 child: Text(
-                  "The fungal pathogen Wilsonomyces carpophilus affects members of the Prunus genera. Almond, apricot, nectarine, peach, prune and cherry trees can be affected. Both edible and ornamental varieties are vulnerable to Infection.[2] Almost all over-ground parts of the plants are affected including the fruits, buds and the stems, but the damage is most noticeable on the leaves.",
+                  "${model.disease.symptoms ?? ""}",
+                  // "The fungal pathogen Wilsonomyces carpophilus affects members of the Prunus genera. Almond, apricot, nectarine, peach, prune and cherry trees can be affected. Both edible and ornamental varieties are vulnerable to Infection.[2] Almost all over-ground parts of the plants are affected including the fruits, buds and the stems, but the damage is most noticeable on the leaves.",
                   style: bodyTextStyle.copyWith(
                       fontSize: 15, color: Color(0XFF373434)),
                 ),

@@ -2,14 +2,21 @@ class Disease {
   String label;
   String treatment;
   String symptoms;
+  String aboutdisease;
   SuggestedTreatment suggestedTreatment;
 
-  Disease({this.label, this.treatment, this.symptoms, this.suggestedTreatment});
+  Disease(
+      {this.label,
+      this.aboutdisease,
+      this.treatment,
+      this.symptoms,
+      this.suggestedTreatment});
 
   Disease.fromJson(json) {
     label = json['label'];
     treatment = json['treatment'];
     symptoms = json['symptoms'];
+    aboutdisease = json['about_disease'];
     suggestedTreatment = json['suggested_treatment'] != null
         ? new SuggestedTreatment.fromJson(json['suggested_treatment'])
         : null;
@@ -20,6 +27,7 @@ class Disease {
     data['label'] = this.label;
     data['treatment'] = this.treatment;
     data['symptoms'] = this.symptoms;
+    data['about_disease'] = this.aboutdisease;
     if (this.suggestedTreatment != null) {
       data['suggested_treatment'] = this.suggestedTreatment.toJson();
     }

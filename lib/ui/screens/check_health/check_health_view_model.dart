@@ -6,6 +6,7 @@ import 'package:farmer_assistant_app/core/services/database_service.dart';
 import 'package:farmer_assistant_app/core/view_models/base_view_model.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
+import 'package:get/get.dart';
 import 'package:tflite/tflite.dart';
 
 import '../../../locator.dart';
@@ -37,6 +38,10 @@ class CheckHealthViewModel extends BaseViewModel {
       isMlLoaded = true;
       setState(ViewState.idle);
     });
+
+    if (isMlLoaded) {
+      await getAllAboutDisease();
+    }
   }
 
 ////
@@ -115,6 +120,7 @@ class CheckHealthViewModel extends BaseViewModel {
   ///that ML model returned to us and then get All data about the following disease of crops :)
   ///
   getAllAboutDisease() async {
+    setState(ViewState.loading);
     try {
       disease = await _dbService.getAllAboutDisease(label.replaceAll(')(', ""));
       if (disease.label == "notfound") {
@@ -122,8 +128,10 @@ class CheckHealthViewModel extends BaseViewModel {
       } else {
         print("Item found succesfully");
       }
+      setState(ViewState.idle);
     } catch (e) {
       print("Exception/SearchForDisease INfor ==> $e");
+      Get.defaultDialog(title: "FirebaseException", content: Text("$e"));
     }
   }
 }
