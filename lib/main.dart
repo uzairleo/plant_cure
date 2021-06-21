@@ -9,14 +9,13 @@ import 'package:get/get.dart';
 import 'package:provider/provider.dart';
 import 'core/constants/colors.dart';
 import 'locator.dart';
+import 'package:firebase_core/firebase_core.dart';
 
-void main()
-// async
-{
-  // WidgetsFlutterBinding.ensureInitialized();
+void main() async {
+  WidgetsFlutterBinding.ensureInitialized();
 
   /// All initial setup
-  // await Firebase.initializeApp();
+  await Firebase.initializeApp();
 
   setupLocator();
   runApp(MyApp());
@@ -44,10 +43,10 @@ class MyApp extends StatelessWidget {
                 selectionHandleColor: Colors.orange,
               ),
             ),
-            home:
-                // SplashScreen()
-                // CheckHealthScreen()
-                AddCropScreen(),
+            home: SplashScreen(),
+            // SplashScreen()
+            // CheckHealthScreen()
+            // AddCropScreen(),
           ),
         ));
   }
