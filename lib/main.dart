@@ -8,8 +8,11 @@ import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:provider/provider.dart';
 import 'core/constants/colors.dart';
+import 'core/models/disease.dart';
 import 'locator.dart';
 import 'package:firebase_core/firebase_core.dart';
+
+import 'ui/screens/check_health/suggested_treatment/suggested_treatment_screen.dart';
 
 void main() async {
   WidgetsFlutterBinding.ensureInitialized();
@@ -43,7 +46,9 @@ class MyApp extends StatelessWidget {
                 selectionHandleColor: Colors.orange,
               ),
             ),
-            home: SplashScreen(),
+            home:
+                // SuggestedTreatmentScreen(Disease()),
+                SplashScreen(),
             // SplashScreen()
             // CheckHealthScreen()
             // AddCropScreen(),

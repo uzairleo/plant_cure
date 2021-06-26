@@ -140,13 +140,6 @@ class HomeScreen extends StatelessWidget {
                               style: bodyTextStyle,
                             ),
                           ),
-                          PopupMenuItem(
-                            value: 0,
-                            child: Text(
-                              "Recommend us",
-                              style: bodyTextStyle,
-                            ),
-                          ),
                         ];
                         //  List.generate(2, (index) {
                         //   return PopupMenuItem(

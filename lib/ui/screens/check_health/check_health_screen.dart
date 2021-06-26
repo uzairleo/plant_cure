@@ -8,6 +8,7 @@ import 'package:farmer_assistant_app/core/enums/view-state.dart';
 import 'package:farmer_assistant_app/ui/custom_widgets/image-container.dart';
 import 'package:farmer_assistant_app/ui/custom_widgets/rounded-raised-button.dart';
 import 'package:farmer_assistant_app/ui/screens/check_health/check_health_view_model.dart';
+import 'package:farmer_assistant_app/ui/screens/check_health/suggested_treatment/suggested_treatment_screen.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:modal_progress_hud_nsn/modal_progress_hud_nsn.dart';
@@ -59,7 +60,6 @@ class CheckHealthScreen extends StatelessWidget {
                                 buttonText: "Try Again",
                                 onPressed: () {
                                   Get.back();
-                                  Get.back();
                                 },
                                 color: mainThemeColor,
                               )
@@ -108,7 +108,9 @@ class CheckHealthScreen extends StatelessWidget {
         buttonText: "Suggested Treatment",
         color: mainThemeColor,
         onPressed: () {
-          model.getAllAboutDisease();
+          if (model.disease != null) {
+            Get.to(() => SuggestedTreatmentScreen(model.disease));
+          }
         },
       ),
     );
