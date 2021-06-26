@@ -1,20 +1,14 @@
 class Disease {
   String label;
-  String treatment;
   String symptoms;
   String aboutdisease;
   SuggestedTreatment suggestedTreatment;
 
   Disease(
-      {this.label,
-      this.aboutdisease,
-      this.treatment,
-      this.symptoms,
-      this.suggestedTreatment});
+      {this.label, this.aboutdisease, this.symptoms, this.suggestedTreatment});
 
   Disease.fromJson(json) {
     label = json['label'];
-    treatment = json['treatment'];
     symptoms = json['symptoms'];
     aboutdisease = json['about_disease'];
     suggestedTreatment = json['suggested_treatment'] != null
@@ -25,7 +19,6 @@ class Disease {
   Map<String, dynamic> toJson() {
     final Map<String, dynamic> data = new Map<String, dynamic>();
     data['label'] = this.label;
-    data['treatment'] = this.treatment;
     data['symptoms'] = this.symptoms;
     data['about_disease'] = this.aboutdisease;
     if (this.suggestedTreatment != null) {
@@ -38,12 +31,14 @@ class Disease {
 class SuggestedTreatment {
   String treatment;
   String videoLink;
+  String title;
 
-  SuggestedTreatment({this.treatment, this.videoLink});
+  SuggestedTreatment({this.treatment, this.videoLink, this.title});
 
   SuggestedTreatment.fromJson(Map<String, dynamic> json) {
     treatment = json['treatment'];
     videoLink = json['video_link'];
+    title = json['title'];
   }
 
   Map<String, dynamic> toJson() {

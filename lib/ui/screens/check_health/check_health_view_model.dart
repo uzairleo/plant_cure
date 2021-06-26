@@ -4,6 +4,7 @@ import 'package:farmer_assistant_app/core/enums/view-state.dart';
 import 'package:farmer_assistant_app/core/models/disease.dart';
 import 'package:farmer_assistant_app/core/services/database_service.dart';
 import 'package:farmer_assistant_app/core/view_models/base_view_model.dart';
+import 'package:farmer_assistant_app/ui/screens/root-screen.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:get/get.dart';
@@ -21,7 +22,7 @@ class CheckHealthViewModel extends BaseViewModel {
   List recognitions;
   double imageHeight;
   double imageWidth;
-  String label;
+  String label = "";
   String confidence;
   bool isMlLoaded = false;
   Disease disease = Disease();
@@ -125,13 +126,39 @@ class CheckHealthViewModel extends BaseViewModel {
       disease = await _dbService.getAllAboutDisease(label.replaceAll(')(', ""));
       if (disease.label == "notfound") {
         print("Sorry item not found");
+        Get.defaultDialog(
+            title: "Sorry!",
+            content: Text(
+                "we dont have any label regarding the provided pic try again!"),
+            actions: [
+              TextButton(
+                  onPressed: () {
+                    setState(ViewState.idle);
+                    Get.back();
+                    Get.back();
+                    Get.back();
+                  },
+                  child: Text("Try AGAIN"))
+            ]);
       } else {
         print("Item found succesfully");
       }
       setState(ViewState.idle);
     } catch (e) {
       print("Exception/SearchForDisease INfor ==> $e");
-      Get.defaultDialog(title: "FirebaseException", content: Text("$e"));
+      Get.defaultDialog(
+          title: "FirebaseException",
+          content: Text("$e"),
+          actions: [
+            TextButton(
+                onPressed: () {
+                  setState(ViewState.idle);
+                  Get.back();
+                  Get.back();
+                  Get.back();
+                },
+                child: Text("OK"))
+          ]);
     }
   }
 }

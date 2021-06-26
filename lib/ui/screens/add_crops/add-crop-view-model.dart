@@ -33,7 +33,7 @@ class AddCropViewModel extends BaseViewModel {
     availableCrops.add(Crop(
         id: "1",
         imgUrl: "$assets/apple.png",
-        name: "Apple",
+        name: "Peach",
         color: Colors.redAccent.withOpacity(0.4)));
     availableCrops.add(Crop(
       id: "2",
