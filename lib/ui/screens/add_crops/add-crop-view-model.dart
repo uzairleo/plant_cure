@@ -49,5 +49,27 @@ class AddCropViewModel extends BaseViewModel {
           name: "Beans",
           color: Colors.green.withOpacity(1)),
     );
+    availableCrops.add(
+      Crop(
+          id: "4",
+          imgUrl: "$assets/mango.jpg",
+          name: "Mangoes",
+          color: Colors.yellow.withOpacity(1)),
+    );
+    availableCrops.add(
+      Crop(
+          id: "5",
+          imgUrl: "$assets/plumb.jpg",
+          name: "Plumb",
+          color: Colors.red.withOpacity(1)),
+    );
+
+    availableCrops.add(
+      Crop(
+          id: "6",
+          imgUrl: "$assets/guvava.jpg",
+          name: "Guvava",
+          color: Colors.green.withOpacity(1)),
+    );
   }
 }

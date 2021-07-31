@@ -14,9 +14,12 @@ import 'package:farmer_assistant_app/ui/custom_widgets/rounded-raised-button.dar
 import 'package:farmer_assistant_app/ui/screens/add_crops/add-crop-screen.dart';
 import 'package:farmer_assistant_app/ui/screens/add_crops/edit_crop/edit-crop-screen.dart';
 import 'package:farmer_assistant_app/ui/screens/check_health/check_health_screen.dart';
+import 'package:farmer_assistant_app/ui/screens/fertilizer_calculator/fertilizer_calculator.dart';
 import 'package:farmer_assistant_app/ui/screens/home/home-view-modal.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
+import 'package:intl/intl.dart';
+import 'package:modal_progress_hud_nsn/modal_progress_hud_nsn.dart';
 import 'package:provider/provider.dart';
 
 class HomeScreen extends StatelessWidget {
@@ -27,37 +30,40 @@ class HomeScreen extends StatelessWidget {
     return ChangeNotifierProvider(
       create: (context) => HomeViewModal(addedCrops),
       child: Consumer<HomeViewModal>(
-        builder: (context, model, child) => Scaffold(
-            backgroundColor: backgroundColor,
+        builder: (context, model, child) => ModalProgressHUD(
+          inAsyncCall: model.state == ViewState.loading,
+          child: Scaffold(
+              backgroundColor: backgroundColor,
 
-            ///
-            ///[body] start from here
-            ///
-            body: SingleChildScrollView(
-              child: Column(
-                mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                crossAxisAlignment: CrossAxisAlignment.stretch,
-                children: [
-                  //weather and notification section cart with setting popup menu button as well
-                  weatherAndNotifications(),
+              ///
+              ///[body] start from here
+              ///
+              body: SingleChildScrollView(
+                child: Column(
+                  mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                  crossAxisAlignment: CrossAxisAlignment.stretch,
+                  children: [
+                    //weather and notification section cart with setting popup menu button as well
+                    weatherAndNotifications(model),
 
-                  //added fruit list in horizntal view with edit button iconbutton
-                  addedFruits(model),
+                    //added fruit list in horizntal view with edit button iconbutton
+                    addedFruits(model),
 
-                  //fertilizer and pest cart with tiles
-                  fertilizerAndPests(model),
+                    //fertilizer and pest cart with tiles
+                    fertilizerAndPests(model),
 
-                  //check health card having check health button
-                  checkHealthButton(model),
-                ],
-              ),
-            )),
+                    //check health card having check health button
+                    checkHealthButton(model),
+                  ],
+                ),
+              )),
+        ),
       ),
     );
   }
 
   //weather and notification section cart with setting popup menu button as well
-  weatherAndNotifications() {
+  weatherAndNotifications(HomeViewModal model) {
     return Container(
       // height: 222.h,
       decoration: BoxDecoration(color: Colors.white, boxShadow: [
@@ -85,16 +91,16 @@ class HomeScreen extends StatelessWidget {
                 ),
                 Row(
                   children: [
-                    IconButton(
-                        padding: EdgeInsets.zero,
-                        icon: ImageContainer(
-                          assetImage: "$assets/notification.png",
-                          height: 22.87.h,
-                          width: 20.53.w,
-                        ),
-                        onPressed: () {
-                          print("notification pressed");
-                        }),
+                    // IconButton(
+                    //     padding: EdgeInsets.zero,
+                    //     icon: ImageContainer(
+                    //       assetImage: "$assets/notification.png",
+                    //       height: 22.87.h,
+                    //       width: 20.53.w,
+                    //     ),
+                    // onPressed: () {
+                    //   print("notification pressed");
+                    // }),
                     SizedBox(
                       width: 26.0.w,
                     ),
@@ -103,6 +109,31 @@ class HomeScreen extends StatelessWidget {
                     ///popup button
                     ///
                     PopupMenuButton(
+                      onSelected: (value) {
+                        if (value == 0) {
+                          Get.defaultDialog(
+                              title: "Thanks",
+                              content: Padding(
+                                padding: const EdgeInsets.all(8.0),
+                                child: Text(
+                                    "Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the industry's standard dummy text ever since the 1500s, when an unknown printer took a galley of type and scrambled it to make a type specimen book. It has survived not only five centuries,"),
+                              ));
+                        } else {
+                          Get.defaultDialog(
+                              title: "Recommend Us",
+                              content: Padding(
+                                padding: const EdgeInsets.all(8.0),
+                                child: Text(
+                                    "Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the industry's standard dummy text ever since the 1500s, when an unknown printer took a galley of type and scrambled it to make a type specimen book. It has survived not only five centuries,"),
+                              ),
+                              actions: [
+                                TextButton(
+                                  child: Text("Recommend"),
+                                  onPressed: () {},
+                                )
+                              ]);
+                        }
+                      },
                       // padding: EdgeInsets.zero,
                       initialValue: 2,
                       child:
@@ -126,15 +157,15 @@ class HomeScreen extends StatelessWidget {
                               style: bodyTextStyle,
                             ),
                           ),
+                          // PopupMenuItem(
+                          //   value: 0,
+                          //   child: Text(
+                          //     "Settings",
+                          //     style: bodyTextStyle,
+                          //   ),
+                          // ),
                           PopupMenuItem(
-                            value: 0,
-                            child: Text(
-                              "Settings",
-                              style: bodyTextStyle,
-                            ),
-                          ),
-                          PopupMenuItem(
-                            value: 0,
+                            value: 1,
                             child: Text(
                               "Recommend us",
                               style: bodyTextStyle,
@@ -177,19 +208,28 @@ class HomeScreen extends StatelessWidget {
                   mainAxisAlignment: MainAxisAlignment.start,
                   crossAxisAlignment: CrossAxisAlignment.start,
                   children: [
-                    Text("Today, 24 Jan",
+                    Text(
+                        "Today, ${DateFormat("d").format(DateTime.now())} ${DateFormat("MMMM").format(DateTime.now())}",
+                        // "Today, 7 July",
                         style: bodyTextStyle.copyWith(
                           fontSize: 14.sp,
                           color: Color(0XFF777171),
                         )),
                     Text(
-                      "24 °C",
+                      model.isWeatherLoaded
+                          ? "${model.weather.temperature.celsius.toInt()} °C"
+                          : model.state == ViewState.loading
+                              ? "loading .."
+                              : "Connect to internet please",
                       style: headingTextStyle.copyWith(
-                          fontSize: 32.sp, fontWeight: FontWeight.w600),
+                          fontSize: model.isWeatherLoaded ? 32.sp : 10.sp,
+                          fontWeight: model.isWeatherLoaded
+                              ? FontWeight.w600
+                              : FontWeight.normal),
                     ),
-                    Text("Sunset",
+                    Text(model.isWeatherLoaded ? "Sunset" : "",
                         style: bodyTextStyle.copyWith(
-                          fontSize: 14.sp,
+                          fontSize: model.isWeatherLoaded ? 14.sp : 10.sp,
                           color: Color(0XFF777171),
                         )),
                   ],
@@ -281,6 +321,7 @@ class HomeScreen extends StatelessWidget {
               label: "Fertilizer Calculator",
               ontap: () {
                 print("Fertilizer pressed");
+                Get.to(() => FertilizerCalculatro());
               }),
           SizedBox(
             height: 16.0,
@@ -300,6 +341,7 @@ class HomeScreen extends StatelessWidget {
               label: "Pests & Disease",
               ontap: () {
                 print("Pests & Disease pressed");
+                Get.defaultDialog(title: "Under construction");
               })
         ],
       ),

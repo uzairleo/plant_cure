@@ -1,10 +1,12 @@
 import 'package:farmer_assistant_app/core/constants/colors.dart';
 import 'package:farmer_assistant_app/core/constants/strings.dart';
 import 'package:farmer_assistant_app/core/constants/textstyle.dart';
+import 'package:farmer_assistant_app/ui/custom_widgets/alert_dailogs/rate-us-dialog.dart';
 import 'package:farmer_assistant_app/ui/custom_widgets/image-container.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
+import 'package:share_plus/share_plus.dart';
 
 class UserInfoScreen extends StatelessWidget {
   @override
@@ -33,6 +35,10 @@ class UserInfoScreen extends StatelessWidget {
                         buttonText: "Share us",
                         ontap: () {
                           print("Share us pressed");
+                          Share.share(
+                              'check out our app https://farmerAssistant.com/downloads/farmer_assistant.apk',
+                              subject:
+                                  'Improve your farming. Crop disease detector App');
                         }),
                     SizedBox(
                       height: 28.0,
@@ -46,7 +52,8 @@ class UserInfoScreen extends StatelessWidget {
                         asset: "rate_us.png",
                         buttonText: "Rate us",
                         ontap: () {
-                          print("Share us pressed");
+                          print("Rate us pressed");
+                          Get.dialog(RateUsDialog());
                         }),
                   ],
                 ),
