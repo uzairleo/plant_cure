@@ -1,8 +1,12 @@
 import 'package:farmer_assistant_app/core/constants/colors.dart';
 import 'package:farmer_assistant_app/core/constants/screen-util.dart';
 import 'package:farmer_assistant_app/core/constants/textstyle.dart';
+import 'package:farmer_assistant_app/core/enums/view-state.dart';
 import 'package:farmer_assistant_app/ui/custom_widgets/rounded-raised-button.dart';
+import 'package:farmer_assistant_app/ui/screens/fertilizer_calculator/fertilizer_calc_view_model.dart';
 import 'package:flutter/material.dart';
+import 'package:modal_progress_hud_nsn/modal_progress_hud_nsn.dart';
+import 'package:provider/provider.dart';
 
 class FertilizerCalculatro extends StatefulWidget {
   @override
@@ -10,43 +14,62 @@ class FertilizerCalculatro extends StatefulWidget {
 }
 
 class _FertilizerCalculatroState extends State<FertilizerCalculatro> {
-  bool isCalculated = false;
+  // bool isCalculated = false;
+  var formKey = GlobalKey<FormState>();
   @override
   Widget build(BuildContext context) {
-    return Scaffold(
-      appBar: AppBar(
-        backgroundColor: Colors.white,
-        leading: BackButton(color: Colors.black),
-        title: Text(
-          "Fertilizer Calculator",
-          style: TextStyle(color: Colors.black),
-        ),
-      ),
-      body: SingleChildScrollView(
-        child: Padding(
-          padding: const EdgeInsets.all(21.0),
-          child: Column(
-            children: [
-              //calcular view
-              calculatorView(),
+    return ChangeNotifierProvider(
+      create: (context) => FertilizerCalculatorViewModel(),
+      child: Consumer<FertilizerCalculatorViewModel>(
+        builder: (context, model, child) => ModalProgressHUD(
+          inAsyncCall: model.state == ViewState.loading,
+          child: Scaffold(
+            appBar: AppBar(
+              backgroundColor: Colors.white,
+              leading: BackButton(color: Colors.black),
+              title: Text(
+                "Fertilizer Calculator",
+                style: TextStyle(color: Colors.black),
+              ),
+            ),
+            body: SingleChildScrollView(
+              child: Padding(
+                padding: const EdgeInsets.all(21.0),
+                child: Form(
+                  key: formKey,
+                  child: Column(
+                    children: [
+                      //calcular view
+                      calculatorView(model),
 
-              //resultView(),
-              isCalculated
-                  ? resultView()
-                  : SizedBox(
-                      height: 200,
-                    ),
+                      //resultView(),
+                      // isCalculated
+                      // ?
+                      resultView(model),
+                      // :
+                      // SizedBox(
+                      //   height: 200,
+                      // ),
 
-              //button()
-              calculateButton(),
-            ],
+                      //button()
+                      calculateButton(() {
+                        if (formKey.currentState.validate()) {
+                          formKey.currentState.save();
+                          model.calculateFertilizers();
+                        }
+                      }),
+                    ],
+                  ),
+                ),
+              ),
+            ),
           ),
         ),
       ),
     );
   }
 
-  calculatorView() {
+  calculatorView(FertilizerCalculatorViewModel model) {
     return Column(
       children: [
         Row(
@@ -63,7 +86,7 @@ class _FertilizerCalculatroState extends State<FertilizerCalculatro> {
         Container(
           height: 137.h,
           decoration: BoxDecoration(
-              color: Colors.black38.withOpacity(0.3),
+              color: Colors.black38.withOpacity(0.2),
               borderRadius: BorderRadius.circular(20.0)),
           child: Stack(
             children: [
@@ -81,7 +104,13 @@ class _FertilizerCalculatroState extends State<FertilizerCalculatro> {
                 alignment: Alignment.center,
                 child: Padding(
                     padding: const EdgeInsets.all(12.0),
-                    child: TextField(
+                    child: TextFormField(
+                      onSaved: (value) {
+                        model.inputNumber = double.parse(value);
+                      },
+                      controller: model.inputCtrlr,
+                      validator: (value) =>
+                          value.isEmpty ? "Invalid input" : null,
                       style: headingTextStyle.copyWith(fontSize: 36),
                       textAlign: TextAlign.center,
                       keyboardType: TextInputType.number,
@@ -93,14 +122,29 @@ class _FertilizerCalculatroState extends State<FertilizerCalculatro> {
               )
             ],
           ),
+        ),
+        Row(
+          mainAxisAlignment: MainAxisAlignment.end,
+          children: [
+            TextButton(
+                onPressed: () {
+                  print("Reset Button Pressed");
+                  model.reset();
+                },
+                child: Text(
+                  "Reset",
+                  style: subHeadingTextStyle.copyWith(
+                      color: mainThemeColor, fontWeight: FontWeight.w600),
+                ))
+          ],
         )
       ],
     );
   }
 
-  resultView() {
+  resultView(FertilizerCalculatorViewModel model) {
     return Padding(
-      padding: const EdgeInsets.only(top: 140.0),
+      padding: const EdgeInsets.only(top: 120.0),
       child: Column(
         children: [
           Row(
@@ -118,44 +162,50 @@ class _FertilizerCalculatroState extends State<FertilizerCalculatro> {
             children: [
               Expanded(
                 child: Text(
-                  "DAP\n11KG\n14Bag",
+                  "DAP\n${model.dap}KG\n${model.dapBag}Bag",
+                  // "DAP\n11KG\n14Bag",
                   textAlign: TextAlign.center,
                   style: subHeadingTextStyle,
                 ),
               ),
               Expanded(
                 child: Text(
-                  "MOP\n34KG\n4Bag",
+                  "MOP\n${model.mop}KG\n${model.mopBag}Bag",
+                  // "MOP\n34KG\n4Bag",
                   textAlign: TextAlign.center,
                   style: subHeadingTextStyle,
                 ),
               ),
               Expanded(
                 child: Text(
-                  "Urea\n31KG\n2Bag",
+                  "Urea\n${model.urea}KG\n${model.ureaBag}Bag",
+                  // "Urea\n31KG\n2Bag",
                   textAlign: TextAlign.center,
                   style: subHeadingTextStyle,
                 ),
               )
             ],
           ),
-          SizedBox(
-            height: 60,
-          ),
+          // SizedBox(
+          //   height: 60.h,
+          // ),
         ],
       ),
     );
   }
 
-  calculateButton() {
-    return RoundedRaisedButton(
-      buttonText: "Calculate",
-      color: mainThemeColor,
-      onPressed: () {
-        setState(() {
-          isCalculated = !isCalculated;
-        });
-      },
+  calculateButton(ontap) {
+    return Column(
+      children: [
+        SizedBox(
+          height: 120.h,
+        ),
+        RoundedRaisedButton(
+          buttonText: "Calculate",
+          color: mainThemeColor,
+          onPressed: ontap,
+        ),
+      ],
     );
   }
 }
