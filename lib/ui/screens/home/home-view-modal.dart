@@ -18,6 +18,9 @@ import 'package:farmer_assistant_app/core/models/crop.dart';
 import 'package:farmer_assistant_app/core/view_models/base_view_model.dart';
 import 'package:flutter/material.dart';
 import 'package:image_picker/image_picker.dart';
+import 'package:weather/weather.dart';
+
+const String WEATHER_API_KEY = "d9cf5e471c90e4a8c6066bf663af0147";
 
 class HomeViewModal extends BaseViewModel {
   //********************************************************************** */
@@ -32,6 +35,7 @@ class HomeViewModal extends BaseViewModel {
 
   //instance for picking image
   final ImagePicker imagePicker = ImagePicker();
+  WeatherFactory wf = new WeatherFactory(WEATHER_API_KEY);
 
 //variable for holding selected image
   File selectedImageFile;
@@ -42,6 +46,26 @@ class HomeViewModal extends BaseViewModel {
       print("NO crop is selected so i selected the first one");
       availableCrops.first.isSelected = true;
     } else {}
+    getCurrentWeather();
+  }
+  Weather weather;
+  bool isWeatherLoaded = false;
+  getCurrentWeather() async {
+    try {
+      setState(ViewState.loading);
+      isWeatherLoaded = false;
+
+      // await wf.currentWeatherByLocation(lat, lon);
+      weather = await wf.currentWeatherByCityName('peshawar');
+
+      print("Current Weather =====> ${weather.temperature}");
+      isWeatherLoaded = true;
+      setState(ViewState.idle);
+    } catch (e) {
+      print("GetCurrentWeatherException======>$e");
+
+      setState(ViewState.idle);
+    }
   }
 
   pickGalleryImage() async {

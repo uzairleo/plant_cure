@@ -2,6 +2,7 @@ import 'package:farmer_assistant_app/core/constants/colors.dart';
 import 'package:farmer_assistant_app/core/constants/screen-util.dart';
 import 'package:farmer_assistant_app/core/constants/textstyle.dart';
 import 'package:flutter/material.dart';
+import 'package:get/get.dart';
 
 class CustomTextField extends StatelessWidget {
   final controller;
@@ -32,18 +33,24 @@ class CustomTextField extends StatelessWidget {
       cursorColor: mainThemeColor,
       controller: this.controller,
       obscureText: this.obscure,
-      validator:
+      validator: label == "EMAIL ADDRESS"
+          ? (value) => value.isEmail ? null : "Invalid email "
           // validator ??
-          (value) {
-        if (value.isEmpty) {
-          return this.errorText;
-        } else {
-          return null;
-        }
-      },
+          : (value) {
+              if (value.isEmpty) {
+                return this.errorText;
+              } else {
+                return null;
+              }
+            },
+      // keyboardType:
+      // label == "PHONE NUMBER" ?
+      // TextInputType.number
+      //  : TextInputType.text,
       decoration: InputDecoration(
         // alignLabelWithHint: true,
         labelText: label,
+
         labelStyle: headingTextStyle.copyWith(fontSize: 17, color: greyColor),
         // prefixIconConstraints: BoxConstraints(
         //   maxHeight: 24,

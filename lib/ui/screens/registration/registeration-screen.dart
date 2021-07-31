@@ -173,6 +173,7 @@ class _RegistrationScreenState extends State<RegistrationScreen> {
           CustomTextField(
             label: "PHONE NUMBER",
             errorText: "Please enter your Phone Number",
+
             // validator: (input) => input.isValidEmail() ? null : "Invalid Email",
             prefixIcon: ImageContainer(
               assetImage: "$assets/email.png",
@@ -185,69 +186,69 @@ class _RegistrationScreenState extends State<RegistrationScreen> {
             },
           ),
           SizedBox(
-            height: 35.h,
+            height: 185.h,
           ),
 
-          Row(
-            mainAxisAlignment: MainAxisAlignment.spaceBetween,
-            children: [
-              //email text field
-              Expanded(
-                child: CustomTextField(
-                  label: "DOB",
-                  errorText: "Invalid DOB",
-                  // validator: (input) => input.isValidEmail() ? null : "Invalid Email",
-                  prefixIcon: ImageContainer(
-                    assetImage: "$assets/email.png",
-                    height: 14.8,
-                    width: 18.5,
-                  ),
-                  // controller: model.emailCntrlr,
-                  onSaved: (value) {
-                    model.registerBody.dob = value.toString();
-                  },
-                ),
-              ),
-              SizedBox(
-                width: 20,
-              ),
-              //email text field
-              Expanded(
-                child: CustomTextField(
-                  label: "WEIGHT",
-                  errorText: "Invalid Weight",
-                  // validator: (input) => input.isValidEmail() ? null : "Invalid Email",
-                  prefixIcon: ImageContainer(
-                    assetImage: "$assets/email.png",
-                    height: 14.8,
-                    width: 18.5,
-                  ),
-                  // controller: model.emailCntrlr,
-                  onSaved: (value) {
-                    model.registerBody.weight = value.toString();
-                  },
-                ),
-              ),
-            ],
-          ),
+          // Row(
+          //   mainAxisAlignment: MainAxisAlignment.spaceBetween,
+          //   children: [
+          //     //email text field
+          //     Expanded(
+          //       child: CustomTextField(
+          //         label: "DOB",
+          //         errorText: "Invalid DOB",
+          //         // validator: (input) => input.isValidEmail() ? null : "Invalid Email",
+          //         prefixIcon: ImageContainer(
+          //           assetImage: "$assets/email.png",
+          //           height: 14.8,
+          //           width: 18.5,
+          //         ),
+          //         // controller: model.emailCntrlr,
+          //         onSaved: (value) {
+          //           model.registerBody.dob = value.toString();
+          //         },
+          //       ),
+          //     ),
+          //     SizedBox(
+          //       width: 20,
+          //     ),
+          //     //email text field
+          //     Expanded(
+          //       child: CustomTextField(
+          //         label: "WEIGHT",
+          //         errorText: "Invalid Weight",
+          //         // validator: (input) => input.isValidEmail() ? null : "Invalid Email",
+          //         prefixIcon: ImageContainer(
+          //           assetImage: "$assets/email.png",
+          //           height: 14.8,
+          //           width: 18.5,
+          //         ),
+          //         // controller: model.emailCntrlr,
+          //         onSaved: (value) {
+          //           model.registerBody.weight = value.toString();
+          //         },
+          //       ),
+          //     ),
+          //   ],
+          // ),
 
-          SizedBox(
-            height: 35.h,
-          ),
-          CustomTextField(
-            label: "NUMBER OF FIELDS",
-            errorText: "Please fill this field",
-            // validator: (input) => input.isValidEmail() ? null : "Invalid Email",
-            prefixIcon: ImageContainer(
-              assetImage: "$assets/email.png",
-              height: 14.8,
-              width: 18.5,
-            ),
-            // controller: model.emailCntrlr,
-            onSaved: (value) {
-              model.registerBody.noOfFirelds = value.toString();
-            },
-          ),
+          // SizedBox(
+          //   height: 35.h,
+          // ),
+          // CustomTextField(
+          //   label: "NUMBER OF FIELDS",
+          //   errorText: "Please fill this field",
+          //   // validator: (input) => input.isValidEmail() ? null : "Invalid Email",
+          //   prefixIcon: ImageContainer(
+          //     assetImage: "$assets/email.png",
+          //     height: 14.8,
+          //     width: 18.5,
+          //   ),
+          //   // controller: model.emailCntrlr,
+          //   onSaved: (value) {
+          //     model.registerBody.noOfFirelds = value.toString();
+          //   },
+          // ),
 
           //password text field
           // CustomTextField(
