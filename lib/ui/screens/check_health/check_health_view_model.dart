@@ -1,5 +1,5 @@
 import 'dart:io';
-
+import 'package:farmer_assistant_app/core/constants/colors.dart';
 import 'package:farmer_assistant_app/core/enums/view-state.dart';
 import 'package:farmer_assistant_app/core/models/disease.dart';
 import 'package:farmer_assistant_app/core/services/database_service.dart';
@@ -9,12 +9,12 @@ import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:get/get.dart';
 import 'package:tflite/tflite.dart';
-
+import 'package:cool_alert/cool_alert.dart';
 import '../../../locator.dart';
 
 class CheckHealthViewModel extends BaseViewModel {
-  CheckHealthViewModel(File image) {
-    init(image);
+  CheckHealthViewModel(File image, context) {
+    init(image, context);
   }
 //all vairable/instances that we need in predicting the disease from image of fruits
 
@@ -27,7 +27,7 @@ class CheckHealthViewModel extends BaseViewModel {
   bool isMlLoaded = false;
   Disease disease = Disease();
 
-  init(image) async {
+  init(image, context) async {
     //first loading the model
     setState(ViewState.loading);
     recognitions = [];
@@ -41,7 +41,7 @@ class CheckHealthViewModel extends BaseViewModel {
     });
 
     if (isMlLoaded) {
-      await getAllAboutDisease();
+      await getAllAboutDisease(context);
     }
   }
 
@@ -55,8 +55,10 @@ class CheckHealthViewModel extends BaseViewModel {
       res = await Tflite.loadModel(
         // model: "assets/ml_assets/mobilenet_v1_1.0_224.tflite",
         // labels: "assets/ml_assets/mobilenet_v1_1.0_224.txt",
-        model: "assets/ml_assets/MobileNetV2_Peach.tflite",
-        labels: "assets/ml_assets/Peach_Labels.txt",
+        // model: "assets/ml_assets/MobileNetV2_Peach.tflite",
+        // labels: "assets/ml_assets/Peach_Labels.txt",
+        model: "assets/ml_assets/converted_MobileNetV2_Fruit_C10.tflite",
+        labels: "assets/ml_assets/Fruit_Labels.txt",
       );
       print(res);
     } on PlatformException {
@@ -73,10 +75,10 @@ class CheckHealthViewModel extends BaseViewModel {
     int startTime = new DateTime.now().millisecondsSinceEpoch;
     var recognitions = await Tflite.runModelOnImage(
       path: image.path,
-      numResults: 6,
-      threshold: 0.05,
-      imageMean: 127.5,
-      imageStd: 127.5,
+      // numResults: 5,
+      // threshold: 0.05,
+      // imageMean: 127.5,
+      // imageStd: 127.5,
     );
 
     this.recognitions = recognitions;
@@ -120,26 +122,42 @@ class CheckHealthViewModel extends BaseViewModel {
   ///In this function we will search for a disease according to the returned label
   ///that ML model returned to us and then get All data about the following disease of crops :)
   ///
-  getAllAboutDisease() async {
+  getAllAboutDisease(context) async {
     setState(ViewState.loading);
     try {
       disease = await _dbService.getAllAboutDisease(label.replaceAll(')(', ""));
       if (disease.label == "notfound") {
         print("Sorry item not found");
-        Get.defaultDialog(
-            title: "Sorry!",
-            content: Text(
-                "we dont have any label regarding the provided pic try again!"),
-            actions: [
-              TextButton(
-                  onPressed: () {
-                    setState(ViewState.idle);
-                    Get.back();
-                    Get.back();
-                    Get.back();
-                  },
-                  child: Text("Try AGAIN"))
-            ]);
+        // Get.defaultDialog(
+        //     barrierDismissible: false,
+        //     title: "Sorry!",
+        //     content: Text(
+        //         "we dont have any label regarding the provided pic try again!"),
+        //     actions: [
+        //       TextButton(
+        //           onPressed: () {
+        //             setState(ViewState.idle);
+        //             Get.back();
+        //             Get.back();
+        //             Get.back();
+        //           },
+        //           child: Text("Try AGAIN"))
+        //     ]);
+        CoolAlert.show(
+            context: context,
+            type: CoolAlertType.warning,
+            title: 'Not Found...',
+            text:
+                'Sorry, we dont have any suggested treatment for the following image look like you pick a wrong image ',
+            loopAnimation: true,
+            barrierDismissible: false,
+            confirmBtnColor: mainThemeColor,
+            onConfirmBtnTap: () {
+              setState(ViewState.idle);
+              Get.back();
+              Get.back();
+              Get.back();
+            });
       } else {
         print("Item found succesfully");
       }

@@ -1,0 +1,10 @@
+Brown Rot (Peach)
+Gummosis (Peach)
+Healthy (Apple)
+Healthy (Peach)
+No Fruit
+Nutrient Deficiency (Peach)
+Rust (Apple)
+Scab (Apple)
+Shot Hole (Peach)
+Shot Hole Leaf (Peach)
