@@ -2,8 +2,10 @@
 import 'package:farmer_assistant_app/core/constants/screen-util.dart';
 import 'package:farmer_assistant_app/ui/screens/add_crops/add-crop-screen.dart';
 import 'package:farmer_assistant_app/ui/screens/add_crops/add-crop-view-model.dart';
+import 'package:farmer_assistant_app/ui/screens/common_disease/common_disease_screen.dart';
 import 'package:farmer_assistant_app/ui/screens/fertilizer_calculator/fertilizer_calculator.dart';
 import 'package:farmer_assistant_app/ui/screens/home/home-screen.dart';
+import 'package:farmer_assistant_app/ui/screens/registration/registeration-screen.dart';
 import 'package:farmer_assistant_app/ui/screens/splash_screen.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
@@ -47,8 +49,10 @@ class MyApp extends StatelessWidget {
                 selectionHandleColor: Colors.orange,
               ),
             ),
-            home: // SuggestedTreatmentScreen(Disease()),
-                SplashScreen(),
+            home:
+                // CommonDiseaseScreen(), // SuggestedTreatmentScreen(Disease()),
+                // SplashScreen(),
+                RegistrationScreen(),
             // SplashScreen()
             // CheckHealthScreen()
             // AddCropScreen(),

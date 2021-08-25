@@ -72,11 +72,12 @@ class CommunityScreen extends StatelessWidget {
                 )),
             IconButton(
                 padding: EdgeInsets.zero,
-                icon: ImageContainer(
-                  assetImage: "$assets/more_vertical.png",
-                  height: 19.h,
-                  width: 5.w,
-                ),
+                icon: Text(""),
+                //  ImageContainer(
+                //   assetImage: "$assets/more_vertical.png",
+                //   height: 19.h,
+                //   width: 5.w,
+                // ),
                 onPressed: () {}),
           ],
         ),

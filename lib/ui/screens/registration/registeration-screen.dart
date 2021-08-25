@@ -161,6 +161,7 @@ class _RegistrationScreenState extends State<RegistrationScreen> {
               width: 18.5,
             ),
             controller: model.emailCntrlr,
+            inputType: TextInputType.emailAddress,
             onSaved: (value) {
               model.registerBody.email = value.toString();
             },
@@ -172,6 +173,7 @@ class _RegistrationScreenState extends State<RegistrationScreen> {
           //email text field
           CustomTextField(
             label: "PHONE NUMBER",
+            inputType: TextInputType.phone,
             errorText: "Please enter your Phone Number",
 
             // validator: (input) => input.isValidEmail() ? null : "Invalid Email",

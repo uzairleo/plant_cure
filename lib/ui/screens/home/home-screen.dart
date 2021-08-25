@@ -1,5 +1,6 @@
 import 'dart:io';
 
+import 'package:cool_alert/cool_alert.dart';
 import 'package:farmer_assistant_app/core/constants/colors.dart';
 import 'package:farmer_assistant_app/core/constants/screen-util.dart';
 import 'package:farmer_assistant_app/core/constants/strings.dart';
@@ -14,6 +15,7 @@ import 'package:farmer_assistant_app/ui/custom_widgets/rounded-raised-button.dar
 import 'package:farmer_assistant_app/ui/screens/add_crops/add-crop-screen.dart';
 import 'package:farmer_assistant_app/ui/screens/add_crops/edit_crop/edit-crop-screen.dart';
 import 'package:farmer_assistant_app/ui/screens/check_health/check_health_screen.dart';
+import 'package:farmer_assistant_app/ui/screens/common_disease/common_disease_screen.dart';
 import 'package:farmer_assistant_app/ui/screens/fertilizer_calculator/fertilizer_calculator.dart';
 import 'package:farmer_assistant_app/ui/screens/home/home-view-modal.dart';
 import 'package:flutter/material.dart';
@@ -21,14 +23,21 @@ import 'package:get/get.dart';
 import 'package:intl/intl.dart';
 import 'package:modal_progress_hud_nsn/modal_progress_hud_nsn.dart';
 import 'package:provider/provider.dart';
+import 'package:share_plus/share_plus.dart';
 
-class HomeScreen extends StatelessWidget {
+class HomeScreen extends StatefulWidget {
   final List<Crop> addedCrops;
   HomeScreen({@required this.addedCrops});
+
+  @override
+  _HomeScreenState createState() => _HomeScreenState();
+}
+
+class _HomeScreenState extends State<HomeScreen> {
   @override
   Widget build(BuildContext context) {
     return ChangeNotifierProvider(
-      create: (context) => HomeViewModal(addedCrops),
+      create: (context) => HomeViewModal(widget.addedCrops),
       child: Consumer<HomeViewModal>(
         builder: (context, model, child) => ModalProgressHUD(
           inAsyncCall: model.state == ViewState.loading,
@@ -62,7 +71,6 @@ class HomeScreen extends StatelessWidget {
     );
   }
 
-  //weather and notification section cart with setting popup menu button as well
   weatherAndNotifications(HomeViewModal model) {
     return Container(
       // height: 222.h,
@@ -118,20 +126,60 @@ class HomeScreen extends StatelessWidget {
                                 child: Text(
                                     "Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the industry's standard dummy text ever since the 1500s, when an unknown printer took a galley of type and scrambled it to make a type specimen book. It has survived not only five centuries,"),
                               ));
+                        } else if (value == 2) {
+                          CoolAlert.show(
+                              context: context,
+                              type: CoolAlertType.info,
+                              title: 'About',
+                              text:
+                                  "Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the industry's standard dummy text ever since the 1500s, when an unknown printer took a galley of type and scrambled it to make a type specimen book. It has survived not only five centuries,",
+                              loopAnimation: true,
+                              barrierDismissible: false,
+                              confirmBtnColor: mainThemeColor,
+                              onConfirmBtnTap: () {
+                                // setState(ViewState.idle);
+                                Get.back();
+                                // Get.back();
+                                // Get.back();
+                              });
                         } else {
-                          Get.defaultDialog(
-                              title: "Recommend Us",
-                              content: Padding(
-                                padding: const EdgeInsets.all(8.0),
-                                child: Text(
-                                    "Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the industry's standard dummy text ever since the 1500s, when an unknown printer took a galley of type and scrambled it to make a type specimen book. It has survived not only five centuries,"),
-                              ),
-                              actions: [
-                                TextButton(
-                                  child: Text("Recommend"),
-                                  onPressed: () {},
-                                )
-                              ]);
+                          // Get.defaultDialog(
+                          //     title: "Recommend Us",
+                          //     content: Padding(
+                          //       padding: const EdgeInsets.all(8.0),
+                          //       child: Text(
+                          //           "Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the industry's standard dummy text ever since the 1500s, when an unknown printer took a galley of type and scrambled it to make a type specimen book. It has survived not only five centuries,"),
+                          //     ),
+                          //     actions: [
+                          //       TextButton(
+                          //         child: Text("Recommend"),
+                          //         onPressed: () {
+                          // Share.share(
+                          //     'check out our app https://farmerAssistant.com/downloads/farmer_assistant.apk',
+                          //     subject:
+                          //         'Improve your farming. Crop disease detector App');
+                          //         },
+                          //       )
+                          //     ]);
+                          CoolAlert.show(
+                              context: context,
+                              type: CoolAlertType.success,
+                              title: 'Recommed Us',
+                              text:
+                                  "Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the industry's standard dummy text ever since the 1500s, when an unknown printer took a galley of type and scrambled it to make a type specimen book. It has survived not only five centuries,",
+                              loopAnimation: true,
+                              // onCancelBtnTap: () {},s
+                              confirmBtnColor: mainThemeColor,
+                              confirmBtnText: "Recommed us",
+                              onConfirmBtnTap: () {
+                                // setState(ViewState.idle);
+                                Share.share(
+                                    'check out our app https://farmerAssistant.com/downloads/farmer_assistant.apk',
+                                    subject:
+                                        'Improve your farming. Crop disease detector App');
+                                // Get.back();
+                                // Get.back();
+                              });
                         }
                       },
                       // padding: EdgeInsets.zero,
@@ -168,6 +216,13 @@ class HomeScreen extends StatelessWidget {
                             value: 1,
                             child: Text(
                               "Recommend us",
+                              style: bodyTextStyle,
+                            ),
+                          ),
+                          PopupMenuItem(
+                            value: 2,
+                            child: Text(
+                              "About us",
                               style: bodyTextStyle,
                             ),
                           ),
@@ -247,7 +302,6 @@ class HomeScreen extends StatelessWidget {
     );
   }
 
-  //added fruit list in horizntal view with edit button iconbutton
   addedFruits(HomeViewModal model) {
     return Padding(
       padding: const EdgeInsets.only(left: 9, right: 22.0),
@@ -292,7 +346,6 @@ class HomeScreen extends StatelessWidget {
     );
   }
 
-  //fertilizer and pest cart with tiles
   fertilizerAndPests(HomeViewModal model) {
     return Container(
       padding: EdgeInsets.fromLTRB(12, 21, 12, 21),
@@ -341,7 +394,29 @@ class HomeScreen extends StatelessWidget {
               label: "Pests & Disease",
               ontap: () {
                 print("Pests & Disease pressed");
-                Get.defaultDialog(title: "Under construction");
+                // Get.defaultDialog(title: "Under construction");
+                Get.to(() => CommonDiseaseScreen());
+              }),
+          SizedBox(
+            height: 16.0,
+          ),
+          //general guideline tile
+          tile(
+              color: model.availableCrops
+                  .where((element) => element.isSelected)
+                  .first
+                  .color
+                  .withOpacity(0.6),
+              icon: ImageContainer(
+                assetImage: "$assets/guideline.png",
+                height: 25.w,
+                width: 27.h,
+              ),
+              label: "General Guideline",
+              ontap: () {
+                print("General Guideline");
+                // Get.defaultDialog(title: "Under construction");
+                // Get.to(() => GeneralGuidelineScreen());
               })
         ],
       ),
@@ -381,10 +456,9 @@ class HomeScreen extends StatelessWidget {
     );
   }
 
-  //check health card having check health button
   checkHealthButton(HomeViewModal model) {
     return Padding(
-      padding: const EdgeInsets.only(top: 25.0, bottom: 25.0),
+      padding: const EdgeInsets.only(top: 25.0, bottom: 60.0),
       child: Container(
         padding: EdgeInsets.only(top: 15.0, bottom: 17.0),
         color: Colors.white,
@@ -462,7 +536,8 @@ class HomeScreen extends StatelessWidget {
                             width: 24.2,
                           ),
                           Text(
-                            'Take a picture',
+                            'Select picture',
+                            // 'Take a picture',
                             style: buttonTextStyle.copyWith(
                                 fontSize: 15.sp, fontWeight: FontWeight.w600),
                             textAlign: TextAlign.center,

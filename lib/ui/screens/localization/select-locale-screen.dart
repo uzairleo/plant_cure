@@ -32,7 +32,7 @@ class SelectLocaleScreen extends StatelessWidget {
               children: [
                 //logo
                 Padding(
-                  padding: const EdgeInsets.only(left: 28, right: 28, top: 40),
+                  padding: const EdgeInsets.only(left: 40, right: 40, top: 40),
                   child: Column(
                     crossAxisAlignment: CrossAxisAlignment.center,
                     children: [

@@ -20,7 +20,7 @@ class CheckHealthScreen extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return ChangeNotifierProvider(
-      create: (context) => CheckHealthViewModel(selectedFile),
+      create: (context) => CheckHealthViewModel(selectedFile, context),
       child: Consumer<CheckHealthViewModel>(
         builder: (context, model, child) => ModalProgressHUD(
           inAsyncCall: model.state == ViewState.loading,
@@ -81,12 +81,19 @@ class CheckHealthScreen extends StatelessWidget {
                                   children: [
                                     //about disease title,definition
                                     aboutDisease(model),
+                                    model.label == "Healthy (Apple)" ||
+                                            model.label == "Healthy (Peach)"
+                                        ? Container()
+                                        :
+                                        //about symptom and other cause having title and description
+                                        symptoms(model),
 
-                                    //about symptom and other cause having title and description
-                                    symptoms(model),
-
-                                    //suggested treatment button
-                                    suggestedTreatmentButton(model),
+                                    model.label == "Healthy (Apple)" ||
+                                            model.label == "Healthy (Peach)"
+                                        ? Container()
+                                        :
+                                        //suggested treatment button
+                                        suggestedTreatmentButton(model),
                                   ],
                                 ),
                               )
@@ -172,7 +179,7 @@ class CheckHealthScreen extends StatelessWidget {
             mainAxisAlignment: MainAxisAlignment.start,
             children: [
               Text(
-                "${model.label}",
+                "${model.disease.disease ?? ""}",
                 // "Shothole Disease",
                 style: headingTextStyle.copyWith(
                   fontSize: 24,

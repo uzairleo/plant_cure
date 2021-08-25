@@ -37,9 +37,9 @@ class AddCropViewModel extends BaseViewModel {
         color: Colors.redAccent.withOpacity(0.4)));
     availableCrops.add(Crop(
       id: "2",
-      imgUrl: "$assets/banana.png",
-      name: "Banana",
-      color: Color(0XFFFFC61E),
+      imgUrl: "$assets/apple0.png",
+      name: "Apple",
+      color: Colors.redAccent.withOpacity(0.4), //Color(0XFFFFC61E),
     ));
 
     availableCrops.add(
@@ -60,7 +60,7 @@ class AddCropViewModel extends BaseViewModel {
       Crop(
           id: "5",
           imgUrl: "$assets/plumb.jpg",
-          name: "Plumb",
+          name: "Plum",
           color: Colors.red.withOpacity(1)),
     );
 
