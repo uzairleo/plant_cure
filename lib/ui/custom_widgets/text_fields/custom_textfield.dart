@@ -13,9 +13,11 @@ class CustomTextField extends StatelessWidget {
   final suffixIcon;
   final validator;
   final label;
+  final inputType;
   final onSaved;
   CustomTextField(
       {this.controller,
+      this.inputType = TextInputType.text,
       this.label,
       this.obscure = false,
       this.validator,
@@ -43,10 +45,7 @@ class CustomTextField extends StatelessWidget {
                 return null;
               }
             },
-      // keyboardType:
-      // label == "PHONE NUMBER" ?
-      // TextInputType.number
-      //  : TextInputType.text,
+      keyboardType: this.inputType,
       decoration: InputDecoration(
         // alignLabelWithHint: true,
         labelText: label,

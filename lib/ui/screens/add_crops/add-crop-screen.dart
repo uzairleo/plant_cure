@@ -93,7 +93,7 @@ class _AddCropScreenState extends State<AddCropScreen> {
           height: 16,
         ),
         Text(
-          "Select up to 2 crops you are interested in.",
+          "Select your fruits you are interested in.",
           style: subBodyTextStyle.copyWith(
               fontWeight: FontWeight.w500, fontSize: 15),
         )

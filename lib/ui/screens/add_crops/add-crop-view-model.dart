@@ -60,7 +60,7 @@ class AddCropViewModel extends BaseViewModel {
       Crop(
           id: "5",
           imgUrl: "$assets/plumb.jpg",
-          name: "Plumb",
+          name: "Plum",
           color: Colors.red.withOpacity(1)),
     );
 

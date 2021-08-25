@@ -396,6 +396,27 @@ class _HomeScreenState extends State<HomeScreen> {
                 print("Pests & Disease pressed");
                 // Get.defaultDialog(title: "Under construction");
                 Get.to(() => CommonDiseaseScreen());
+              }),
+          SizedBox(
+            height: 16.0,
+          ),
+          //general guideline tile
+          tile(
+              color: model.availableCrops
+                  .where((element) => element.isSelected)
+                  .first
+                  .color
+                  .withOpacity(0.6),
+              icon: ImageContainer(
+                assetImage: "$assets/guideline.png",
+                height: 25.w,
+                width: 27.h,
+              ),
+              label: "General Guideline",
+              ontap: () {
+                print("General Guideline");
+                // Get.defaultDialog(title: "Under construction");
+                // Get.to(() => GeneralGuidelineScreen());
               })
         ],
       ),
@@ -437,7 +458,7 @@ class _HomeScreenState extends State<HomeScreen> {
 
   checkHealthButton(HomeViewModal model) {
     return Padding(
-      padding: const EdgeInsets.only(top: 25.0, bottom: 25.0),
+      padding: const EdgeInsets.only(top: 25.0, bottom: 60.0),
       child: Container(
         padding: EdgeInsets.only(top: 15.0, bottom: 17.0),
         color: Colors.white,
@@ -515,7 +536,8 @@ class _HomeScreenState extends State<HomeScreen> {
                             width: 24.2,
                           ),
                           Text(
-                            'Take a picture',
+                            'Select picture',
+                            // 'Take a picture',
                             style: buttonTextStyle.copyWith(
                                 fontSize: 15.sp, fontWeight: FontWeight.w600),
                             textAlign: TextAlign.center,
