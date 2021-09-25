@@ -1,5 +1,6 @@
 import 'dart:io';
 
+import 'package:bouncing_widget/bouncing_widget.dart';
 import 'package:cool_alert/cool_alert.dart';
 import 'package:farmer_assistant_app/core/constants/colors.dart';
 import 'package:farmer_assistant_app/core/constants/screen-util.dart';
@@ -282,7 +283,7 @@ class _HomeScreenState extends State<HomeScreen> {
                               ? FontWeight.w600
                               : FontWeight.normal),
                     ),
-                    Text(model.isWeatherLoaded ? "Sunset" : "",
+                    Text(model.isWeatherLoaded ? "${getWeatherInfo()}" : "",
                         style: bodyTextStyle.copyWith(
                           fontSize: model.isWeatherLoaded ? 14.sp : 10.sp,
                           color: Color(0XFF777171),
@@ -290,7 +291,7 @@ class _HomeScreenState extends State<HomeScreen> {
                   ],
                 ),
                 ImageContainer(
-                  assetImage: "$assets/sun.png",
+                  assetImage: getWeatherAvatar(), //"$assets/sun.png",
                   height: 100.h,
                   width: 99.w,
                 ),
@@ -300,6 +301,34 @@ class _HomeScreenState extends State<HomeScreen> {
         ),
       ),
     );
+  }
+
+  String getWeatherInfo() {
+    // TimeOfDay day = TimeOfDay.now();
+
+    // if (day.period == DayPeriod.am) {
+    //   return 'Sunrise';
+    // } else if (day.period == DayPeriod.pm) {
+    //   return 'Moonset';
+    // } else {
+    //   return 'Twilight';
+    // }
+
+    return DateTime.now().hour < 12 ? "Sunset" : "MoonSet";
+  }
+
+  String getWeatherAvatar() {
+    //   TimeOfDay day = TimeOfDay.now();
+
+    //   if (day.period == DayPeriod.am) {
+    //     return '$assets/';
+    //   } else if (day.period == DayPeriod.pm) {
+    //     return 'Moonset';
+    //   } else {
+    //     return 'Twilight';
+    //   }
+    print("DATETIME HOURS+======> ${DateTime.now().hour}");
+    return DateTime.now().hour < 12 ? '$assets/sun.png' : '$assets/night1.jpeg';
   }
 
   addedFruits(HomeViewModal model) {
@@ -428,8 +457,10 @@ class _HomeScreenState extends State<HomeScreen> {
   }
 
   tile({ontap, label, color, icon}) {
-    return InkWell(
-      onTap: ontap,
+    return BouncingWidget(
+      duration: Duration(milliseconds: 100),
+      scaleFactor: 1.5,
+      onPressed: ontap,
       child: Container(
         height: 83.h,
         decoration: BoxDecoration(

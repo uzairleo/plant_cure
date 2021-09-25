@@ -1,3 +1,4 @@
+import 'package:bouncing_widget/bouncing_widget.dart';
 import 'package:farmer_assistant_app/core/constants/screen-util.dart';
 import 'package:farmer_assistant_app/core/constants/strings.dart';
 import 'package:farmer_assistant_app/core/constants/textstyle.dart';
@@ -75,12 +76,14 @@ class CommonPestDetailScreen extends StatelessWidget {
   }
 
   closeButton() {
-    return InkWell(
-      onTap: () {
-        Get.back();
-      },
-      child: Padding(
-        padding: const EdgeInsets.only(top: 0, left: 24.0),
+    return Padding(
+      padding: const EdgeInsets.only(top: 0, left: 24.0),
+      child: BouncingWidget(
+        duration: Duration(milliseconds: 100),
+        scaleFactor: 1.5,
+        onPressed: () {
+          Get.back();
+        },
         child: Container(
           height: 26.h,
           width: 26.w,
@@ -133,29 +136,24 @@ class CommonPestDetailScreen extends StatelessWidget {
             ? Container()
             : Align(
                 alignment: Alignment.bottomLeft,
-                child: InkWell(
-                  onTap: () {
-                    Get.back();
-                  },
-                  child: Padding(
-                    padding: const EdgeInsets.only(bottom: 21, left: 24.0),
-                    child: Hero(
-                      tag: "$cropImg",
-                      child: Container(
-                        height: 60.h,
-                        width: 60.w,
-                        decoration: BoxDecoration(
-                          color: Colors.white,
-                          shape: BoxShape.circle,
-                        ),
-                        child: Center(
-                          child: ImageContainer(
-                              height: 36.h,
-                              width: 36.w,
-                              fit: BoxFit.contain,
-                              assetImage: cropImg //"$assets/close.png",
-                              ),
-                        ),
+                child: Padding(
+                  padding: const EdgeInsets.only(bottom: 21, left: 24.0),
+                  child: Hero(
+                    tag: "$cropImg",
+                    child: Container(
+                      height: 60.h,
+                      width: 60.w,
+                      decoration: BoxDecoration(
+                        color: Colors.white,
+                        shape: BoxShape.circle,
+                      ),
+                      child: Center(
+                        child: ImageContainer(
+                            height: 36.h,
+                            width: 36.w,
+                            fit: BoxFit.contain,
+                            assetImage: cropImg //"$assets/close.png",
+                            ),
                       ),
                     ),
                   ),
