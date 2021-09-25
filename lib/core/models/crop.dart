@@ -6,8 +6,15 @@ class Crop {
   String imgUrl;
   bool isSelected;
   Color color;
+  List<Disease> commonDiseases;
 
-  Crop({this.id, this.color, this.name, this.imgUrl, this.isSelected = false});
+  Crop(
+      {this.id,
+      this.color,
+      this.name,
+      this.imgUrl,
+      this.isSelected = false,
+      this.commonDiseases});
 
   Crop.fromJson(Map<String, dynamic> json) {
     id = json['id'];
@@ -22,4 +29,19 @@ class Crop {
     data['imgUrl'] = this.imgUrl;
     return data;
   }
+}
+
+class Disease {
+  String name;
+  List<String> imgUrls;
+  String symptoms;
+  String favorableConditions;
+  String treatments;
+
+  Disease(
+      {this.name,
+      this.imgUrls,
+      this.treatments,
+      this.symptoms,
+      this.favorableConditions});
 }

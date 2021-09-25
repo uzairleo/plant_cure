@@ -395,29 +395,33 @@ class _HomeScreenState extends State<HomeScreen> {
               ontap: () {
                 print("Pests & Disease pressed");
                 // Get.defaultDialog(title: "Under construction");
-                Get.to(() => CommonDiseaseScreen());
+                Get.to(() => CommonDiseaseScreen(
+                      crop: model.availableCrops
+                          .where((element) => element.isSelected)
+                          .first,
+                    ));
               }),
           SizedBox(
             height: 16.0,
           ),
           //general guideline tile
-          tile(
-              color: model.availableCrops
-                  .where((element) => element.isSelected)
-                  .first
-                  .color
-                  .withOpacity(0.6),
-              icon: ImageContainer(
-                assetImage: "$assets/guideline.png",
-                height: 25.w,
-                width: 27.h,
-              ),
-              label: "General Guideline",
-              ontap: () {
-                print("General Guideline");
-                // Get.defaultDialog(title: "Under construction");
-                // Get.to(() => GeneralGuidelineScreen());
-              })
+          // tile(
+          //     color: model.availableCrops
+          //         .where((element) => element.isSelected)
+          //         .first
+          //         .color
+          //         .withOpacity(0.6),
+          //     icon: ImageContainer(
+          //       assetImage: "$assets/guideline.png",
+          //       height: 25.w,
+          //       width: 27.h,
+          //     ),
+          //     label: "General Guideline",
+          //     ontap: () {
+          //       print("General Guideline");
+          //       // Get.defaultDialog(title: "Under construction");
+          //       // Get.to(() => GeneralGuidelineScreen());
+          //     })
         ],
       ),
     );

@@ -144,7 +144,7 @@ class _FertilizerCalculatroState extends State<FertilizerCalculatro> {
 
   resultView(FertilizerCalculatorViewModel model) {
     return Padding(
-      padding: const EdgeInsets.only(top: 120.0),
+      padding: const EdgeInsets.only(top: 80.0),
       child: Column(
         children: [
           Row(
@@ -162,7 +162,7 @@ class _FertilizerCalculatroState extends State<FertilizerCalculatro> {
             children: [
               Expanded(
                 child: Text(
-                  "DAP\n${model.dap}KG\n${model.dapBag}Bag",
+                  "DAP\n${model.dap.floor()}KG\n${model.dapBag.floor()}Bag",
                   // "DAP\n11KG\n14Bag",
                   textAlign: TextAlign.center,
                   style: subHeadingTextStyle,
@@ -170,7 +170,7 @@ class _FertilizerCalculatroState extends State<FertilizerCalculatro> {
               ),
               Expanded(
                 child: Text(
-                  "MOP\n${model.mop}KG\n${model.mopBag}Bag",
+                  "MOP\n${model.mop.floor()}KG\n${model.mopBag.floor()}Bag",
                   // "MOP\n34KG\n4Bag",
                   textAlign: TextAlign.center,
                   style: subHeadingTextStyle,
@@ -178,7 +178,7 @@ class _FertilizerCalculatroState extends State<FertilizerCalculatro> {
               ),
               Expanded(
                 child: Text(
-                  "Urea\n${model.urea}KG\n${model.ureaBag}Bag",
+                  "Urea\n${model.urea.floor()}KG\n${model.ureaBag.floor()}Bag",
                   // "Urea\n31KG\n2Bag",
                   textAlign: TextAlign.center,
                   style: subHeadingTextStyle,
@@ -198,7 +198,7 @@ class _FertilizerCalculatroState extends State<FertilizerCalculatro> {
     return Column(
       children: [
         SizedBox(
-          height: 120.h,
+          height: 130.h,
         ),
         RoundedRaisedButton(
           buttonText: "Calculate",

@@ -43,6 +43,8 @@ class MyApp extends StatelessWidget {
             title: 'Farmer_Assistant_App',
             debugShowCheckedModeBanner: true,
             theme: ThemeData(
+              primaryColor: mainThemeColor,
+              accentColor: mainThemeColor,
               textSelectionTheme: TextSelectionThemeData(
                 cursorColor: mainThemeColor,
                 selectionColor: mainThemeColor.withOpacity(0.4),
@@ -51,8 +53,8 @@ class MyApp extends StatelessWidget {
             ),
             home:
                 // CommonDiseaseScreen(), // SuggestedTreatmentScreen(Disease()),
-                // SplashScreen(),
-                RegistrationScreen(),
+                SplashScreen(),
+            // RegistrationScreen(),
             // SplashScreen()
             // CheckHealthScreen()
             // AddCropScreen(),

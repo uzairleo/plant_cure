@@ -9,67 +9,76 @@ import 'package:provider/provider.dart';
 
 class CommonPestDetailScreen extends StatelessWidget {
   final Disease commonPest;
-  final cropImg;
   final color;
-  final index;
-  CommonPestDetailScreen(this.commonPest, this.color, this.cropImg, this.index);
-  ScrollController scrollController = ScrollController();
-
+  CommonPestDetailScreen(this.commonPest, this.color);
   @override
   Widget build(BuildContext context) {
-    return Theme(
-      data: ThemeData(accentColor: color),
-      child: Scaffold(
-        body: NestedScrollView(
-          // controller: scrollController,
-          // physics: ScrollPhysics(),
-          headerSliverBuilder: (BuildContext context, bool innerBoxIsScrolled) {
-            print("INNEER SCROLLED VI=======>$innerBoxIsScrolled");
-            return <Widget>[
-              SliverAppBar(
-                leading: !innerBoxIsScrolled
-                    ? closeButton()
-                    : BackButton(
-                        color: Colors.black,
-                      ),
-                backgroundColor: color,
-                expandedHeight: 300.h,
-                floating: false,
-                pinned: true,
-                flexibleSpace: FlexibleSpaceBar(
-                    centerTitle: false,
-                    title: !innerBoxIsScrolled
-                        ? Text("")
-                        : Text("${commonPest.name}",
-                            style: headingTextStyle.copyWith(
-                                fontSize: 18.0, color: Colors.black)),
-                    background: topBar(innerBoxIsScrolled)),
-              ),
-            ];
-          },
-          body: SingleChildScrollView(
-            // controller: scrollController,
-            // physics: ScrollPhysics(),
-            child: Column(
-              children: [
-                //image container with back button on stact
-                // topBar(),
-                Padding(
-                  padding: const EdgeInsets.only(
-                    left: 15,
-                    right: 15,
-                  ),
-                  child: Column(
-                    children: [
-                      //about disease title,definition
-                      aboutDisease(),
-                    ],
-                  ),
-                )
-              ],
-            ),
+    return Scaffold(
+      body: CustomScrollView(
+        // headerSliverBuilder: (BuildContext context, bool innerBoxIsScrolled) {
+        //   return <Widget>
+        slivers: [
+          SliverAppBar(
+            leading: closeButton(),
+            backgroundColor: color,
+            expandedHeight: 300.h,
+            floating: false,
+            pinned: true,
+            flexibleSpace: FlexibleSpaceBar(
+                centerTitle: false,
+                title: Text("${commonPest.name}",
+                    style: headingTextStyle.copyWith(
+                        fontSize: 18.0, color: Colors.black)),
+                background: topBar()),
           ),
-        ),
+          SliverToBoxAdapter(
+            child: SingleChildScrollView(
+              child: Column(
+                children: [
+                  //       //image container with back button on stact
+                  //       // topBar(),
+
+                  Padding(
+                    padding: const EdgeInsets.only(
+                      left: 15,
+                      right: 15,
+                    ),
+                    child: Column(
+                      children: [
+                        //about disease title,definition
+                        aboutDisease(),
+                      ],
+                    ),
+                  )
+                ],
+              ),
+            ),
+          )
+        ],
+        // ;
+        // },
+        // body:
+        //  SingleChildScrollView(
+        //   child: Column(
+        //     children: [
+        //       //image container with back button on stact
+        //       // topBar(),
+
+        //       Padding(
+        //         padding: const EdgeInsets.only(
+        //           left: 15,
+        //           right: 15,
+        //         ),
+        //         child: Column(
+        //           children: [
+        //             //about disease title,definition
+        //             aboutDisease(),
+        //           ],
+        //         ),
+        //       )
+        //     ],
+        //   ),
+        // ),
       ),
     );
   }
@@ -113,54 +122,46 @@ class CommonPestDetailScreen extends StatelessWidget {
   }
 
   //image container with back button on stact
-  topBar(isInnerScrolling) {
+  topBar() {
     return Stack(
       children: [
-        Hero(
-          tag: "${commonPest.name}$index",
-          child: Container(
-            height: 328.h,
-            width: double.infinity.w,
-            child: Image.asset(
-              '${commonPest.imgUrls.first}',
-              fit: BoxFit.cover,
-            ),
+        Container(
+          height: 328.h,
+          width: double.infinity.w,
+          child: Image.asset(
+            '${commonPest.imgUrls.first}',
+            fit: BoxFit.cover,
           ),
         ),
         //  Image.asset('$assets/d_crop.png')),
         //
-        isInnerScrolling
-            ? Container()
-            : Align(
-                alignment: Alignment.bottomLeft,
-                child: InkWell(
-                  onTap: () {
-                    Get.back();
-                  },
-                  child: Padding(
-                    padding: const EdgeInsets.only(bottom: 21, left: 24.0),
-                    child: Hero(
-                      tag: "$cropImg",
-                      child: Container(
-                        height: 60.h,
-                        width: 60.w,
-                        decoration: BoxDecoration(
-                          color: Colors.white,
-                          shape: BoxShape.circle,
-                        ),
-                        child: Center(
-                          child: ImageContainer(
-                              height: 36.h,
-                              width: 36.w,
-                              fit: BoxFit.contain,
-                              assetImage: cropImg //"$assets/close.png",
-                              ),
-                        ),
-                      ),
-                    ),
-                  ),
-                ),
-              )
+        // Align(
+        //   alignment: Alignment.topLeft,
+        //   child: InkWell(
+        //     onTap: () {
+        //       Get.back();
+        //     },
+        //     child: Padding(
+        //       padding: const EdgeInsets.only(top: 21, left: 24.0),
+        //       child: Container(
+        //         height: 40.h,
+        //         width: 40.w,
+        //         decoration: BoxDecoration(
+        //           color: Colors.white,
+        //           shape: BoxShape.circle,
+        //         ),
+        //         child: Center(
+        //           child: ImageContainer(
+        //             height: 18.h,
+        //             width: 18.w,
+        //             fit: BoxFit.contain,
+        //             assetImage: "$assets/close.png",
+        //           ),
+        //         ),
+        //       ),
+        //     ),
+        //   ),
+        // )
       ],
     );
   }
@@ -168,7 +169,7 @@ class CommonPestDetailScreen extends StatelessWidget {
   //about disease title,definition
   aboutDisease() {
     return Padding(
-      padding: const EdgeInsets.only(top: 13, bottom: 20.0),
+      padding: const EdgeInsets.only(top: 33, bottom: 20.0),
       child: Column(
         children: [
           //title
@@ -185,7 +186,7 @@ class CommonPestDetailScreen extends StatelessWidget {
             ],
           ),
           Divider(
-            color: Colors.grey.withOpacity(0.8),
+            color: Colors.grey.withOpacity(0.6),
           ),
           SizedBox(
             height: 10.0,

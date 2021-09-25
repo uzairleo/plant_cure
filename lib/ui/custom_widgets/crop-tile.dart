@@ -1,3 +1,4 @@
+import 'package:bouncing_widget/bouncing_widget.dart';
 import 'package:farmer_assistant_app/core/constants/colors.dart';
 import 'package:farmer_assistant_app/core/constants/strings.dart';
 import 'package:farmer_assistant_app/core/constants/textstyle.dart';
@@ -13,8 +14,10 @@ class CropTile extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return GestureDetector(
-      onTap: this.ontap,
+    return BouncingWidget(
+      duration: Duration(milliseconds: 100),
+      scaleFactor: 1.5,
+      onPressed: this.ontap,
       child: Container(
           // height: 250,
           // color: Colors.orange,
@@ -31,8 +34,8 @@ class CropTile extends StatelessWidget {
                 borderRadius: BorderRadius.circular(20.0),
                 child: ImageContainer(
                   assetImage: crop.imgUrl, // "$assets/banana.png",
-                  height: 38,
-                  width: 38,
+                  height: 42,
+                  width: 42,
                 ),
               ),
             ),

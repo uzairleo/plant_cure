@@ -135,7 +135,7 @@ class _AddCropScreenState extends State<AddCropScreen> {
                 // mainAxisExtent: 1,
                 childAspectRatio: 0.6,
                 crossAxisSpacing: 30,
-                mainAxisSpacing: 20),
+                mainAxisSpacing: 10),
             itemCount: model.availableCrops.length,
             itemBuilder: (BuildContext ctx, index) {
               return CropTile(model.availableCrops[index], () {

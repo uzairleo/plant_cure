@@ -45,10 +45,13 @@ class _HomeCropTileState extends State<HomeCropTile> {
                 child: Center(
                   child: ClipRRect(
                     borderRadius: BorderRadius.circular(20.0),
-                    child: ImageContainer(
-                      assetImage: widget.crop.imgUrl, // "$assets/banana.png",
-                      height: 38,
-                      width: 38,
+                    child: Hero(
+                      tag: "${widget.crop.imgUrl}",
+                      child: ImageContainer(
+                        assetImage: widget.crop.imgUrl, // "$assets/banana.png",
+                        height: 38,
+                        width: 38,
+                      ),
                     ),
                   ),
                 ),
