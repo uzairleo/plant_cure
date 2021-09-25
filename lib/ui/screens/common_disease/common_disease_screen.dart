@@ -3,7 +3,8 @@ import 'package:farmer_assistant_app/core/constants/screen-util.dart';
 import 'package:farmer_assistant_app/core/constants/strings.dart';
 import 'package:farmer_assistant_app/core/constants/textstyle.dart';
 import 'package:farmer_assistant_app/core/enums/view-state.dart';
-import 'package:farmer_assistant_app/core/models/disease.dart';
+import 'package:farmer_assistant_app/core/models/crop.dart';
+// import 'package:farmer_assistant_app/core/models/disease.dart';
 import 'package:farmer_assistant_app/ui/custom_widgets/image-container.dart';
 import 'package:farmer_assistant_app/ui/screens/common_disease/common-disease-view-model.dart';
 import 'package:farmer_assistant_app/ui/screens/common_disease/common-pest-detail-screen.dart';
@@ -13,6 +14,8 @@ import 'package:modal_progress_hud_nsn/modal_progress_hud_nsn.dart';
 import 'package:provider/provider.dart';
 
 class CommonDiseaseScreen extends StatelessWidget {
+  final Crop crop;
+  CommonDiseaseScreen({this.crop});
   @override
   Widget build(BuildContext context) {
     return ChangeNotifierProvider(
@@ -31,24 +34,55 @@ class CommonDiseaseScreen extends StatelessWidget {
                       Get.back();
                     },
                   ),
-                  title: Text(
-                    "Common Pests And Diseases",
-                    style: subHeadingTextStyle,
+                  title: Row(
+                    children: [
+                      Container(
+                        height: 50.h,
+                        width: 50.w,
+                        decoration: BoxDecoration(
+                            shape: BoxShape.circle,
+                            border: Border.all(
+                              color: crop.color,
+                              width: 0.8,
+                            ),
+                            image: DecorationImage(
+                                fit: BoxFit.contain,
+                                image: AssetImage(crop.imgUrl))),
+                        // child: ImageContainer(
+                        //   height: 18.h,
+                        //   width: 18.w,
+                        //   assetImage: crop.imgUrl,
+                        //   fit: BoxFit.contain,
+                        // ),
+                      ),
+                      SizedBox(
+                        width: 18.w,
+                      ),
+                      Text(
+                        "Common Pests\n And Diseases",
+                        textAlign: TextAlign.center,
+                        style: subHeadingTextStyle.copyWith(
+                            fontSize: 15.sp, fontWeight: FontWeight.w600),
+                      ),
+                    ],
                   ),
                 ),
                 body: Padding(
                   padding: const EdgeInsets.only(top: 30.0),
                   child: ListView.builder(
-                      itemCount: model.commonPests.length,
+                      itemCount: crop
+                          .commonDiseases.length, // model.commonPests.length,
                       physics: BouncingScrollPhysics(),
                       itemBuilder: (context, index) {
                         return CommonPestTile(
-                          isLast: index == model.commonPests.length - 1,
-                          commonPest: model.commonPests[index],
+                          isLast: index == crop.commonDiseases.length - 1,
+                          disease: crop.commonDiseases[index],
                           ontap: () {
                             print("Common Disease pressed");
                             Get.to(() => CommonPestDetailScreen(
-                                model.commonPests[index]));
+                                  crop.commonDiseases[index],
+                                  crop.color,
+                                ));
                           },
                         );
                       }),
@@ -62,9 +96,9 @@ class CommonDiseaseScreen extends StatelessWidget {
 
 class CommonPestTile extends StatelessWidget {
   bool isLast;
-  CommonPest commonPest;
+  Disease disease;
   final ontap;
-  CommonPestTile({this.isLast = false, this.commonPest, this.ontap});
+  CommonPestTile({this.isLast = false, this.disease, this.ontap});
   @override
   Widget build(BuildContext context) {
     return GestureDetector(
@@ -81,29 +115,40 @@ class CommonPestTile extends StatelessWidget {
                 Row(
                   mainAxisAlignment: MainAxisAlignment.spaceBetween,
                   children: [
-                    Row(
-                      children: [
-                        ImageContainer(
-                          assetImage: '$assets/${commonPest.imgUrl}',
-                          height: 100.h,
-                          width: 160.w,
-                        ),
-                        SizedBox(
-                          width: 10.w,
-                        ),
-                        Column(
-                          crossAxisAlignment: CrossAxisAlignment.start,
-                          children: [
-                            Text(
-                              '${commonPest.title}',
-                              style: bodyTextStyle.copyWith(fontSize: 14.sp),
+                    Expanded(
+                      child: Row(
+                        children: [
+                          ImageContainer(
+                            assetImage: '${disease.imgUrls.first}',
+                            height: 100.h,
+                            width: 160.w,
+                          ),
+                          SizedBox(
+                            width: 10.w,
+                          ),
+                          Expanded(
+                            child: Column(
+                              crossAxisAlignment: CrossAxisAlignment.start,
+                              children: [
+                                // Text(
+                                //   '${disease.name}',
+                                //   style: bodyTextStyle.copyWith(fontSize: 14.sp),
+                                // ),
+                                Text('${disease.name}',
+                                    style: headingTextStyle.copyWith(
+                                        fontSize: 17.sp)),
+                                Text(
+                                  '${disease.symptoms}',
+                                  overflow: TextOverflow.ellipsis,
+                                  style: bodyTextStyle.copyWith(
+                                    fontSize: 11.sp,
+                                  ),
+                                ),
+                              ],
                             ),
-                            Text('${commonPest.subTitle}',
-                                style:
-                                    headingTextStyle.copyWith(fontSize: 16.sp)),
-                          ],
-                        ),
-                      ],
+                          ),
+                        ],
+                      ),
                     ),
                     Icon(
                       Icons.arrow_forward_ios_sharp,

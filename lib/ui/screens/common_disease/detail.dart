@@ -14,48 +14,71 @@ class CommonPestDetailScreen extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      body: NestedScrollView(
-        headerSliverBuilder: (BuildContext context, bool innerBoxIsScrolled) {
-          print("INNEER SCROLLED VI=======>$innerBoxIsScrolled");
-          return <Widget>[
-            SliverAppBar(
-              leading: closeButton(),
-              backgroundColor: color,
-              expandedHeight: 300.h,
-              floating: false,
-              pinned: true,
-              flexibleSpace: FlexibleSpaceBar(
-                  centerTitle: false,
-                  title: !innerBoxIsScrolled
-                      ? Text("")
-                      : Text("${commonPest.name}",
-                          style: headingTextStyle.copyWith(
-                              fontSize: 18.0, color: Colors.black)),
-                  background: topBar()),
-            ),
-          ];
-        },
-        body: SingleChildScrollView(
-          child: Column(
-            children: [
-              //image container with back button on stact
-              // topBar(),
-
-              Padding(
-                padding: const EdgeInsets.only(
-                  left: 15,
-                  right: 15,
-                ),
-                child: Column(
-                  children: [
-                    //about disease title,definition
-                    aboutDisease(),
-                  ],
-                ),
-              )
-            ],
+      body: CustomScrollView(
+        // headerSliverBuilder: (BuildContext context, bool innerBoxIsScrolled) {
+        //   return <Widget>
+        slivers: [
+          SliverAppBar(
+            leading: closeButton(),
+            backgroundColor: color,
+            expandedHeight: 300.h,
+            floating: false,
+            pinned: true,
+            flexibleSpace: FlexibleSpaceBar(
+                centerTitle: false,
+                title: Text("${commonPest.name}",
+                    style: headingTextStyle.copyWith(
+                        fontSize: 18.0, color: Colors.black)),
+                background: topBar()),
           ),
-        ),
+          SliverToBoxAdapter(
+            child: SingleChildScrollView(
+              child: Column(
+                children: [
+                  //       //image container with back button on stact
+                  //       // topBar(),
+
+                  Padding(
+                    padding: const EdgeInsets.only(
+                      left: 15,
+                      right: 15,
+                    ),
+                    child: Column(
+                      children: [
+                        //about disease title,definition
+                        aboutDisease(),
+                      ],
+                    ),
+                  )
+                ],
+              ),
+            ),
+          )
+        ],
+        // ;
+        // },
+        // body:
+        //  SingleChildScrollView(
+        //   child: Column(
+        //     children: [
+        //       //image container with back button on stact
+        //       // topBar(),
+
+        //       Padding(
+        //         padding: const EdgeInsets.only(
+        //           left: 15,
+        //           right: 15,
+        //         ),
+        //         child: Column(
+        //           children: [
+        //             //about disease title,definition
+        //             aboutDisease(),
+        //           ],
+        //         ),
+        //       )
+        //     ],
+        //   ),
+        // ),
       ),
     );
   }

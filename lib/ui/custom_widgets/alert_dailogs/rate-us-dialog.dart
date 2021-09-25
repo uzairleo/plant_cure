@@ -31,83 +31,85 @@ class _RateUsDialogState extends State<RateUsDialog> {
               left: 12.0, right: 12.0, top: 20, bottom: 20),
           child: Form(
             key: formKey,
-            child: Column(
-              crossAxisAlignment: CrossAxisAlignment.stretch,
-              mainAxisAlignment: MainAxisAlignment.spaceBetween,
-              children: [
-                //title
-                Row(
-                  mainAxisAlignment: MainAxisAlignment.center,
-                  children: [
-                    Text(
-                      "Rate Us",
-                      style: headingTextStyle,
-                    ),
-                  ],
-                ),
-                //stars for rating
-                Row(
-                  mainAxisAlignment: MainAxisAlignment.center,
-                  children: [
-                    RatingBar.builder(
-                        itemPadding: EdgeInsets.only(right: 4.0),
-                        unratedColor: Colors.grey.withOpacity(0.6),
-                        itemSize: 48,
-                        glowColor: Colors.yellow,
-                        itemBuilder: (context, index) => Icon(
-                              Icons.star,
-                              color: Colors.yellow,
-                            ),
-                        onRatingUpdate: (value) {}),
-                  ],
-                ),
-//text field for feedback
-                Padding(
-                    padding: const EdgeInsets.only(bottom: 17.0),
-                    child: CustomTextField3(
-                      inputType: TextInputType.text,
-                      controller: feedbackCtrlr,
-                      validator: (value) {
-                        if (value.isEmpty) {
-                          return "Please fill this field";
-                        } else {
-                          return null;
-                        }
-                      },
-                      onSaved: (value) {},
-                      hintText: "Enter your feedback",
-                    )),
-                //submit button
+            child: SingleChildScrollView(
+              child: Column(
+                crossAxisAlignment: CrossAxisAlignment.stretch,
+                mainAxisAlignment: MainAxisAlignment.spaceAround,
+                children: [
+                  //title
+                  Row(
+                    mainAxisAlignment: MainAxisAlignment.center,
+                    children: [
+                      Text(
+                        "Rate Us",
+                        style: headingTextStyle,
+                      ),
+                    ],
+                  ),
+                  //stars for rating
+                  Row(
+                    mainAxisAlignment: MainAxisAlignment.center,
+                    children: [
+                      RatingBar.builder(
+                          itemPadding: EdgeInsets.only(right: 4.0),
+                          unratedColor: Colors.grey.withOpacity(0.6),
+                          itemSize: 48,
+                          glowColor: Colors.yellow,
+                          itemBuilder: (context, index) => Icon(
+                                Icons.star,
+                                color: Colors.yellow,
+                              ),
+                          onRatingUpdate: (value) {}),
+                    ],
+                  ),
+                  //text field for feedback
+                  Padding(
+                      padding: EdgeInsets.only(bottom: 0.0, top: 10.h),
+                      child: CustomTextField3(
+                        inputType: TextInputType.text,
+                        controller: feedbackCtrlr,
+                        validator: (value) {
+                          if (value.isEmpty) {
+                            return "Please fill this field";
+                          } else {
+                            return null;
+                          }
+                        },
+                        onSaved: (value) {},
+                        hintText: "Enter your feedback",
+                      )),
+                  //submit button
 
-                Row(
-                  mainAxisAlignment: MainAxisAlignment.center,
-                  children: [
-                    !isSubmitted
-                        ? Center(child: CircularProgressIndicator())
-                        : Container(
-                            width: 180,
-                            child: RoundedRaisedButton(
-                              buttonText: "SUBMIT",
-                              color: mainThemeColor,
-                              onPressed: () {
-                                if (formKey.currentState.validate()) {
-                                  formKey.currentState.validate();
-                                  setState(() {
-                                    isSubmitted = false;
-                                  });
-                                  Future.delayed(Duration(seconds: 2), () {
+                  Row(
+                    mainAxisAlignment: MainAxisAlignment.center,
+                    children: [
+                      !isSubmitted
+                          ? Center(child: CircularProgressIndicator())
+                          : Container(
+                              width: 180,
+                              child: RoundedRaisedButton(
+                                buttonText: "SUBMIT",
+                                color: mainThemeColor,
+                                onPressed: () {
+                                  if (formKey.currentState.validate()) {
+                                    formKey.currentState.validate();
                                     setState(() {
-                                      isSubmitted = true;
+                                      isSubmitted = false;
                                     });
-                                    Get.back();
-                                  });
-                                }
-                              },
+                                    Future.delayed(Duration(seconds: 2), () {
+                                      setState(() {
+                                        isSubmitted = true;
+                                      });
+                                      Get.back();
+                                    });
+                                  }
+                                },
+                              ),
                             ),
-                          ),
-                  ],
-                )
-              ],
+                    ],
+                  )
+                ],
+              ),
             ),
           ),
         ),

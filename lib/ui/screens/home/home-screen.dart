@@ -395,7 +395,11 @@ class _HomeScreenState extends State<HomeScreen> {
               ontap: () {
                 print("Pests & Disease pressed");
                 // Get.defaultDialog(title: "Under construction");
-                Get.to(() => CommonDiseaseScreen());
+                Get.to(() => CommonDiseaseScreen(
+                      crop: model.availableCrops
+                          .where((element) => element.isSelected)
+                          .first,
+                    ));
               }),
           SizedBox(
             height: 16.0,

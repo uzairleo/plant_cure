@@ -10,7 +10,7 @@ import 'database_service.dart';
 ///
 ///
 class AuthDataService {
-  bool isRegisteredFirstTime = false;
+  bool isRegisteredFirstTime;
   String accessToken;
   String refreshToken;
   String onBoardingStatus;
