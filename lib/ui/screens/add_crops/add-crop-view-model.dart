@@ -33,12 +33,12 @@ class AddCropViewModel extends BaseViewModel {
     availableCrops.add(Crop(
         id: "1",
         imgUrl: "$assets/apple.png",
-        name: "Peach",
+        name: "Apricot",
         color: Colors.redAccent.withOpacity(0.4)));
     availableCrops.add(Crop(
       id: "2",
       imgUrl: "$assets/apple0.png",
-      name: "Apple",
+      name: "Cherry",
       color: Colors.redAccent.withOpacity(0.4), //Color(0XFFFFC61E),
     ));
 
@@ -46,7 +46,7 @@ class AddCropViewModel extends BaseViewModel {
       Crop(
           id: "3",
           imgUrl: "$assets/beans.png",
-          name: "Beans",
+          name: "Citrus",
           color: Colors.green.withOpacity(1)),
     );
     availableCrops.add(
@@ -69,6 +69,20 @@ class AddCropViewModel extends BaseViewModel {
           id: "6",
           imgUrl: "$assets/guvava.jpg",
           name: "Guvava",
+          color: Colors.green.withOpacity(1)),
+    );
+    availableCrops.add(
+      Crop(
+          id: "7",
+          imgUrl: "$assets/guvava.jpg",
+          name: "Grapes",
+          color: Colors.green.withOpacity(1)),
+    );
+    availableCrops.add(
+      Crop(
+          id: "8",
+          imgUrl: "$assets/guvava.jpg",
+          name: "Strawberry",
           color: Colors.green.withOpacity(1)),
     );
   }

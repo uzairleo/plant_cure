@@ -51,8 +51,8 @@ class MyApp extends StatelessWidget {
             ),
             home:
                 // CommonDiseaseScreen(), // SuggestedTreatmentScreen(Disease()),
-                // SplashScreen(),
-                RegistrationScreen(),
+                SplashScreen(),
+            // RegistrationScreen(),
             // SplashScreen()
             // CheckHealthScreen()
             // AddCropScreen(),

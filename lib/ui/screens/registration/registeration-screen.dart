@@ -154,7 +154,8 @@ class _RegistrationScreenState extends State<RegistrationScreen> {
           CustomTextField(
             label: "EMAIL ADDRESS",
             errorText: "Please enter your email",
-            validator: (input) => input.isValidEmail() ? null : "Invalid Email",
+            validator: (input) =>
+                input.isValidEmail() ? null : "Check your Email",
             prefixIcon: ImageContainer(
               assetImage: "$assets/email.png",
               height: 14.8,

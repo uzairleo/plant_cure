@@ -86,12 +86,13 @@ class SharedPreferencesProvider {
   }
 
   setIsRegisteredFirstTime(bool value) async {
+    print("IsRegistered first time set tooooo===========> $value");
     SharedPreferences prefs = await SharedPreferences.getInstance();
     await prefs.setBool('isRegistered', value);
   }
 
   Future<bool> getIsRegistered() async {
     SharedPreferences prefs = await SharedPreferences.getInstance();
-    return prefs.getBool("isRegistered");
+    return prefs.getBool("isRegistered") ?? false;
   }
 }
