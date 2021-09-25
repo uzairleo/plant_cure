@@ -36,24 +36,27 @@ class CommonDiseaseScreen extends StatelessWidget {
                   ),
                   title: Row(
                     children: [
-                      Container(
-                        height: 50.h,
-                        width: 50.w,
-                        decoration: BoxDecoration(
-                            shape: BoxShape.circle,
-                            border: Border.all(
-                              color: crop.color,
-                              width: 0.8,
-                            ),
-                            image: DecorationImage(
-                                fit: BoxFit.contain,
-                                image: AssetImage(crop.imgUrl))),
-                        // child: ImageContainer(
-                        //   height: 18.h,
-                        //   width: 18.w,
-                        //   assetImage: crop.imgUrl,
-                        //   fit: BoxFit.contain,
-                        // ),
+                      Hero(
+                        tag: "${crop.imgUrl}",
+                        child: Container(
+                          height: 50.h,
+                          width: 50.w,
+                          decoration: BoxDecoration(
+                              shape: BoxShape.circle,
+                              border: Border.all(
+                                color: crop.color,
+                                width: 0.8,
+                              ),
+                              image: DecorationImage(
+                                  fit: BoxFit.contain,
+                                  image: AssetImage(crop.imgUrl))),
+                          // child: ImageContainer(
+                          //   height: 18.h,
+                          //   width: 18.w,
+                          //   assetImage: crop.imgUrl,
+                          //   fit: BoxFit.contain,
+                          // ),
+                        ),
                       ),
                       SizedBox(
                         width: 18.w,
@@ -75,14 +78,18 @@ class CommonDiseaseScreen extends StatelessWidget {
                       physics: BouncingScrollPhysics(),
                       itemBuilder: (context, index) {
                         return CommonPestTile(
+                          index: index,
                           isLast: index == crop.commonDiseases.length - 1,
                           disease: crop.commonDiseases[index],
                           ontap: () {
                             print("Common Disease pressed");
-                            Get.to(() => CommonPestDetailScreen(
+                            Get.to(
+                              () => CommonPestDetailScreen(
                                   crop.commonDiseases[index],
                                   crop.color,
-                                ));
+                                  crop.imgUrl,
+                                  index),
+                            );
                           },
                         );
                       }),
@@ -95,10 +102,11 @@ class CommonDiseaseScreen extends StatelessWidget {
 }
 
 class CommonPestTile extends StatelessWidget {
-  bool isLast;
-  Disease disease;
+  final bool isLast;
+  final Disease disease;
+  final index;
   final ontap;
-  CommonPestTile({this.isLast = false, this.disease, this.ontap});
+  CommonPestTile({this.isLast = false, this.disease, this.ontap, this.index});
   @override
   Widget build(BuildContext context) {
     return GestureDetector(
@@ -118,10 +126,13 @@ class CommonPestTile extends StatelessWidget {
                     Expanded(
                       child: Row(
                         children: [
-                          ImageContainer(
-                            assetImage: '${disease.imgUrls.first}',
-                            height: 100.h,
-                            width: 160.w,
+                          Hero(
+                            tag: "${disease.name}$index",
+                            child: ImageContainer(
+                              assetImage: '${disease.imgUrls.first}',
+                              height: 100.h,
+                              width: 160.w,
+                            ),
                           ),
                           SizedBox(
                             width: 10.w,

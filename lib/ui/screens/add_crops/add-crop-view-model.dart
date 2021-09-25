@@ -63,7 +63,7 @@ iii.Apply curative sprays on the appearance of disease,
             Disease(
                 name: "Brown Rot: ",
                 treatments: """
-          Apply curative spray on the appearance of disease.
+Apply curative spray on the appearance of disease.
 •	Top guard @ 200ml/100L of water 
 •	Nanok @ 100ml/ 200L 
             """,
@@ -79,7 +79,7 @@ iii.Apply curative sprays on the appearance of disease,
             Disease(
                 name: "Powdery Mildew",
                 treatments: """
-           Apply curative spray on the appearance of disease.
+Apply curative spray on the appearance of disease.
 •	Systhane @ 2ml /L of water 
             """,
                 symptoms:
@@ -94,7 +94,7 @@ iii.Apply curative sprays on the appearance of disease,
             Disease(
                 name: "Gummosis",
                 treatments: """
-       Apply curative spray on the appearance of disease,
+Apply curative spray on the appearance of disease,
 •	Kocide @ 250g/100L of water OR
 •	Cobox @ 250g/100L of water OR 
 •	Champion 500-1000g/100L of water OR
@@ -112,7 +112,7 @@ iii.Apply curative sprays on the appearance of disease,
             Disease(
                 name: "Crown Gall",
                 treatments: """
-            •	Dip roots stone fruit nursery plant in solution of “No gall” for at least 5 minutes prior to plantation. 
+•	Dip roots stone fruit nursery plant in solution of “No gall” for at least 5 minutes prior to plantation. 
 •	No chemical control is available. 
 •	Plant only resistant varieties/ disease free plants 
            """,
