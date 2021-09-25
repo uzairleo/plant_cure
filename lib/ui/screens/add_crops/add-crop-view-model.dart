@@ -32,22 +32,22 @@ class AddCropViewModel extends BaseViewModel {
   injectAvailableCrops() {
     availableCrops.add(Crop(
         id: "1",
-        imgUrl: "$assets/apple.png",
+        imgUrl: "$assets/apricot.png",
         name: "Apricot",
-        color: Colors.redAccent.withOpacity(0.4)));
+        color: Colors.orange.withOpacity(0.4)));
     availableCrops.add(Crop(
       id: "2",
-      imgUrl: "$assets/apple0.png",
+      imgUrl: "$assets/cheryy1.png",
       name: "Cherry",
-      color: Colors.redAccent.withOpacity(0.4), //Color(0XFFFFC61E),
+      color: Colors.red.withOpacity(1), //Color(0XFFFFC61E),
     ));
 
     availableCrops.add(
       Crop(
           id: "3",
-          imgUrl: "$assets/beans.png",
+          imgUrl: "$assets/citrus.jpg",
           name: "Citrus",
-          color: Colors.green.withOpacity(1)),
+          color: Colors.orange.withOpacity(0.8)),
     );
     availableCrops.add(
       Crop(
@@ -74,16 +74,16 @@ class AddCropViewModel extends BaseViewModel {
     availableCrops.add(
       Crop(
           id: "7",
-          imgUrl: "$assets/guvava.jpg",
+          imgUrl: "$assets/grapes.png",
           name: "Grapes",
           color: Colors.green.withOpacity(1)),
     );
     availableCrops.add(
       Crop(
           id: "8",
-          imgUrl: "$assets/guvava.jpg",
+          imgUrl: "$assets/strawberry01.png",
           name: "Strawberry",
-          color: Colors.green.withOpacity(1)),
+          color: Colors.red.withOpacity(1)),
     );
   }
 }
