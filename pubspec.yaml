@@ -37,6 +37,9 @@ dependencies:
   flutter_screenutil: any
   avatar_glow: any
   bouncing_widget: ^2.0.0
+  daylight: ^2.0.0
+  geocoding: ^2.0.1
+  geolocator: ^7.6.2
 
 dev_dependencies:
   flutter_test:

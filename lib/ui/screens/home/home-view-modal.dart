@@ -12,12 +12,13 @@
 // ///=> Mixins help us to add [features] to a class
 // ///
 import 'dart:io';
-
+import 'package:daylight/daylight.dart';
 import 'package:farmer_assistant_app/core/enums/view-state.dart';
 import 'package:farmer_assistant_app/core/models/crop.dart';
 import 'package:farmer_assistant_app/core/view_models/base_view_model.dart';
 import 'package:flutter/material.dart';
 import 'package:image_picker/image_picker.dart';
+import 'package:intl/intl.dart';
 import 'package:weather/weather.dart';
 
 const String WEATHER_API_KEY = "d9cf5e471c90e4a8c6066bf663af0147";
@@ -98,5 +99,35 @@ class HomeViewModal extends BaseViewModel {
   setSelectedImageFile(File file) {
     this.selectedImageFile = file;
     notifyListeners();
+  }
+
+  calculateSunSet() async {
+    const daylighlocation = const DaylightLocation(52.518611, 13.408056);
+    final datetime = DateTime(2020, 10, 15);
+
+    // Create sunset calculator
+    const sunsetCalculator = const DaylightCalculator(daylighlocation);
+
+    // calculate for sunrise on civil twilight
+    final civilSunrise = sunsetCalculator.calculateEvent(
+      datetime,
+      Zenith.civil,
+      EventType.sunrise,
+    );
+    print(DateFormat("HH:mm:ss").format(civilSunrise)); // utc: 04:58:18
+
+    // calculate for sunrise and sunset on astronomical twilight
+    final astronomicalEvents = sunsetCalculator.calculateForDay(
+      datetime,
+      Zenith.astronomical,
+    );
+    print(
+      DateFormat("HH:mm:ss").format(astronomicalEvents.sunset),
+    ); // utc: 18:03:55
+    print(
+      DateFormat("HH:mm:ss").format(astronomicalEvents.sunrise),
+    ); // utc: 03:39:09
+    print(astronomicalEvents.type); // DayType.sunriseAndSunset
+    setState(ViewState.idle);
   }
 }
