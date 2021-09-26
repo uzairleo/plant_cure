@@ -14,7 +14,7 @@ class CommonPestDetailScreen extends StatelessWidget {
   final color;
   final index;
   CommonPestDetailScreen(this.commonPest, this.color, this.cropImg, this.index);
-  ScrollController scrollController = ScrollController();
+  // ScrollController scrollController = ScrollController();
 
   @override
   Widget build(BuildContext context) {
@@ -173,11 +173,13 @@ class CommonPestDetailScreen extends StatelessWidget {
           Row(
             mainAxisAlignment: MainAxisAlignment.start,
             children: [
-              Text(
-                "${commonPest.name}",
-                // "Shothole Disease",
-                style: headingTextStyle.copyWith(
-                  fontSize: 24,
+              Flexible(
+                child: Text(
+                  "${commonPest.name}",
+                  // "Shothole Disease",
+                  style: headingTextStyle.copyWith(
+                    fontSize: 24,
+                  ),
                 ),
               )
             ],

@@ -1,3 +1,5 @@
+import 'dart:io';
+
 import 'package:farmer_assistant_app/core/constants/colors.dart';
 import 'package:farmer_assistant_app/core/constants/textstyle.dart';
 import 'package:farmer_assistant_app/core/models/crop.dart';
@@ -20,56 +22,59 @@ class _EditCropScreenState extends State<EditCropScreen> {
   @override
   Widget build(BuildContext context) {
     return Consumer<AddCropViewModel>(
-      builder: (context, model, child) => SafeArea(
-          child: Scaffold(
-        ///
-        ///[body] starts from here
-        ///
-        body: Column(
-          mainAxisAlignment: MainAxisAlignment.spaceBetween,
-          children: [
-            ///
-            ///selected fruit area
-            ///
-            Container(
-              padding:
-                  EdgeInsets.only(top: 20, left: 16, right: 16, bottom: 14),
-              color: Colors.white,
-              child: Column(
-                crossAxisAlignment: CrossAxisAlignment.stretch,
-                mainAxisAlignment: MainAxisAlignment.start,
-                children: [
-                  //heading
-                  heading(),
+      builder: (context, model, child) => WillPopScope(
+        onWillPop: _onBackPressed,
+        child: SafeArea(
+            child: Scaffold(
+          ///
+          ///[body] starts from here
+          ///
+          body: Column(
+            mainAxisAlignment: MainAxisAlignment.spaceBetween,
+            children: [
+              ///
+              ///selected fruit area
+              ///
+              Container(
+                padding:
+                    EdgeInsets.only(top: 20, left: 16, right: 16, bottom: 14),
+                color: Colors.white,
+                child: Column(
+                  crossAxisAlignment: CrossAxisAlignment.stretch,
+                  mainAxisAlignment: MainAxisAlignment.start,
+                  children: [
+                    //heading
+                    heading(),
 
-                  //selected fruit list
-                  addedCrops(model),
-                ],
+                    //selected fruit list
+                    addedCrops(model),
+                  ],
+                ),
               ),
-            ),
 
-            ///
-            ///unselected crops list
-            ///
-            availableCropList(model),
+              ///
+              ///unselected crops list
+              ///
+              availableCropList(model),
 
-            ///
-            ///next button bottom row
-            ///
-            nextButton(
-                onTap: model.addedCrops.isEmpty
-                    ? null
-                    : () {
-                        model.clearSelectedCrop();
-                        Get.to(
-                          () => RootScreen(
-                            crops: model.addedCrops,
-                          ),
-                        );
-                      }),
-          ],
-        ),
-      )),
+              ///
+              ///next button bottom row
+              ///
+              nextButton(
+                  onTap: model.addedCrops.isEmpty
+                      ? null
+                      : () {
+                          model.clearSelectedCrop();
+                          Get.to(
+                            () => RootScreen(
+                              crops: model.addedCrops,
+                            ),
+                          );
+                        }),
+            ],
+          ),
+        )),
+      ),
     );
   }
 
@@ -174,5 +179,39 @@ class _EditCropScreenState extends State<EditCropScreen> {
         ),
       ),
     );
+  }
+
+  ///
+  ///on[ backpressed] call back to avoid user interaction with splash screen
+  ///
+  Future<bool> _onBackPressed() {
+    return showDialog(
+          context: context,
+          builder: (context) => new AlertDialog(
+            title: new Text('Are you sure?'),
+            content: new Text('Do you want to exit an App'),
+            actions: <Widget>[
+              new FlatButton(
+                textColor: mainThemeColor,
+                onPressed: () {
+                  Navigator.of(context).pop(false);
+                  // _updateConnectionFlag(true);
+                },
+                child: Text(
+                  "NO",
+                ),
+              ),
+              SizedBox(height: 16),
+              new FlatButton(
+                textColor: mainThemeColor,
+                onPressed: () {
+                  exit(0);
+                },
+                child: Text("YES"),
+              ),
+            ],
+          ),
+        ) ??
+        false;
   }
 }
