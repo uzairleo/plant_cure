@@ -1,5 +1,5 @@
 .fvm/flutter_sdk
-.assets
+.assets/
 
 # Miscellaneous
 *.class
