@@ -48,6 +48,7 @@ class HomeViewModal extends BaseViewModel {
       availableCrops.first.isSelected = true;
     } else {}
     getCurrentWeather();
+    calculateSunSet();
   }
   Weather weather;
   bool isWeatherLoaded = false;
@@ -102,7 +103,8 @@ class HomeViewModal extends BaseViewModel {
   }
 
   calculateSunSet() async {
-    const daylighlocation = const DaylightLocation(52.518611, 13.408056);
+    // setState(ViewState.loading);
+    const daylighlocation = const DaylightLocation(37.4219795, -122.0846826);
     final datetime = DateTime(2020, 10, 15);
 
     // Create sunset calculator
@@ -111,23 +113,26 @@ class HomeViewModal extends BaseViewModel {
     // calculate for sunrise on civil twilight
     final civilSunrise = sunsetCalculator.calculateEvent(
       datetime,
-      Zenith.civil,
+      Zenith.official,
       EventType.sunrise,
     );
     print(DateFormat("HH:mm:ss").format(civilSunrise)); // utc: 04:58:18
-
     // calculate for sunrise and sunset on astronomical twilight
     final astronomicalEvents = sunsetCalculator.calculateForDay(
       datetime,
-      Zenith.astronomical,
+      Zenith.official,
     );
+    print("*******************************************************");
     print(
       DateFormat("HH:mm:ss").format(astronomicalEvents.sunset),
     ); // utc: 18:03:55
     print(
       DateFormat("HH:mm:ss").format(astronomicalEvents.sunrise),
     ); // utc: 03:39:09
+    print("*******************************************************");
     print(astronomicalEvents.type); // DayType.sunriseAndSunset
-    setState(ViewState.idle);
+
+    print("*******************************************************");
+    notifyListeners();
   }
 }

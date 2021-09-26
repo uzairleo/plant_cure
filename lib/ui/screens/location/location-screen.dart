@@ -2,13 +2,22 @@ import 'package:farmer_assistant_app/core/constants/colors.dart';
 import 'package:farmer_assistant_app/core/constants/screen-util.dart';
 import 'package:farmer_assistant_app/core/constants/strings.dart';
 import 'package:farmer_assistant_app/core/constants/textstyle.dart';
+import 'package:farmer_assistant_app/core/services/location_service.dart';
+import 'package:farmer_assistant_app/locator.dart';
 import 'package:farmer_assistant_app/ui/custom_widgets/image-container.dart';
 import 'package:farmer_assistant_app/ui/custom_widgets/rounded-raised-button.dart';
 import 'package:farmer_assistant_app/ui/screens/add_crops/add-crop-screen.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 
-class LocationScreen extends StatelessWidget {
+class LocationScreen extends StatefulWidget {
+  @override
+  _LocationScreenState createState() => _LocationScreenState();
+}
+
+class _LocationScreenState extends State<LocationScreen> {
+  final _locationService = locator<LocationService>();
+  bool isLocationReady = true;
   @override
   Widget build(BuildContext context) {
     return SafeArea(
@@ -17,31 +26,43 @@ class LocationScreen extends StatelessWidget {
 
       ///[body] is start from here
       ///
-      body: Column(
-        crossAxisAlignment: CrossAxisAlignment.stretch,
-        mainAxisAlignment: MainAxisAlignment.spaceBetween,
-        children: [
-          ///
-          ///heading with subtitle
-          ///
-          heading(),
+      body: !isLocationReady
+          ? Center(child: CircularProgressIndicator())
+          : Column(
+              crossAxisAlignment: CrossAxisAlignment.stretch,
+              mainAxisAlignment: MainAxisAlignment.spaceBetween,
+              children: [
+                ///
+                ///heading with subtitle
+                ///
+                heading(),
 
-          ///
-          ///illustrations
-          ///
+                ///
+                ///illustrations
+                ///
 
-          logo(context),
+                logo(context),
 
-          ///
-          /// button rows
-          ///
-          buttonRows(onAllowPressed: () {
-            Get.to(() => AddCropScreen());
-          }, onSkipPressed: () {
-            Get.to(() => AddCropScreen());
-          })
-        ],
-      ),
+                ///
+                /// button rows
+                ///
+                buttonRows(onAllowPressed: () async {
+                  print("Location enabled");
+                  isLocationReady = false;
+                  try {
+                    await _locationService.getCurrentLocation();
+                    isLocationReady = true;
+                  } catch (e) {
+                    print("Exception while accessing location =>$e");
+                  }
+                  setState(() {});
+                  Get.to(() => AddCropScreen());
+                }, onSkipPressed: () {
+                  print("Location Skiped");
+                  Get.to(() => AddCropScreen());
+                })
+              ],
+            ),
     ));
   }
 

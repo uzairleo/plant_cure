@@ -5,6 +5,7 @@ import 'package:farmer_assistant_app/ui/screens/add_crops/add-crop-view-model.da
 import 'package:farmer_assistant_app/ui/screens/common_disease/common_disease_screen.dart';
 import 'package:farmer_assistant_app/ui/screens/fertilizer_calculator/fertilizer_calculator.dart';
 import 'package:farmer_assistant_app/ui/screens/home/home-screen.dart';
+import 'package:farmer_assistant_app/ui/screens/location/location-screen.dart';
 import 'package:farmer_assistant_app/ui/screens/registration/registeration-screen.dart';
 import 'package:farmer_assistant_app/ui/screens/splash_screen.dart';
 import 'package:flutter/material.dart';
@@ -40,25 +41,25 @@ class MyApp extends StatelessWidget {
             ScreenUtilInit(
           designSize: Size(412, 847),
           builder: () => GetMaterialApp(
-            title: 'Farmer_Assistant_App',
-            debugShowCheckedModeBanner: true,
-            theme: ThemeData(
-              primaryColor: mainThemeColor,
-              accentColor: mainThemeColor,
-              textSelectionTheme: TextSelectionThemeData(
-                cursorColor: mainThemeColor,
-                selectionColor: mainThemeColor.withOpacity(0.4),
-                selectionHandleColor: Colors.orange,
+              title: 'Farmer_Assistant_App',
+              debugShowCheckedModeBanner: true,
+              theme: ThemeData(
+                primaryColor: mainThemeColor,
+                accentColor: mainThemeColor,
+                textSelectionTheme: TextSelectionThemeData(
+                  cursorColor: mainThemeColor,
+                  selectionColor: mainThemeColor.withOpacity(0.4),
+                  selectionHandleColor: Colors.orange,
+                ),
               ),
-            ),
-            home:
-                // CommonDiseaseScreen(), // SuggestedTreatmentScreen(Disease()),
-                SplashScreen(),
-            // RegistrationScreen(),
-            // SplashScreen()
-            // CheckHealthScreen()
-            // AddCropScreen(),
-          ),
+              home: LocationScreen()
+              // CommonDiseaseScreen(), // SuggestedTreatmentScreen(Disease()),
+              // SplashScreen(),
+              // RegistrationScreen(),
+              // SplashScreen()
+              // CheckHealthScreen()
+              // AddCropScreen(),
+              ),
         ));
   }
 }

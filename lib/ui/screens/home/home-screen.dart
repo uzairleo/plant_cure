@@ -314,7 +314,7 @@ class _HomeScreenState extends State<HomeScreen> {
     //   return 'Twilight';
     // }
 
-    return DateTime.now().hour < 12 ? "Sunset" : "MoonSet";
+    return 'Sunset'; //DateTime.now().hour < 12 ? "Sunset" : "MoonSet";
   }
 
   String getWeatherAvatar() {
@@ -328,7 +328,7 @@ class _HomeScreenState extends State<HomeScreen> {
     //     return 'Twilight';
     //   }
     print("DATETIME HOURS+======> ${DateTime.now().hour}");
-    return DateTime.now().hour < 12 ? '$assets/sun.png' : '$assets/night1.jpeg';
+    return '$assets/sun.png'; //DateTime.now().hour < 12 ? '$assets/sun.png' : '$assets/night1.jpeg';
   }
 
   addedFruits(HomeViewModal model) {
