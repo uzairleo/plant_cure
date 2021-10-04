@@ -1,3 +1,4 @@
+import 'package:bouncing_widget/bouncing_widget.dart';
 import 'package:farmer_assistant_app/core/constants/colors.dart';
 import 'package:farmer_assistant_app/core/constants/strings.dart';
 import 'package:farmer_assistant_app/core/constants/textstyle.dart';
@@ -64,22 +65,23 @@ class UserInfoScreen extends StatelessWidget {
   }
 
   utilityTile({asset, title, subtitle, ontap, buttonText}) {
-    return Container(
-      height: 129.h,
-      decoration: BoxDecoration(
-          color: Colors.white,
-          borderRadius: BorderRadius.circular(16.0),
-          boxShadow: [
-            BoxShadow(
-              color: Colors.grey.withOpacity(0.4),
-              blurRadius: 8,
-              offset: Offset(0, 4),
-              spreadRadius: 1.8,
-            )
-          ]),
-      child: InkWell(
-        borderRadius: BorderRadius.all(Radius.circular(16.0)),
-        onTap: ontap,
+    return BouncingWidget(
+      duration: Duration(milliseconds: 100),
+      scaleFactor: 1.5,
+      onPressed: ontap,
+      child: Container(
+        height: 129.h,
+        decoration: BoxDecoration(
+            color: Colors.white,
+            borderRadius: BorderRadius.circular(16.0),
+            boxShadow: [
+              BoxShadow(
+                color: Colors.grey.withOpacity(0.4),
+                blurRadius: 8,
+                offset: Offset(0, 4),
+                spreadRadius: 1.8,
+              )
+            ]),
         child: Padding(
           padding: const EdgeInsets.only(
             left: 22,

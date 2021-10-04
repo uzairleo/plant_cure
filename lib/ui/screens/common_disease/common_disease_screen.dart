@@ -132,6 +132,7 @@ class CommonPestTile extends StatelessWidget {
                               assetImage: '${disease.imgUrls.first}',
                               height: 100.h,
                               width: 160.w,
+                              fit: BoxFit.cover,
                             ),
                           ),
                           SizedBox(

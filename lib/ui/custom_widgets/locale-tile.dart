@@ -1,3 +1,4 @@
+import 'package:bouncing_widget/bouncing_widget.dart';
 import 'package:farmer_assistant_app/core/constants/colors.dart';
 import 'package:farmer_assistant_app/core/constants/textstyle.dart';
 import 'package:flutter/cupertino.dart';
@@ -17,8 +18,10 @@ class _LocaleTileState extends State<LocaleTile> {
   Widget build(BuildContext context) {
     return Padding(
       padding: const EdgeInsets.only(left: 20.0, right: 20),
-      child: GestureDetector(
-        onTap: widget.ontap,
+      child: BouncingWidget(
+        duration: Duration(milliseconds: 100),
+        scaleFactor: 1.5,
+        onPressed: widget.ontap,
         child: Container(
           child: Column(
             children: [

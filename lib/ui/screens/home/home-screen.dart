@@ -8,14 +8,13 @@ import 'package:farmer_assistant_app/core/constants/strings.dart';
 import 'package:farmer_assistant_app/core/constants/textstyle.dart';
 import 'package:farmer_assistant_app/core/enums/view-state.dart';
 import 'package:farmer_assistant_app/core/models/crop.dart';
+import 'package:farmer_assistant_app/ui/custom_widgets/alert_dailogs/guideline-dialogue.dart';
 import 'package:farmer_assistant_app/ui/custom_widgets/alert_dailogs/image-success-dialog.dart';
+import 'package:farmer_assistant_app/ui/custom_widgets/alert_dailogs/image-success-dialog2.dart';
 import 'package:farmer_assistant_app/ui/custom_widgets/bottom_sheets/image-picker-bottom-sheet.dart';
 import 'package:farmer_assistant_app/ui/custom_widgets/home-crop-tile.dart';
 import 'package:farmer_assistant_app/ui/custom_widgets/image-container.dart';
-import 'package:farmer_assistant_app/ui/custom_widgets/rounded-raised-button.dart';
-import 'package:farmer_assistant_app/ui/screens/add_crops/add-crop-screen.dart';
 import 'package:farmer_assistant_app/ui/screens/add_crops/edit_crop/edit-crop-screen.dart';
-import 'package:farmer_assistant_app/ui/screens/check_health/check_health_screen.dart';
 import 'package:farmer_assistant_app/ui/screens/common_disease/common_disease_screen.dart';
 import 'package:farmer_assistant_app/ui/screens/fertilizer_calculator/fertilizer_calculator.dart';
 import 'package:farmer_assistant_app/ui/screens/home/home-view-modal.dart';
@@ -23,6 +22,7 @@ import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:intl/intl.dart';
 import 'package:modal_progress_hud_nsn/modal_progress_hud_nsn.dart';
+import 'package:multi_image_picker2/multi_image_picker2.dart';
 import 'package:provider/provider.dart';
 import 'package:share_plus/share_plus.dart';
 
@@ -273,7 +273,9 @@ class _HomeScreenState extends State<HomeScreen> {
                         )),
                     Text(
                       model.isWeatherLoaded
-                          ? "${model.weather.temperature.celsius.toInt()} °C"
+                          ?
+                          // "${model.weather.temperature.celsius.toInt()}
+                          "30 °C"
                           : model.state == ViewState.loading
                               ? "loading .."
                               : "Connect to internet please",
@@ -500,10 +502,26 @@ class _HomeScreenState extends State<HomeScreen> {
         child: Column(
           crossAxisAlignment: CrossAxisAlignment.center,
           children: [
-            Text(
-              "CHECK HEALTH",
-              style: headingTextStyle.copyWith(
-                  fontSize: 20, fontWeight: FontWeight.bold),
+            Padding(
+              padding: const EdgeInsets.symmetric(horizontal: 14),
+              child: Row(
+                mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                children: [
+                  IconButton(
+                      icon: Icon(Icons.help, color: Colors.white),
+                      onPressed: () {}),
+                  Text(
+                    "CHECK HEALTH",
+                    style: headingTextStyle.copyWith(
+                        fontSize: 20, fontWeight: FontWeight.bold),
+                  ),
+                  IconButton(
+                      icon: Icon(Icons.help, color: Colors.black45, size: 20),
+                      onPressed: () {
+                        Get.dialog(GuidelineDialogue());
+                      })
+                ],
+              ),
             ),
             SizedBox(
               height: 16.0,
@@ -536,16 +554,26 @@ class _HomeScreenState extends State<HomeScreen> {
                       },
                       onGalleryPressed: () async {
                         print("@GalleryPressed");
-                        var selectedImage = await model.pickGalleryImage();
-                        model.setState(ViewState.idle);
-                        Get.back();
-                        if (selectedImage != null) {
-                          //here also assign it to the userdependants avatar
-                          // model.patientProfile.avatar = selectedImage.path;
-                          //now updating the local selected Image file
-                          model.setSelectedImageFile(selectedImage);
-                          //then show confirmation dialog for best user experience
-                          showConfirmImageDialog(selectedImage);
+
+                        if (model.images.isEmpty) {
+                          try {
+                            model.images = await MultiImagePicker.pickImages(
+                                    maxImages: 5, enableCamera: true) ??
+                                [];
+                            model.setState(ViewState.idle);
+                            Get.back();
+                            if (model.images.isNotEmpty) {
+                              //then show confirmation dialog for best user experience
+                              showConfirmImageDialog2(model.images);
+                              model.images = [];
+                            }
+                          } catch (e) {
+                            model.images = [];
+                            // Get.defaultDialog(
+                            //   title: "Error Occured",
+                            //   content: Text("$e"),
+                            // );
+                          }
                         }
                       },
                     ));
@@ -592,6 +620,19 @@ class _HomeScreenState extends State<HomeScreen> {
     Get.dialog((selectedImageFile != null)
         ? ImageSuccessDialog(
             selectedImageFile: selectedImageFile,
+            onPressed: () {
+              Get.back();
+            },
+          )
+        : Center(
+            child: Text("Image not Selected"),
+          ));
+  }
+
+  showConfirmImageDialog2(List<Asset> images) {
+    Get.dialog((images != null && images.isNotEmpty)
+        ? ImageSuccessDialog2(
+            images: images,
             onPressed: () {
               Get.back();
             },

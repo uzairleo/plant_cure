@@ -19,6 +19,7 @@ import 'package:farmer_assistant_app/core/view_models/base_view_model.dart';
 import 'package:flutter/material.dart';
 import 'package:image_picker/image_picker.dart';
 import 'package:intl/intl.dart';
+import 'package:multi_image_picker2/multi_image_picker2.dart';
 import 'package:weather/weather.dart';
 
 const String WEATHER_API_KEY = "d9cf5e471c90e4a8c6066bf663af0147";
@@ -41,34 +42,37 @@ class HomeViewModal extends BaseViewModel {
 //variable for holding selected image
   File selectedImageFile;
 
+  List<Asset> images = [];
+  List<String> imagesPath = [];
+
   HomeViewModal(crops) {
     availableCrops = crops;
     if (availableCrops.where((element) => element.isSelected).isEmpty) {
       print("NO crop is selected so i selected the first one");
       availableCrops.first.isSelected = true;
     } else {}
-    getCurrentWeather();
-    calculateSunSet();
+    // getCurrentWeather();
+    // calculateSunSet();
   }
-  Weather weather;
-  bool isWeatherLoaded = false;
-  getCurrentWeather() async {
-    try {
-      setState(ViewState.loading);
-      isWeatherLoaded = false;
+  // Weather weather;
+  bool isWeatherLoaded = true;
+  // getCurrentWeather() async {
+  //   try {
+  //     setState(ViewState.loading);
+  //     isWeatherLoaded = false;
 
-      // await wf.currentWeatherByLocation(lat, lon);
-      weather = await wf.currentWeatherByCityName('peshawar');
+  //     // await wf.currentWeatherByLocation(lat, lon);
+  //     weather = await wf.currentWeatherByCityName('peshawar');
 
-      print("Current Weather =====> ${weather.temperature}");
-      isWeatherLoaded = true;
-      setState(ViewState.idle);
-    } catch (e) {
-      print("GetCurrentWeatherException======>$e");
+  //     print("Current Weather =====> ${weather.temperature}");
+  //     isWeatherLoaded = true;
+  //     setState(ViewState.idle);
+  //   } catch (e) {
+  //     print("GetCurrentWeatherException======>$e");
 
-      setState(ViewState.idle);
-    }
-  }
+  //     setState(ViewState.idle);
+  //   }
+  // }
 
   pickGalleryImage() async {
     setState(ViewState.loading);
@@ -102,37 +106,37 @@ class HomeViewModal extends BaseViewModel {
     notifyListeners();
   }
 
-  calculateSunSet() async {
-    // setState(ViewState.loading);
-    const daylighlocation = const DaylightLocation(37.4219795, -122.0846826);
-    final datetime = DateTime(2020, 10, 15);
+  // calculateSunSet() async {
+  //   // setState(ViewState.loading);
+  //   const daylighlocation = const DaylightLocation(37.4219795, -122.0846826);
+  //   final datetime = DateTime(2020, 10, 15);
 
-    // Create sunset calculator
-    const sunsetCalculator = const DaylightCalculator(daylighlocation);
+  //   // Create sunset calculator
+  //   const sunsetCalculator = const DaylightCalculator(daylighlocation);
 
-    // calculate for sunrise on civil twilight
-    final civilSunrise = sunsetCalculator.calculateEvent(
-      datetime,
-      Zenith.official,
-      EventType.sunrise,
-    );
-    print(DateFormat("HH:mm:ss").format(civilSunrise)); // utc: 04:58:18
-    // calculate for sunrise and sunset on astronomical twilight
-    final astronomicalEvents = sunsetCalculator.calculateForDay(
-      datetime,
-      Zenith.official,
-    );
-    print("*******************************************************");
-    print(
-      DateFormat("HH:mm:ss").format(astronomicalEvents.sunset),
-    ); // utc: 18:03:55
-    print(
-      DateFormat("HH:mm:ss").format(astronomicalEvents.sunrise),
-    ); // utc: 03:39:09
-    print("*******************************************************");
-    print(astronomicalEvents.type); // DayType.sunriseAndSunset
+  //   // calculate for sunrise on civil twilight
+  //   final civilSunrise = sunsetCalculator.calculateEvent(
+  //     datetime,
+  //     Zenith.official,
+  //     EventType.sunrise,
+  //   );
+  //   print(DateFormat("HH:mm:ss").format(civilSunrise)); // utc: 04:58:18
+  //   // calculate for sunrise and sunset on astronomical twilight
+  //   final astronomicalEvents = sunsetCalculator.calculateForDay(
+  //     datetime,
+  //     Zenith.official,
+  //   );
+  //   print("*******************************************************");
+  //   print(
+  //     DateFormat("HH:mm:ss").format(astronomicalEvents.sunset),
+  //   ); // utc: 18:03:55
+  //   print(
+  //     DateFormat("HH:mm:ss").format(astronomicalEvents.sunrise),
+  //   ); // utc: 03:39:09
+  //   print("*******************************************************");
+  //   print(astronomicalEvents.type); // DayType.sunriseAndSunset
 
-    print("*******************************************************");
-    notifyListeners();
-  }
+  //   print("*******************************************************");
+  //   notifyListeners();
+  // }
 }
