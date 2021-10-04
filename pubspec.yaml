@@ -61,11 +61,11 @@ flutter:
     - assets/static_assets/bottom-nav-bar/
     # - assets/ml_assets/mobilenet_v1_1.0_224.txt
     # - assets/ml_assets/mobilenet_v1_1.0_224.tflite
-    - assets/ml_assets/Peach_Labels.txt
-    - assets/ml_assets/MobileNetV2_Peach.tflite
+    # - assets/ml_assets/Peach_Labels.txt
+    # - assets/ml_assets/converted_MobileNetV2-TDF26-5e-FT.tflite
     
-    - assets/ml_assets/Fruit_Labels.txt
-    - assets/ml_assets/converted_MobileNetV2_Fruit_C10.tflite
+    - assets/ml_assets/TDF_Labels.txt
+    - assets/ml_assets/tdf_ml_model.tflite
   #   - images/a_dot_ham.jpeg
   # example:
   fonts:

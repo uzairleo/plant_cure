@@ -41,7 +41,6 @@ class _ImageSuccessDialog2State extends State<ImageSuccessDialog2> {
     }
 
     print("IMAGES PATHS====> ${imagesPaths.toString()}");
-    print("Files ====> ${imageFiles.first.toString()}");
     setState(() {});
   }
 

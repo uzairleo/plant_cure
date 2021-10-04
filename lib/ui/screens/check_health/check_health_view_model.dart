@@ -53,12 +53,8 @@ class CheckHealthViewModel extends BaseViewModel {
     try {
       String res;
       res = await Tflite.loadModel(
-        // model: "assets/ml_assets/mobilenet_v1_1.0_224.tflite",
-        // labels: "assets/ml_assets/mobilenet_v1_1.0_224.txt",
-        // model: "assets/ml_assets/MobileNetV2_Peach.tflite",
-        // labels: "assets/ml_assets/Peach_Labels.txt",
-        model: "assets/ml_assets/converted_MobileNetV2_Fruit_C10.tflite",
-        labels: "assets/ml_assets/Fruit_Labels.txt",
+        model: "assets/ml_assets/tdf_ml_model.tflite",
+        labels: "assets/ml_assets/TDF_Labels.txt",
       );
       print(res);
     } on PlatformException {
