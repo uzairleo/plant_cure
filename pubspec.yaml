@@ -65,7 +65,11 @@ flutter:
     # - assets/ml_assets/converted_MobileNetV2-TDF26-5e-FT.tflite
     
     - assets/ml_assets/TDF_Labels.txt
-    - assets/ml_assets/tdf_ml_model.tflite
+    - assets/ml_assets/converted_MobileNetV2-Guava-30e-FT.tflite
+    # - assets/ml_assets/converted_MobileNetV2-TDF26-5e-FT2.tflite
+    # - assets/ml_assets/converted_MobileNetV2-TDF26-20e-FT2.tflite
+    # - assets/ml_assets/converted_MobileNetV2-Apricot-30e-FT.tflite
+
   #   - images/a_dot_ham.jpeg
   # example:
   fonts:

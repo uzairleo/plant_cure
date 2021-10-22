@@ -4,7 +4,6 @@ import 'package:farmer_assistant_app/core/enums/view-state.dart';
 import 'package:farmer_assistant_app/core/models/disease.dart';
 import 'package:farmer_assistant_app/core/services/database_service.dart';
 import 'package:farmer_assistant_app/core/view_models/base_view_model.dart';
-import 'package:farmer_assistant_app/ui/screens/root-screen.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:get/get.dart';
@@ -17,7 +16,6 @@ class CheckHealthViewModel extends BaseViewModel {
     init(image, context);
   }
 //all vairable/instances that we need in predicting the disease from image of fruits
-
   final _dbService = locator<DatabaseService>();
   List recognitions;
   double imageHeight;
@@ -53,7 +51,10 @@ class CheckHealthViewModel extends BaseViewModel {
     try {
       String res;
       res = await Tflite.loadModel(
-        model: "assets/ml_assets/tdf_ml_model.tflite",
+        model:
+            //  "assets/ml_assets/converted_MobileNetV2-Apricot-30e-FT.tflite",
+            //  "assets/ml_assets/converted_MobileNetV2-TDF26-5e-FT2.tflite",
+            "assets/ml_assets/converted_MobileNetV2-Guava-30e-FT.tflite",
         labels: "assets/ml_assets/TDF_Labels.txt",
       );
       print(res);
@@ -71,7 +72,7 @@ class CheckHealthViewModel extends BaseViewModel {
     int startTime = new DateTime.now().millisecondsSinceEpoch;
     var recognitions = await Tflite.runModelOnImage(
       path: image.path,
-      // numResults: 5,
+      numResults: 5,
       // threshold: 0.05,
       // imageMean: 127.5,
       // imageStd: 127.5,
