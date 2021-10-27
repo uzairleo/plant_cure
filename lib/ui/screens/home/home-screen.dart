@@ -22,7 +22,7 @@ import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:intl/intl.dart';
 import 'package:modal_progress_hud_nsn/modal_progress_hud_nsn.dart';
-import 'package:multi_image_picker2/multi_image_picker2.dart';
+// import 'package:multi_image_picker2/multi_image_picker2.dart';
 import 'package:provider/provider.dart';
 import 'package:share_plus/share_plus.dart';
 
@@ -554,27 +554,37 @@ class _HomeScreenState extends State<HomeScreen> {
                       },
                       onGalleryPressed: () async {
                         print("@GalleryPressed");
-
-                        if (model.images.isEmpty) {
-                          try {
-                            model.images = await MultiImagePicker.pickImages(
-                                    maxImages: 5, enableCamera: true) ??
-                                [];
-                            model.setState(ViewState.idle);
-                            Get.back();
-                            if (model.images.isNotEmpty) {
-                              //then show confirmation dialog for best user experience
-                              showConfirmImageDialog2(model.images);
-                              model.images = [];
-                            }
-                          } catch (e) {
-                            model.images = [];
-                            // Get.defaultDialog(
-                            //   title: "Error Occured",
-                            //   content: Text("$e"),
-                            // );
-                          }
+                        var selectedImage = await model.pickGalleryImage();
+                        model.setState(ViewState.idle);
+                        Get.back();
+                        if (selectedImage != null) {
+                          //here also assign it to the userdependants avatar
+                          // model.patientProfile.avatar = selectedImage.path;
+                          //now updating the local selected Image file
+                          model.setSelectedImageFile(selectedImage);
+                          //then show confirmation dialog for best user experience
+                          showConfirmImageDialog(selectedImage);
                         }
+                        // if (model.images.isEmpty) {
+                        //   try {
+                        //     model.images = await MultiImagePicker.pickImages(
+                        //             maxImages: 5, enableCamera: true) ??
+                        //         [];
+                        //     model.setState(ViewState.idle);
+                        //     Get.back();
+                        //     if (model.images.isNotEmpty) {
+                        //       //then show confirmation dialog for best user experience
+                        //       showConfirmImageDialog2(model.images);
+                        //       model.images = [];
+                        //     }
+                        //   } catch (e) {
+                        //     model.images = [];
+                        //     // Get.defaultDialog(
+                        //     //   title: "Error Occured",
+                        //     //   content: Text("$e"),
+                        //     // );
+                        //   }
+                        // }
                       },
                     ));
                   },
@@ -629,16 +639,16 @@ class _HomeScreenState extends State<HomeScreen> {
           ));
   }
 
-  showConfirmImageDialog2(List<Asset> images) {
-    Get.dialog((images != null && images.isNotEmpty)
-        ? ImageSuccessDialog2(
-            images: images,
-            onPressed: () {
-              Get.back();
-            },
-          )
-        : Center(
-            child: Text("Image not Selected"),
-          ));
-  }
+  // showConfirmImageDialog2(List<Asset> images) {
+  //   Get.dialog((images != null && images.isNotEmpty)
+  //       ? ImageSuccessDialog2(
+  //           images: images,
+  //           onPressed: () {
+  //             Get.back();
+  //           },
+  //         )
+  //       : Center(
+  //           child: Text("Image not Selected"),
+  //         ));
+  // }
 }

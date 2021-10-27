@@ -51,11 +51,10 @@ class CheckHealthViewModel extends BaseViewModel {
     try {
       String res;
       res = await Tflite.loadModel(
-        model:
-            //  "assets/ml_assets/converted_MobileNetV2-Apricot-30e-FT.tflite",
-            //  "assets/ml_assets/converted_MobileNetV2-TDF26-5e-FT2.tflite",
-            "assets/ml_assets/converted_MobileNetV2-Guava-30e-FT.tflite",
-        labels: "assets/ml_assets/TDF_Labels.txt",
+        model: "assets/ml_assets/MobileNetV2_Peach.tflite",
+        // "assets/ml_assets/converted_MobileNetV2-TDF26-5e-FT2.tflite",
+        // "assets/ml_assets/converted_MobileNetV2_Peach_Full.tflite",
+        labels: "assets/ml_assets/Peach_Labels.txt",
       );
       print(res);
     } on PlatformException {
@@ -73,9 +72,9 @@ class CheckHealthViewModel extends BaseViewModel {
     var recognitions = await Tflite.runModelOnImage(
       path: image.path,
       numResults: 5,
-      // threshold: 0.05,
-      // imageMean: 127.5,
-      // imageStd: 127.5,
+      threshold: 0.05,
+      imageMean: 127.5,
+      imageStd: 127.5,
     );
 
     this.recognitions = recognitions;
