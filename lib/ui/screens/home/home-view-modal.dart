@@ -19,7 +19,7 @@ import 'package:farmer_assistant_app/core/view_models/base_view_model.dart';
 import 'package:flutter/material.dart';
 import 'package:image_picker/image_picker.dart';
 import 'package:intl/intl.dart';
-import 'package:multi_image_picker2/multi_image_picker2.dart';
+// import 'package:multi_image_picker2/multi_image_picker2.dart';
 import 'package:weather/weather.dart';
 
 const String WEATHER_API_KEY = "d9cf5e471c90e4a8c6066bf663af0147";
@@ -42,7 +42,7 @@ class HomeViewModal extends BaseViewModel {
 //variable for holding selected image
   File selectedImageFile;
 
-  List<Asset> images = [];
+  // List<Asset> images = [];
   List<String> imagesPath = [];
 
   HomeViewModal(crops) {
@@ -77,9 +77,10 @@ class HomeViewModal extends BaseViewModel {
   pickGalleryImage() async {
     setState(ViewState.loading);
 
-    final imageFile = await imagePicker.getImage(
-        source: ImageSource
-            .gallery); //it returned picked file which we can convert once picked to file type
+    // final imageFile = await imagePicker.getImage(
+    //     source: ImageSource
+    //         .gallery); //it returned picked file which we can convert once picked to file type
+    XFile imageFile = await imagePicker.pickImage(source: ImageSource.gallery);
     if (imageFile != null) {
       print('Picked file from Gallery: ${imageFile.path.toString()}');
       selectedImageFile = File(imageFile.path);
@@ -90,12 +91,17 @@ class HomeViewModal extends BaseViewModel {
 
   pickCameraImage() async {
     setState(ViewState.loading);
-    final imageFile = await imagePicker.getImage(source: ImageSource.camera);
-    if (imageFile != null) {
-      print('Picked file from Camera: ${imageFile.path.toString()}');
-      selectedImageFile = File(imageFile.path);
-      setState(ViewState.idle);
-      return selectedImageFile;
+    try {
+      XFile imageFile = await imagePicker.pickImage(source: ImageSource.camera);
+      // final imageFile = await imagePicker.getImage(source: ImageSource.camera);
+      if (imageFile != null) {
+        print('Picked file from Camera: ${imageFile.path.toString()}');
+        selectedImageFile = File(imageFile.path);
+        setState(ViewState.idle);
+        return selectedImageFile;
+      }
+    } catch (e) {
+      print("Exception =====> PICK CAMERA IMAGE===> $e");
     }
     notifyListeners();
   }

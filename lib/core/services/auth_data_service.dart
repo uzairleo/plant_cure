@@ -40,7 +40,7 @@ class AuthDataService {
       // firebaseUser = FirebaseAuth.instance.currentUser;
       // isLogin = accessToken != null && firebaseUser != null;
       bool isRegistered = await _sharePrefsProvider.getIsRegistered();
-      isRegisteredFirstTime = isRegistered != null;
+      isRegisteredFirstTime = isRegistered;
 
       // print("Firebase User ==> ${firebaseUser?.uid}");
       // if (isLogin) {

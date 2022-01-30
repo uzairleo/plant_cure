@@ -3,15 +3,19 @@ import 'package:farmer_assistant_app/core/constants/screen-util.dart';
 import 'package:farmer_assistant_app/core/constants/strings.dart';
 import 'package:farmer_assistant_app/core/constants/textstyle.dart';
 import 'package:farmer_assistant_app/core/enums/view-state.dart';
+import 'package:farmer_assistant_app/core/services/auth_data_service.dart';
 import 'package:farmer_assistant_app/ui/custom_widgets/image-container.dart';
 import 'package:farmer_assistant_app/ui/custom_widgets/rounded-raised-button.dart';
 import 'package:farmer_assistant_app/ui/custom_widgets/text_fields/custom_textfield.dart';
 import 'package:farmer_assistant_app/ui/screens/localization/select-locale-screen.dart';
+import 'package:farmer_assistant_app/ui/screens/location/location-screen.dart';
 import 'package:farmer_assistant_app/ui/screens/registration/registration-view-modal.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:provider/provider.dart';
 import 'package:modal_progress_hud_nsn/modal_progress_hud_nsn.dart';
+
+import '../../../locator.dart';
 
 ///
 ///Registration screen for [SignUp] purpose
@@ -85,11 +89,19 @@ class _RegistrationScreenState extends State<RegistrationScreen> {
                                 if (_formKey.currentState.validate()) {
                                   _formKey.currentState.save();
                                   await model.requestRegistration();
-                                  Get.offAll(() => SelectLocaleScreen());
+                                  Get.offAll(() => LocationScreen());
                                 }
-                              }, onSkipTap: () {
+                              }, onSkipTap: () async {
                                 print("Skip pressed");
-                                Get.to(() => SelectLocaleScreen());
+                                final _authDataService =
+                                    locator<AuthDataService>();
+                                try {
+                                  await _authDataService
+                                      .updateIsRegisterFirstTime(true);
+                                  Get.offAll(() => LocationScreen());
+                                } catch (e) {
+                                  print(e);
+                                }
                               }),
                             )
                           ],
@@ -343,7 +355,7 @@ class _RegistrationScreenState extends State<RegistrationScreen> {
           Container(
             height: 39.h,
             child: RoundedRaisedButton(
-              buttonText: "Reigster",
+              buttonText: "Register",
               onPressed: onNextTap,
               color: mainThemeColor,
             ),

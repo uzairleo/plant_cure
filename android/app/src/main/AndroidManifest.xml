@@ -1,7 +1,9 @@
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
     package="com.example.farmer_assistant_app">
+    <uses-permission android:name="android.permission.CAMERA" />  
+    <uses-permission android:name="android.permission.QUERY_ALL_PACKAGES"/>
    <application
-        android:label="farmer_assistant_app"
+        android:label="Plant Cure"
         android:icon="@mipmap/ic_launcher">
         <activity
             android:name=".MainActivity"

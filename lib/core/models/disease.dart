@@ -11,7 +11,7 @@ class Disease {
   Disease.fromJson(json) {
     label = json['label'];
     disease = json['disease'];
-    symptoms = json['symptoms'];
+    symptoms = json['symtoms'];
     aboutdisease = json['about_disease'];
     suggestedTreatment = json['suggested_treatment'] != null
         ? new SuggestedTreatment.fromJson(json['suggested_treatment'])
@@ -40,7 +40,7 @@ class SuggestedTreatment {
 
   SuggestedTreatment.fromJson(Map<String, dynamic> json) {
     treatment = json['treatment'];
-    videoLink = json['video_link'];
+    // videoLink = json['video_link'];
     title = json['title'];
   }
 

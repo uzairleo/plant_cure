@@ -65,17 +65,17 @@ class LocationService {
         }
         serviceEnabled = await Geolocator.isLocationServiceEnabled();
       }
-      if (serviceEnabled) {
-        print("USER Current Cordinates====> ${userPosition.toJson()}");
-        //Now getting address from patient position
-        List<Placemark> placemarks = await placemarkFromCoordinates(
-            userPosition.latitude, userPosition.longitude);
-        userAdress = placemarks.first;
-        print(
-            "USER Current Address/PlaceMark===> ${userAdress.locality}, ${userAdress.country} \n ${userAdress.toJson()}");
-      } else {
-        print("Sorry service is disabled ");
-      }
+      // if (serviceEnabled) {
+      //   print("USER Current Cordinates====> ${userPosition.toJson()}");
+      //   //Now getting address from patient position
+      //   // List<Placemark> placemarks = await placemarkFromCoordinates(
+      //   //     userPosition.latitude, userPosition.longitude);
+      //   // userAdress = placemarks.first;
+      //   // print(
+      //   //     "USER Current Address/PlaceMark===> ${userAdress.locality}, ${userAdress.country} \n ${userAdress.toJson()}");
+      // } else {
+      //   print("Sorry service is disabled ");
+      // }
     } catch (e, s) {
       print("@GetCurrentLocation/Exception==> $e Stacktrace $s");
     }
