@@ -46,6 +46,7 @@ dependencies:
   tflite: ^1.1.2
   weather: ^2.0.1
   image_picker: ^0.8.4+1
+  change_app_package_name: ^1.0.0
 
 dev_dependencies:
   flutter_test:

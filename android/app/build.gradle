@@ -45,7 +45,8 @@ android {
 
     defaultConfig {
         // TODO: Specify your own unique Application ID (https://developer.android.com/studio/build/application-id.html).
-        applicationId "com.example.farmer_assistant_app"
+        // "com.example.farmer_assistant_app"
+        applicationId "com.uzairleo.plantcure"
         minSdkVersion 19
         targetSdkVersion 30
         multiDexEnabled true

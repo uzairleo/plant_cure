@@ -33,6 +33,35 @@
           ]
         }
       }
+    },
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:359761460628:android:c2ad53d1a744a1a2416381",
+        "android_client_info": {
+          "package_name": "com.uzairleo.plantcure"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "359761460628-qc19beoheb9n2lq2elvd34f1aefslf3v.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyAbT-VdXLQHjvlQ20KNSGw38frDoDPolMg"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "359761460628-qc19beoheb9n2lq2elvd34f1aefslf3v.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        }
+      }
     }
   ],
   "configuration_version": "1"

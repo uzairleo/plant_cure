@@ -1,4 +1,4 @@
-package com.example.farmer_assistant_app
+package com.uzairleo.plantcure
 
 import io.flutter.embedding.android.FlutterActivity
 
