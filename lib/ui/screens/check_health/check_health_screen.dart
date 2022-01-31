@@ -23,86 +23,93 @@ class CheckHealthScreen extends StatelessWidget {
       create: (context) => CheckHealthViewModel(selectedFile, context),
       child: Consumer<CheckHealthViewModel>(
         builder: (context, model, child) => ModalProgressHUD(
-          inAsyncCall: model.state == ViewState.loading,
-          child: SafeArea(
-            child: Scaffold(
-              ////
-              ///[body] start from here
-              ///
-              body: !model.isMlLoaded
-                  ? Container()
-                  : model.label == null
-                      ? Padding(
-                          padding:
-                              const EdgeInsets.only(left: 18.0, right: 18.0),
-                          child: Column(
-                            crossAxisAlignment: CrossAxisAlignment.center,
-                            mainAxisAlignment: MainAxisAlignment.center,
-                            children: [
-                              //text
-                              Row(
-                                mainAxisAlignment: MainAxisAlignment.center,
+            inAsyncCall: model.state == ViewState.loading,
+            child: WillPopScope(
+              onWillPop: () async {
+                Get.back();
+                Get.back();
+                return false;
+              },
+              child: SafeArea(
+                child: Scaffold(
+                  ////
+                  ///[body] start from here
+                  ///
+                  body: !model.isMlLoaded
+                      ? Container()
+                      : model.label == null
+                          ? Padding(
+                              padding: const EdgeInsets.only(
+                                  left: 18.0, right: 18.0),
+                              child: Column(
                                 crossAxisAlignment: CrossAxisAlignment.center,
+                                mainAxisAlignment: MainAxisAlignment.center,
                                 children: [
-                                  Expanded(
-                                    child: Text(
-                                      "No label is available for this image in ML model try again please..",
-                                      textAlign: TextAlign.center,
-                                      style: bodyTextStyle,
-                                    ),
+                                  //text
+                                  Row(
+                                    mainAxisAlignment: MainAxisAlignment.center,
+                                    crossAxisAlignment:
+                                        CrossAxisAlignment.center,
+                                    children: [
+                                      Expanded(
+                                        child: Text(
+                                          "No label is available for this image in ML model try again please..",
+                                          textAlign: TextAlign.center,
+                                          style: bodyTextStyle,
+                                        ),
+                                      ),
+                                    ],
                                   ),
+                                  SizedBox(
+                                    height: 100.h,
+                                  ),
+                                  RoundedRaisedButton(
+                                    buttonText: "Try Again",
+                                    onPressed: () {
+                                      Get.back();
+                                    },
+                                    color: mainThemeColor,
+                                  )
                                 ],
                               ),
-                              SizedBox(
-                                height: 100.h,
-                              ),
-                              RoundedRaisedButton(
-                                buttonText: "Try Again",
-                                onPressed: () {
-                                  Get.back();
-                                },
-                                color: mainThemeColor,
-                              )
-                            ],
-                          ),
-                        )
-                      : SingleChildScrollView(
-                          child: Column(
-                            children: [
-                              //image container with back button on stact
-                              topBar(),
+                            )
+                          : SingleChildScrollView(
+                              child: Column(
+                                children: [
+                                  //image container with back button on stact
+                                  topBar(),
 
-                              Padding(
-                                padding: const EdgeInsets.only(
-                                  left: 15,
-                                  right: 15,
-                                ),
-                                child: Column(
-                                  children: [
-                                    //about disease title,definition
-                                    aboutDisease(model),
-                                    model.label == "Healthy (Apple)" ||
-                                            model.label == "Healthy (Peach)"
-                                        ? Container()
-                                        :
+                                  Padding(
+                                    padding: const EdgeInsets.only(
+                                      left: 15,
+                                      right: 15,
+                                    ),
+                                    child: Column(
+                                      children: [
+                                        //about disease title,definition
+                                        aboutDisease(model),
+                                        // model.label == "Healthy (Apple)" ||
+                                        //         model.label == "Healthy (Peach)"
+                                        //     ? Container()
+                                        //     :
                                         //about symptom and other cause having title and description
                                         symptoms(model),
 
-                                    model.label == "Healthy (Apple)" ||
-                                            model.label == "Healthy (Peach)"
-                                        ? Container()
-                                        :
+                                        // model.label == "Healthy (Apple)" ||
+                                        //         model.label == "Healthy (Peach)"
+                                        //     ? Container()
+                                        //     :
                                         //suggested treatment button
                                         suggestedTreatmentButton(model),
-                                  ],
-                                ),
-                              )
-                            ],
-                          ),
-                        ),
-            ),
-          ),
-        ),
+                                      ],
+                                    ),
+                                  )
+                                ],
+                              ),
+                            ),
+                ),
+              ),
+            )),
       ),
     );
   }
@@ -179,7 +186,7 @@ class CheckHealthScreen extends StatelessWidget {
             mainAxisAlignment: MainAxisAlignment.start,
             children: [
               Text(
-                "${model.disease.disease ?? ""}",
+                "${model.disease.label ?? ""}",
                 // "Shothole Disease",
                 style: headingTextStyle.copyWith(
                   fontSize: 24,

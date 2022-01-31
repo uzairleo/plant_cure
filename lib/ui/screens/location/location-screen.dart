@@ -48,14 +48,15 @@ class _LocationScreenState extends State<LocationScreen> {
                 ///
                 buttonRows(onAllowPressed: () async {
                   print("Location enabled");
-                  isLocationReady = false;
-                  try {
-                    await _locationService.getCurrentLocation();
-                    isLocationReady = true;
-                  } catch (e) {
-                    print("Exception while accessing location =>$e");
-                  }
-                  setState(() {});
+                  // isLocationReady = false;
+                  // try {
+                  // await
+                  _locationService.getCurrentLocation();
+                  // isLocationReady = true;
+                  // } catch (e) {
+                  //   print("Exception while accessing location =>$e");
+                  // }
+                  // setState(() {});
                   Get.to(() => AddCropScreen());
                 }, onSkipPressed: () {
                   print("Location Skiped");

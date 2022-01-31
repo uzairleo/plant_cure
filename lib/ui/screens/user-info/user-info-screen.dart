@@ -10,6 +10,8 @@ import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:share_plus/share_plus.dart';
 
 class UserInfoScreen extends StatelessWidget {
+  var x =
+      'https://drive.google.com/file/d/1JQKE2_0hIEGSxzfzTdKnOYDIVYOIqxab/view?usp=sharing';
   @override
   Widget build(BuildContext context) {
     return SafeArea(
@@ -31,13 +33,12 @@ class UserInfoScreen extends StatelessWidget {
                     utilityTile(
                         title: "Grow with us!",
                         subtitle:
-                            "Share Farmer Assistant and help farmers to solve their problems",
+                            "Share Plant Cure and help farmers to solve their problems",
                         asset: "f_logo.png",
                         buttonText: "Share us",
                         ontap: () {
                           print("Share us pressed");
-                          Share.share(
-                              'check out our app https://farmerAssistant.com/downloads/farmer_assistant.apk',
+                          Share.share('check out our app $x',
                               subject:
                                   'Improve your farming. Crop disease detector App');
                         }),
@@ -156,7 +157,7 @@ class UserInfoScreen extends StatelessWidget {
         child: Row(
           mainAxisAlignment: MainAxisAlignment.start,
           children: [
-            Text("Farmer Assistant",
+            Text("Plant Cure",
                 style: headingTextStyle.copyWith(
                   fontSize: 18,
                 )),

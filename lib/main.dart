@@ -31,8 +31,8 @@ class MyApp extends StatelessWidget {
             ScreenUtilInit(
           designSize: Size(412, 847),
           builder: () => GetMaterialApp(
-            title: 'Farmer_Assistant_App',
-            debugShowCheckedModeBanner: true,
+            title: 'Plant Cure',
+            debugShowCheckedModeBanner: false,
             theme: ThemeData(
               primaryColor: mainThemeColor,
               accentColor: mainThemeColor,

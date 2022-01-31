@@ -1,0 +1,26 @@
+Brown Rot (Apricot)
+Brown Rot (Plum)
+Canker (Guava)
+Cherry_(including_sour)___Powdery_mildew
+Cherry_(including_sour)___healthy
+Dot (Guava)
+Grape___Black_rot
+Grape___Esca_(Black_Measles)
+Grape___Leaf_blight_(Isariopsis_Leaf_Spot)
+Grape___healthy
+Gummosis and Galls (Apricot)
+Healthy (Apricot)
+Healthy (Plum)
+Mummification (Guava)
+No_Fruit
+Nutrient Deficiency (Plum)
+Powedry Mildew (Apricot)
+Rust (Guava)
+Shot Hole (Apricot)
+Shot Hole (Plum)
+Shot Hole Leaf (Plum)
+Shot Hole Leaves (Apricot)
+Strawberry___Leaf_scorch
+Strawberry___healthy
+Water Stress (Apricot)
+Wilting (Apricot)

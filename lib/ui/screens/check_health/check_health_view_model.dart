@@ -4,20 +4,19 @@ import 'package:farmer_assistant_app/core/enums/view-state.dart';
 import 'package:farmer_assistant_app/core/models/disease.dart';
 import 'package:farmer_assistant_app/core/services/database_service.dart';
 import 'package:farmer_assistant_app/core/view_models/base_view_model.dart';
-import 'package:farmer_assistant_app/ui/screens/root-screen.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:get/get.dart';
 import 'package:tflite/tflite.dart';
 import 'package:cool_alert/cool_alert.dart';
 import '../../../locator.dart';
+import 'package:dolumns/dolumns.dart';
 
 class CheckHealthViewModel extends BaseViewModel {
   CheckHealthViewModel(File image, context) {
     init(image, context);
   }
 //all vairable/instances that we need in predicting the disease from image of fruits
-
   final _dbService = locator<DatabaseService>();
   List recognitions;
   double imageHeight;
@@ -53,12 +52,13 @@ class CheckHealthViewModel extends BaseViewModel {
     try {
       String res;
       res = await Tflite.loadModel(
-        // model: "assets/ml_assets/mobilenet_v1_1.0_224.tflite",
-        // labels: "assets/ml_assets/mobilenet_v1_1.0_224.txt",
-        // model: "assets/ml_assets/MobileNetV2_Peach.tflite",
-        // labels: "assets/ml_assets/Peach_Labels.txt",
-        model: "assets/ml_assets/converted_MobileNetV2_Fruit_C10.tflite",
-        labels: "assets/ml_assets/Fruit_Labels.txt",
+        model:
+            // "assets/ml_assets/MobileNetV2_Peach.tflite",
+            "assets/ml_assets/converted_MobileNetV2-TDF26-20e-255-softmax.tflite",
+        // "assets/ml_assets/converted_MobileNetV2-TDF26-5e-FT2.tflite",
+        // "assets/ml_assets/converted_MobileNetV2_Peach_Full.tflite",
+        labels: "assets/ml_assets/TDF_Labels.txt",
+        // useGpuDelegate: true,
       );
       print(res);
     } on PlatformException {
@@ -75,10 +75,10 @@ class CheckHealthViewModel extends BaseViewModel {
     int startTime = new DateTime.now().millisecondsSinceEpoch;
     var recognitions = await Tflite.runModelOnImage(
       path: image.path,
-      // numResults: 5,
-      // threshold: 0.05,
-      // imageMean: 127.5,
-      // imageStd: 127.5,
+      numResults: 26,
+      threshold: 0.5,
+      imageMean: 0.0, // 127.5,
+      imageStd: 1, //127.5,
     );
 
     this.recognitions = recognitions;
@@ -110,6 +110,11 @@ class CheckHealthViewModel extends BaseViewModel {
       recognitions.forEach((res) {
         label = res["label"].toString();
         confidence = res["confidence"].toString();
+        final columns = dolumnify([
+          ['LABEL ', 'CONFIDENCE'],
+          ['${res["label"].toString()}', '${res["confidence"].toString()}'],
+        ], columnSplitter: ' | ', headerIncluded: true, headerSeparator: '=');
+        print(columns);
       });
       print("Final Recognition from selected Image is ============>");
       print("${recognitions.map((res) => res["index"])}");
